@@ -14,6 +14,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+        exclude: /node_modules/,
         options: {
           loaders: {
           }
@@ -24,6 +25,11 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: ['style-loader', 'css-loader'],
+        include: /node_modules\/vuetify\/dist/
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
