@@ -3,7 +3,7 @@
 
   <!-- Drawer -->
   <v-navigation-drawer
-    class="pb-0"
+    class="pt-2"
     persistent
     height="100%"
     light
@@ -11,7 +11,7 @@
     enable-resize-watcher
     v-model="drawer"
   >
-    <v-list>
+    <v-list dense>
       <template v-for="item in listItems">
         <v-list-tile exact :key="item.id" :to="item.to">
           <v-list-tile-action>
@@ -35,7 +35,7 @@
   <main>
     <v-container fluid>
       <v-layout row wrap>
-        Hello !!!
+        <router-view></router-view>
       </v-layout>
     </v-container>
   </main>
@@ -44,14 +44,17 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import { menuCategoryItems } from './router';
+
+Vue.use(Vuetify);
+
 export default {
   data() {
     return {
       drawer: true,
-      listItems: [
-        { id: 1, title: 'Home', icon: 'home', to: 'home' },
-        { id: 4, title: 'Play Lists', icon: 'featured_play_list', to: 'home' },
-      ],
+      listItems: menuCategoryItems,
     };
   },
 };
