@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 import Main from './Main.vue';
 import GameList from './GameList.vue';
 import Login from './Login.vue';
-import { gamesCategories } from '../services/define_game_items.js';
+import { gamesCategories } from '../services/gameService';
 
 Vue.use(VueRouter);
 
