@@ -12,6 +12,15 @@
     v-model="drawer"
   >
     <v-list dense>
+      <v-list-tile exact to="/">
+        <v-list-tile-action>
+          <v-icon>home</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>Home</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+
       <template v-for="item in listItems">
         <v-list-tile exact :key="item.id" :to="item.to">
           <v-list-tile-action>
@@ -22,6 +31,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </template>
+
     </v-list>
   </v-navigation-drawer>
 
@@ -33,11 +43,7 @@
 
   <!-- Main Contents -->
   <main>
-    <v-container fluid>
-      <v-layout row wrap>
-        <router-view></router-view>
-      </v-layout>
-    </v-container>
+    <router-view></router-view>
   </main>
 
 </v-app>
