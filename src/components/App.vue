@@ -11,7 +11,10 @@
     enable-resize-watcher
     v-model="drawer"
   >
+    <!-- Menu Lists -->
     <v-list dense>
+
+      <!-- Home -->
       <v-list-tile exact to="/">
         <v-list-tile-action>
           <v-icon>home</v-icon>
@@ -21,6 +24,7 @@
         </v-list-tile-content>
       </v-list-tile>
 
+      <!-- Game Categpries -->
       <template v-for="item in listItems">
         <v-list-tile exact :key="item.id" :to="item.to">
           <v-list-tile-action>
