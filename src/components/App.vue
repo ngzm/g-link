@@ -1,62 +1,47 @@
 <template>
-<v-app toolbar>
+  <v-app toolbar>
 
-  <!-- Drawer -->
-  <v-navigation-drawer
-    class="pt-2"
-    persistent
-    height="100%"
-    light
-    clipped
-    enable-resize-watcher
-    v-model="drawer"
-  >
-    <!-- Menu Lists -->
-    <v-list dense>
+    <!-- Drawer -->
+    <v-navigation-drawer
+      class="pt-2"
+      persistent
+      height="100%"
+      light
+      clipped
+      enable-resize-watcher
+      v-model="drawer"
+    >
+      <!-- Side Menu -->
+      <SideMenu />
+    </v-navigation-drawer>
 
-      <!-- Home -->
-      <v-list-tile exact to="/">
-        <v-list-tile-action>
-          <v-icon>home</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>Home</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+    <!-- Toolbar -->
+    <v-toolbar class="indigo" dark fixed>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Toolbar</v-toolbar-title>
+      <v-spacer></v-spacer>
 
-      <!-- Game Categpries -->
-      <template v-for="item in listItems">
-        <v-list-tile exact :key="item.id" :to="item.to">
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </template>
+      <v-btn-toggle mandatory v-model="sortButton">
+        <v-btn primary dark v-for="key in getSortKeys" :key="key.id">
+          {{key.title}}
+        </v-btn>
+      </v-btn-toggle>
 
-    </v-list>
-  </v-navigation-drawer>
+    </v-toolbar>
 
-  <!-- Toolbar -->
-  <v-toolbar class="indigo" dark fixed>
-    <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-    <v-toolbar-title>Toolbar</v-toolbar-title>
-  </v-toolbar>
+    <!-- Main Contents -->
+    <main>
+      <router-view></router-view>
+    </main>
 
-  <!-- Main Contents -->
-  <main>
-    <router-view></router-view>
-  </main>
-
-</v-app>
+  </v-app>
 </template>
 
 <script>
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import { menuCategoryItems } from './router';
+import { mapGetters } from 'vuex';
+import SideMenu from './SideMenu.vue';
 
 Vue.use(Vuetify);
 
@@ -64,8 +49,19 @@ export default {
   data() {
     return {
       drawer: true,
-      listItems: menuCategoryItems,
+      sortButton: 0,
     };
+  },
+  computed: {
+    ...mapGetters('categories', [
+      'getSortKeys',
+    ]),
+  },
+  components: {
+    SideMenu,
+  },
+  created: function() {
+    this.$router.push('/');
   },
 };
 </script>

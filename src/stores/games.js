@@ -1,46 +1,61 @@
-import { GameService } from '../services/gameService';
+import GameService from '../services/GameService';
 
 export default {
   namespaced: true,
 
   state: {
     games: [],
+    preCategory: 0,
+    fetching: false,
   },
 
   getters: {
-    getGames: (state) => (sortKey = 1) => {
-      const glist = state.games.slice();
-
-      switch (sortKey) {
-      case 1:
-        return glist.sort(GameService.compStar);
-
-      case 2:
-        return glist.sort(GameService.compAccess);
-
-      default:
-        return glist.sort(GameService.compStar);
+    getGames: (state, getters, rootState) => {
+      const key = rootState.categories.currentSortKey;
+      let comp;
+      if (key === 2) {
+        comp = (a, b) => ((a.star === b.star) ? 0 : ((a.star < b.star) ? 1 : -1));
+      } else if (key === 3) {
+        comp = (a, b) => ((a.access === b.access) ? 0 : ((a.access < b.access) ? 1 : -1));
+      } else {
+        comp = (a, b) => ((a.star === b.star) ? 0 : ((a.star < b.star) ? 1 : -1));
       }
+      return state.games.slice().sort(comp);
     },
-    getGameById: (state) => (id) => (
-      state.games.find(game => game.id === id)
-    ),
+    getGameById: (state) => (id) => (state.games.find(game => game.id === id)),
+    isFetching: (state) => (state.fetching),
   },
 
   mutations: {
     setGames: (state, games) => {
       state.games = games;
     },
+    setPreCategory: (state, category) => {
+      state.preCategory = category;
+    },
+    setFetching: (state, status) => {
+      state.fetching = status;
+    },
   },
 
   actions: {
-    fetchGames: (context, category) => {
+    fetchGames: ({ commit, state, rootState }) => {
+      const category = rootState.categories.currentCategory;
+      if (state.preCategory === category) {
+        return;
+      }
+      // Feching lists of games
+      commit('setFetching', true);
       GameService.fetchGames(category,
         (res) => {
-          console.log('res');
-          console.dir(res.data);
-          context.commit('setGames', res.data); },
-        (err) => { console.log(`err = ${err}`); }
+          commit('setGames', res.data);
+          commit('setPreCategory', category);
+          commit('setFetching', false);
+        },
+        (err) => {
+          console.log(`err = ${err}`);
+          commit('setFetching', false);
+        }
       );
     },
   },

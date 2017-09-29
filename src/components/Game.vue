@@ -1,6 +1,16 @@
 <template>
-  <section>
-    <GameList :category="category" />
+  <section v-if="isFetching">
+    <div class="progress">
+      <v-progress-circular
+        indeterminate
+        v-bind:size="70"
+        v-bind:width="7"
+        class="mt-5 primary--text"
+      ></v-progress-circular>
+    </div>
+  </section>
+  <section v-else>
+    <GameList :categoryTitle="category" />
   </section>
 </template>
 
@@ -8,7 +18,7 @@
 import { createNamespacedHelpers } from 'vuex';
 import GameList from './GameList.vue';
 
-const { mapActions } = createNamespacedHelpers('games');
+const { mapGetters } = createNamespacedHelpers('games');
 
 /**
  * Game Component
@@ -17,26 +27,19 @@ export default {
   props: {
     category: String,
   },
-
-  methods: {
-    ...mapActions([
-      'fetchGames',
+  computed: {
+    ...mapGetters([
+      'isFetching',
     ]),
   },
-
   components: {
     GameList,
-  },
-
-  beforeMount: function() {
-    this.fetchGames(this.category);
-  },
-
-  beforeUpdate: function() {
-    this.fetchGames(this.category);
   },
 };
 </script>
 
 <style>
+.progress {
+  text-align: center;
+}
 </style>
