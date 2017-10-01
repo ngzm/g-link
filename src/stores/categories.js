@@ -24,9 +24,9 @@ export default {
 
     // 本来はDBからデータを取得する
     sortKeys: [
-      { id: 1, title: 'Updates', icon: 'history' },
-      { id: 2, title: 'Stars', icon: 'history' },
-      { id: 3, title: 'Access', icon: 'history' },
+      { id: 1, title: '更新順', icon: 'update' },
+      { id: 2, title: '評価順', icon: 'star' },
+      { id: 3, title: 'ｱｸｾｽ順', icon: 'trending_up' },
     ],
     currentCategory: 1,
     currentSortKey: 1,
@@ -34,7 +34,17 @@ export default {
 
   getters: {
     getCategories: (state) => (state.categories.slice().sort(idcomp)),
+    getCurCategory: (state) => {
+      const match = state.categories.find((c) => (c.id === state.currentCategory));
+      if (!match) { return state.categories[0]; }
+      return match;
+    },
     getSortKeys: (state) => (state.sortKeys.slice().sort(idcomp)),
+    getCurSortKey: (state) => {
+      const match = state.sortKeys.find((k) => (k.id === state.currentSortKey));
+      if (!match) { return state.sortKeys[0]; }
+      return match;
+    },
   },
 
   mutations: {
