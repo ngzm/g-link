@@ -5,7 +5,7 @@
     <!-- Game Categpries -->
     <v-subheader>Categories</v-subheader>
     <template v-for="item in listItems">
-      <v-list-tile exact :key="item.id" @click="fetchList(item.id)" :to="`/${item.route}`">
+      <v-list-tile exact :key="item.id" @click="fetchList(item.id)" :to="`/game/list/${item.route}`">
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>

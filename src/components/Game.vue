@@ -10,30 +10,22 @@
     </div>
   </section>
   <section v-else>
-    <GameList :categoryTitle="category" />
+    <router-view></router-view>
   </section>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import GameList from './GameList.vue';
-
 const { mapGetters } = createNamespacedHelpers('games');
 
 /**
  * Game Component
  */
 export default {
-  props: {
-    category: String,
-  },
   computed: {
     ...mapGetters([
       'isFetching',
     ]),
-  },
-  components: {
-    GameList,
   },
 };
 </script>

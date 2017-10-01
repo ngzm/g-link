@@ -1,8 +1,7 @@
 <template>
   <v-card class="grey darken-2 white--text" flat>
     <v-card-media v-bind:src="game.iconUri" height="200px">
-      <a class="g-grid" href="" @click.stop.prevent="showDetail"></a>
-      <GameDetail :dopen="dopen" :game="game" @unshowDetail="unshowDetail" />
+      <a class="g-grid" href="" @click.stop.prevent="showDetail(game)"></a>
     </v-card-media>
     <v-card-actions>
       <span>{{ game.title }}</span>
@@ -19,8 +18,6 @@
 </template>
 
 <script>
-import GameDetail from './GameDetail.vue';
-
 /**
  * GameGrid Component
  */
@@ -28,24 +25,10 @@ export default {
   props: {
     game: Object,
   },
-
-  data() {
-    return {
-      dopen: false,
-    };
-  },
-
   methods: {
-    showDetail: function() {
-      this.dopen = true;
+    showDetail: function(game) {
+      this.$router.push(`/game/detail/${game.id}`);
     },
-    unshowDetail: function() {
-      this.dopen = false;
-    },
-  },
-
-  components: {
-    GameDetail,
   },
 };
 </script>

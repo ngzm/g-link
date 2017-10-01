@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-lg>
-    <h3>{{ categoryTitle }}</h3>
+    <h3>{{ getCurCategory.title }}</h3>
     <v-layout row wrap>
       <v-flex xs12 sm6 md4 lg3 xl2 v-for="game in getGames" :key="game.id">
         <!-- GameGrid -->
@@ -20,12 +20,12 @@ import SortFb from './SortFb.vue';
  * GameList Component
  */
 export default {
-  props: {
-    categoryTitle: String,
-  },
   computed: {
     ...mapGetters('games', [
       'getGames',
+    ]),
+    ...mapGetters('categories', [
+      'getCurCategory',
     ]),
   },
   components: {
