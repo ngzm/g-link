@@ -2,8 +2,26 @@
   <!-- Menu Lists -->
   <v-list>
 
+    <v-list-tile exact to="/">
+      <v-list-tile-action>
+        <v-icon>home</v-icon>
+      </v-list-tile-action>
+      <v-list-tile-content>
+        <v-list-tile-title>ホーム</v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+    <v-list-tile exact to="/top-ten">
+      <v-list-tile-action>
+        <v-icon>new_releases</v-icon>
+      </v-list-tile-action>
+      <v-list-tile-content>
+        <v-list-tile-title>オススメ</v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+
+    <v-divider class="mt-2"></v-divider>
+
     <!-- Game Categpries -->
-    <v-subheader>Categories</v-subheader>
     <template v-for="item in listItems">
       <v-list-tile exact :key="item.id" @click="fetchList(item.id)" :to="`/game/list/${item.route}`">
         <v-list-tile-action>
