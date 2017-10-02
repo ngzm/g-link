@@ -2,76 +2,10 @@
   <v-app toolbar>
 
     <!-- Drawer -->
-    <v-navigation-drawer
-      class="pt-2"
-      persistent
-      height="100%"
-      light
-      clipped
-      enable-resize-watcher
-      v-model="drawer"
-    >
-      <!-- Side Menu -->
-      <SideMenu />
-    </v-navigation-drawer>
+    <AppDrawer v-bind:drawer="drawer" @setDrawer="setDrawer" />
 
     <!-- Toolbar -->
-    <v-toolbar class="indigo" dark fixed>
-
-      <!-- Left Menu -->
-      <v-toolbar-title>
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <a class="main-title" @click.stop.prevent="$router.push('/')" href="">webgames.link</a>
-      </v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <!-- Right Menu -->
-      <v-menu bottom left>
-        <v-btn icon slot="activator" dark>
-          <v-icon>more_vert</v-icon>
-        </v-btn>
-        <v-list dense>
-          <v-list-tile @click="">
-            <v-list-tile-content>
-              <v-list-tile-title>検索</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-icon>search</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-
-          <v-list-tile @click="">
-            <v-list-tile-content>
-              <v-list-tile-title>ログイン</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-icon>person_outline</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-
-          <v-list-tile @click="">
-            <v-list-tile-content>
-              <v-list-tile-title>アカウント管理</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-icon>account_box</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-
-          <v-list-tile @click="">
-            <v-list-tile-content>
-              <v-list-tile-title>サイト情報</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <v-icon>info</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-
-        </v-list>
-      </v-menu>
-
-    </v-toolbar>
+    <AppToolbar @toggleDrawer="toggleDrawer" />
 
     <!-- Main Contents -->
     <main>
@@ -84,7 +18,8 @@
 <script>
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import SideMenu from './SideMenu.vue';
+import AppDrawer from './AppDrawer.vue';
+import AppToolbar from './AppToolbar.vue';
 
 Vue.use(Vuetify);
 
@@ -94,8 +29,17 @@ export default {
       drawer: true,
     };
   },
+  methods: {
+    setDrawer: function(flg) {
+      this.drawer = flg;
+    },
+    toggleDrawer: function() {
+      this.drawer = !this.drawer;
+    },
+  },
   components: {
-    SideMenu,
+    AppDrawer,
+    AppToolbar,
   },
   created: function() {
     this.$router.push('/');
@@ -104,9 +48,4 @@ export default {
 </script>
 
 <style>
-a.main-title { color: #fff; text-decoration: none; }
-a.main-title:link { color: #fff; }
-a.main-title:visited { color: #fff; }
-a.main-title:hover { color: #fff; }
-a.main-title:active { color: #fff; }
 </style>
