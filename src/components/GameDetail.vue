@@ -16,22 +16,23 @@
             fab
             dark
             class="pink"
-            v-tooltip:bottom="{ html: 'Play Game' }"
+            v-tooltip:bottom="{ html: 'プレイする' }"
           ><v-icon>play_arrow</v-icon></v-btn>
           <v-btn
             icon
             fab
             dark
-            class="cyan"
+            class="blue"
+            @click.native.stop="dialog = true"
             v-tooltip:bottom="{ html: '評価する' }"
           ><v-icon>star</v-icon></v-btn>
           <v-btn
             icon
             fab
             dark
-            class="grey"
+            class="amber darken-1"
             @click="$router.back()"
-            v-tooltip:bottom="{ html: 'Back' }"
+            v-tooltip:bottom="{ html: '一覧に戻る' }"
           ><v-icon>apps</v-icon></v-btn>
         </div>
       </v-flex>
@@ -42,6 +43,9 @@
         <GameInfo :game="game" />
       </v-flex>
 
+      <!-- Dialog which register game rating --> 
+      <GameRating :game="game" :dialog="dialog" @setShowDialog="setShowDialog" />
+
     </v-layout>
   </v-container>
 </template>
@@ -49,6 +53,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import GameInfo from './GameInfo.vue';
+import GameRating from './GameRating.vue';
 
 const { mapGetters } = createNamespacedHelpers('games');
 
@@ -63,7 +68,7 @@ export default {
   },
   data() {
     return {
-      dopen: false,
+      dialog: false,
     };
   },
   computed: {
@@ -75,8 +80,14 @@ export default {
       'getGameById',
     ]),
   },
+  methods: {
+    setShowDialog: function(flg) {
+      this.dialog = flg;
+    },
+  },
   components: {
     GameInfo,
+    GameRating,
   },
 };
 </script>
