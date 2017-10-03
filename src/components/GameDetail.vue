@@ -1,47 +1,55 @@
 <template>
   <v-container fluid grid-list-xl>
-
     <v-layout row wrap>
-      <v-flex xs6>
-        <h3>{{ game.title }}</h3>
-      </v-flex>
-      <v-flex xs6 class="text-xs-right">
-        <v-btn
-          icon
-          fab
-          dark
-          class="pink"
-          v-tooltip:bottom="{ html: 'Play Game' }">
-          <v-icon>play_arrow</v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          fab
-          dark
-          class="teal"
-          @click="$router.back()"
-          v-tooltip:bottom="{ html: 'Back' }">
-          <v-icon>apps</v-icon>
-        </v-btn>
-      </v-flex>
-    </v-layout>
 
-    <v-layout row wrap>
-      <!-- game image -->
-      <v-flex sm12 md6>
-        <img :src="game.iconUri" style="width: 100%" />
-      </v-flex>
-      <!-- game information -->
-      <v-flex sm12 md6>
-        <p>{{ game.description }}</p>
-      </v-flex>
-    </v-layout>
+      <!-- Left or up flexbox -->
+      <v-flex md8 lg7 xl6 offset-md2 offset-lg0>
+        <!-- Game image -->
+        <div>
+          <img :src="game.iconUri" style="width: 100%" />
+        </div>
 
+        <!-- Events -->
+        <div class="text-xs-right">
+          <v-btn
+            icon
+            fab
+            dark
+            class="pink"
+            v-tooltip:bottom="{ html: 'Play Game' }"
+          ><v-icon>play_arrow</v-icon></v-btn>
+          <v-btn
+            icon
+            fab
+            dark
+            class="cyan"
+            v-tooltip:bottom="{ html: '評価する' }"
+          ><v-icon>star</v-icon></v-btn>
+          <v-btn
+            icon
+            fab
+            dark
+            class="grey"
+            @click="$router.back()"
+            v-tooltip:bottom="{ html: 'Back' }"
+          ><v-icon>apps</v-icon></v-btn>
+        </div>
+      </v-flex>
+
+      <!-- Right or down flexbox -->
+      <v-flex md8 lg5 xl6 offset-md2 offset-lg0>
+        <!-- Game information -->
+        <GameInfo :game="game" />
+      </v-flex>
+
+    </v-layout>
   </v-container>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
+import GameInfo from './GameInfo.vue';
+
 const { mapGetters } = createNamespacedHelpers('games');
 
 /**
@@ -53,6 +61,11 @@ export default {
       type: String,
     },
   },
+  data() {
+    return {
+      dopen: false,
+    };
+  },
   computed: {
     game: function() {
       const id = parseInt(this.id, 10);
@@ -61,6 +74,9 @@ export default {
     ...mapGetters([
       'getGameById',
     ]),
+  },
+  components: {
+    GameInfo,
   },
 };
 </script>
