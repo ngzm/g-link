@@ -24,6 +24,7 @@
 .byebug_history
 
 # Client
+/public/js/build.js
 /client/node_modules
 /client/dist/index.html
 /client/dist/build.js
