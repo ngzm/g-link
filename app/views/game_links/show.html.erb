@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @game_link.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @game_link.description %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @game_link.url %>
+</p>
+
+<p>
+  <strong>Img:</strong>
+  <%= @game_link.img %>
+</p>
+
+<p>
+  <strong>Category1:</strong>
+  <%= @game_link.category1 %>
+</p>
+
+<p>
+  <strong>Category2:</strong>
+  <%= @game_link.category2 %>
+</p>
+
+<p>
+  <strong>Category3:</strong>
+  <%= @game_link.category3 %>
+</p>
+
+<p>
+  <strong>Access:</strong>
+  <%= @game_link.access %>
+</p>
+
+<p>
+  <strong>Star:</strong>
+  <%= @game_link.star %>
+</p>
+
+<%= link_to 'Edit', edit_game_link_path(@game_link) %> |
+<%= link_to 'Back', game_links_path %>

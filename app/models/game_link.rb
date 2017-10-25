@@ -1,0 +1,2 @@
+class GameLink < ApplicationRecord
+end
