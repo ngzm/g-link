@@ -6,7 +6,7 @@
       <v-flex md8 lg7 xl6 offset-md2 offset-lg0>
         <!-- Game image -->
         <div>
-          <img :src="game.iconUri" style="width: 100%" />
+          <img :src="game.img" style="width: 100%" />
         </div>
 
         <!-- Events -->

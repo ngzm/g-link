@@ -1,6 +1,6 @@
 <template>
   <v-card class="grey darken-2 white--text" flat>
-    <v-card-media v-bind:src="game.iconUri" height="200px">
+    <v-card-media v-bind:src="game.img" height="200px">
       <a class="g-grid" href="" @click.stop.prevent="showDetail(game)"></a>
     </v-card-media>
     <v-card-actions>

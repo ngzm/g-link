@@ -8,8 +8,8 @@ export default class GameService {
    * fetch games through Ajax from server
    */
   static fetchGames(category, success, fail) {
-    // TODO: URLは適当
-    const url = `/assets/games/games-${category}.json`;
+    // GameList api のURL
+    const url = `/api/game_list/${category}`;
 
     naxios.get(url)
       .then((res) => { success(res); })

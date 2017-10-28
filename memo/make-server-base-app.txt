@@ -1,0 +1,134 @@
+######################################
+## Add Game model
+######################################
+$ be rails g model game title:string description:string url:string img:string category1:integer category2:integer category3:integer access:integer star:integer
+      invoke  active_record
+      create    db/migrate/20171028045043_create_games.rb
+      create    app/models/game.rb
+      invoke    test_unit
+      create      test/models/game_test.rb
+      create      test/fixtures/games.yml
+
+$ vim db/migrate/20171028045043_create_games.rb
+---
+class CreateGames < ActiveRecord::Migration[5.1]
+  def change
+    create_table :games do |t|
+      t.string :title, null:false
+      t.string :description, null:false
+      t.string :url, null:false
+      t.string :img, null:false
+      t.integer :category1, null:false, default:1
+      t.integer :category2
+      t.integer :category3
+      t.integer :access, null:false, default:0
+      t.integer :star, null:false, default:0
+
+      t.timestamps
+    end
+  end
+end
+---
+
+$ be rails db:migrate
+== 20171028045043 CreateGames: migrating ======================================
+-- create_table(:games)
+   -> 0.0018s
+== 20171028045043 CreateGames: migrated (0.0019s) =============================
+
+######################################
+## Add operation column
+######################################
+$ be rails g migration AddOpertionToGame
+      invoke  active_record
+      create    db/migrate/20171028045703_add_opertion_to_game.rb
+
+$ vim db/migrate/20171028045703_add_opertion_to_game.rb
+---
+class AddOpertionToGame < ActiveRecord::Migration[5.1]
+  def change
+    add_column :games, :operation, :string
+  end
+end
+---
+
+$ be rails db:migrate
+== 20171028045703 AddOpertionToGame: migrating ================================
+-- add_column(:games, :operation, :string)
+   -> 0.0013s
+== 20171028045703 AddOpertionToGame: migrated (0.0014s) =======================
+
+######################################
+## Insert initial data
+######################################
+$ vim db/seeds.rb
+---
+games = Game.create!(
+  title: "Driving",
+  description: "なんとなくリアルなドライブシミュレータ",
+  operation: "右へ、左へ、上へ、下へ、アタック、キック、使い方",
+  url: "aaaa",
+  img: "/assets/00-52-29-429_640.jpg",
+  category1: 1,
+  category2: 2,
+  category3: 3,
+  star: 4,
+  access: 50
+)
+games = Game.create!(
+  title: "Breakfast",
+  description: "なんでしょう",
+  operation: "右へ、左へ、上へ、下へ、アタック、キック、使い方",
+  url: "bbbbb",
+  img: "/assets/burger-827309_640.jpg",
+  category1: 4,
+  category2: 5,
+  category3: 6,
+  star: 10,
+  access: 100
+)
+...
+...
+...
+---
+
+$ be rails db:seed
+
+######################################
+## Add controller + view json
+######################################
+
+$ be rails generate controller GameList index
+      create  app/controllers/game_list_controller.rb
+       route  get 'game_list/index'
+      invoke  erb
+      create    app/views/game_list
+      create    app/views/game_list/index.html.erb
+      invoke  test_unit
+      create    test/controllers/game_list_controller_test.rb
+      invoke  helper
+      create    app/helpers/game_list_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    js
+      create      app/assets/javascripts/game_list.js
+      invoke    css
+      create      app/assets/stylesheets/game_list.css
+
+$ vim config/routes.rb
+---
+Rails.application.routes.draw do
+  get 'api/game_list/:category_id', to: 'game_list#index', as: :game_list
+  get 'main/index'
+  root 'main#index'
+end
+---
+
+$ vim app/views/game_list/index.json.jbuilder
+---
+json array!(@games) do |game|
+  json.extract! game, :id, :title, :description, :operation, \
+    :url, :img, :category1, :category2, :category3, :access, \
+    :star, :created_at, :updated_at
+end
+---
