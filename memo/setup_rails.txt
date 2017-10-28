@@ -1,0 +1,373 @@
+############################
+## bundle init
+############################
+
+NAGA-MAC:g-link nagazumi$ bundle init
+The latest bundler is 1.16.0.pre.3, but you are currently running 1.15.4.
+To update, run `gem install bundler --pre`
+Writing new Gemfile to /Users/nagazumi/DEV-NAO/g-link/Gemfile
+
+############################
+## add rails to Gemfile
+############################
+
+NAGA-MAC:g-link nagazumi$ vim Gemfile
+
+############################
+## install Rails
+############################
+
+NAGA-MAC:g-link nagazumi$ bundle install --path vendor/bundle
+The latest bundler is 1.16.0.pre.3, but you are currently running 1.15.4.
+To update, run `gem install bundler --pre`
+Fetching gem metadata from https://rubygems.org/..........
+Fetching version metadata from https://rubygems.org/..
+Fetching dependency metadata from https://rubygems.org/.
+Resolving dependencies...
+Fetching rake 12.1.0
+Installing rake 12.1.0
+Fetching concurrent-ruby 1.0.5
+Installing concurrent-ruby 1.0.5
+Fetching minitest 5.10.3
+Installing minitest 5.10.3
+Fetching thread_safe 0.3.6
+Installing thread_safe 0.3.6
+Fetching builder 3.2.3
+Installing builder 3.2.3
+Fetching erubi 1.7.0
+Installing erubi 1.7.0
+Fetching mini_portile2 2.3.0
+Installing mini_portile2 2.3.0
+Fetching crass 1.0.2
+Installing crass 1.0.2
+Fetching rack 2.0.3
+Installing rack 2.0.3
+Fetching nio4r 2.1.0
+Installing nio4r 2.1.0 with native extensions
+Fetching websocket-extensions 0.1.2
+Installing websocket-extensions 0.1.2
+Fetching mime-types-data 3.2016.0521
+Installing mime-types-data 3.2016.0521
+Fetching arel 8.0.0
+Installing arel 8.0.0
+Using bundler 1.15.4
+Fetching method_source 0.9.0
+Installing method_source 0.9.0
+Fetching thor 0.20.0
+Installing thor 0.20.0
+Fetching i18n 0.9.0
+Installing i18n 0.9.0
+Fetching tzinfo 1.2.3
+Installing tzinfo 1.2.3
+Fetching nokogiri 1.8.1
+Installing nokogiri 1.8.1 with native extensions
+Fetching rack-test 0.7.0
+Installing rack-test 0.7.0
+Fetching sprockets 3.7.1
+Installing sprockets 3.7.1
+Fetching websocket-driver 0.6.5
+Installing websocket-driver 0.6.5 with native extensions
+Fetching mime-types 3.1
+Installing mime-types 3.1
+Fetching activesupport 5.1.4
+Installing activesupport 5.1.4
+Fetching loofah 2.1.1
+Installing loofah 2.1.1
+Fetching mail 2.6.6
+Installing mail 2.6.6
+Fetching rails-dom-testing 2.0.3
+Installing rails-dom-testing 2.0.3
+Fetching globalid 0.4.0
+Installing globalid 0.4.0
+Fetching activemodel 5.1.4
+Installing activemodel 5.1.4
+Fetching rails-html-sanitizer 1.0.3
+Installing rails-html-sanitizer 1.0.3
+Fetching activejob 5.1.4
+Installing activejob 5.1.4
+Fetching activerecord 5.1.4
+Installing activerecord 5.1.4
+Fetching actionview 5.1.4
+Installing actionview 5.1.4
+Fetching actionpack 5.1.4
+Installing actionpack 5.1.4
+Fetching actioncable 5.1.4
+Installing actioncable 5.1.4
+Fetching actionmailer 5.1.4
+Installing actionmailer 5.1.4
+Fetching railties 5.1.4
+Installing railties 5.1.4
+Fetching sprockets-rails 3.2.1
+Installing sprockets-rails 3.2.1
+Fetching rails 5.1.4
+Installing rails 5.1.4
+Bundle complete! 1 Gemfile dependency, 39 gems now installed.
+Bundled gems are installed into ./vendor/bundle.
+
+############################
+## rails new
+############################
+
+#
+# skip-bundle と jsとか使わない機能を省いて新しいRails環境を生成
+#
+NAGA-MAC:g-link nagazumi$ be rails new . --skip-bundle --skip-javascript --skip-sprockets --skip-coffee --skip-turbolinks
+       exist
+    conflict  README.md
+Overwrite /Users/nagazumi/DEV-NAO/g-link/README.md? (enter "h" for help) [Ynaqdh] Y
+       force  README.md
+      create  Rakefile
+      create  config.ru
+    conflict  .gitignore
+Overwrite /Users/nagazumi/DEV-NAO/g-link/.gitignore? (enter "h" for help) [Ynaqdh] Y
+       force  .gitignore
+    conflict  Gemfile
+Overwrite /Users/nagazumi/DEV-NAO/g-link/Gemfile? (enter "h" for help) [Ynaqdh] Y
+       force  Gemfile
+         run  git init from "."
+Reinitialized existing Git repository in /Users/nagazumi/DEV-NAO/g-link/.git/
+      create  app
+      create  app/assets/config/manifest.js
+      create  app/assets/javascripts/application.js
+      create  app/assets/javascripts/cable.js
+      create  app/assets/stylesheets/application.css
+      create  app/channels/application_cable/channel.rb
+      create  app/channels/application_cable/connection.rb
+      create  app/controllers/application_controller.rb
+      create  app/helpers/application_helper.rb
+      create  app/jobs/application_job.rb
+      create  app/mailers/application_mailer.rb
+      create  app/models/application_record.rb
+      create  app/views/layouts/application.html.erb
+      create  app/views/layouts/mailer.html.erb
+      create  app/views/layouts/mailer.text.erb
+      create  app/assets/images/.keep
+      create  app/assets/javascripts/channels
+      create  app/assets/javascripts/channels/.keep
+      create  app/controllers/concerns/.keep
+      create  app/models/concerns/.keep
+      create  bin
+      create  bin/bundle
+      create  bin/rails
+      create  bin/rake
+      create  bin/setup
+      create  bin/update
+      create  bin/yarn
+      create  config
+      create  config/routes.rb
+      create  config/application.rb
+      create  config/environment.rb
+      create  config/secrets.yml
+      create  config/cable.yml
+      create  config/puma.rb
+      create  config/spring.rb
+      create  config/environments
+      create  config/environments/development.rb
+      create  config/environments/production.rb
+      create  config/environments/test.rb
+      create  config/initializers
+      create  config/initializers/application_controller_renderer.rb
+      create  config/initializers/assets.rb
+      create  config/initializers/backtrace_silencers.rb
+      create  config/initializers/cookies_serializer.rb
+      create  config/initializers/cors.rb
+      create  config/initializers/filter_parameter_logging.rb
+      create  config/initializers/inflections.rb
+      create  config/initializers/mime_types.rb
+      create  config/initializers/new_framework_defaults_5_1.rb
+      create  config/initializers/wrap_parameters.rb
+      create  config/locales
+  1 source 'https://rubygems.org'
+  2
+      create  config/locales/en.yml
+      create  config/boot.rb
+      create  config/database.yml
+      create  db
+      create  db/seeds.rb
+      create  lib
+      create  lib/tasks
+      create  lib/tasks/.keep
+      create  lib/assets
+      create  lib/assets/.keep
+      create  log
+      create  log/.keep
+      create  public
+      create  public/404.html
+      create  public/422.html
+      create  public/500.html
+      create  public/apple-touch-icon-precomposed.png
+      create  public/apple-touch-icon.png
+      create  public/favicon.ico
+      create  public/robots.txt
+      create  test/fixtures
+      create  test/fixtures/.keep
+      create  test/fixtures/files
+      create  test/fixtures/files/.keep
+      create  test/controllers
+      create  test/controllers/.keep
+      create  test/mailers
+      create  test/mailers/.keep
+      create  test/models
+      create  test/models/.keep
+      create  test/helpers
+      create  test/helpers/.keep
+      create  test/integration
+      create  test/integration/.keep
+      create  test/test_helper.rb
+      create  test/system
+      create  test/system/.keep
+      create  test/application_system_test_case.rb
+      create  tmp
+      create  tmp/.keep
+      create  tmp/cache
+      create  tmp/cache/assets
+       exist  vendor
+      create  vendor/.keep
+      create  package.json
+      remove  app/assets/javascripts
+      remove  config/initializers/assets.rb
+      remove  config/initializers/cors.rb
+      remove  config/initializers/new_framework_defaults_5_1.rb
+
+############################
+## Re Install all gems
+############################
+
+## delete temp files
+
+NAGA-MAC:g-link nagazumi$ rm -rf .bundle
+NAGA-MAC:g-link nagazumi$ rm -rf vendor/bundle
+
+## install all
+
+NAGA-MAC:g-link nagazumi$ bundle install --path vendor/bundle
+The latest bundler is 1.16.0.pre.3, but you are currently running 1.15.4.
+To update, run `gem install bundler --pre`
+The dependency tzinfo-data (>= 0) will be unused by any of the platforms Bundler is installing for. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run `bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java`.
+Fetching gem metadata from https://rubygems.org/.........
+Fetching version metadata from https://rubygems.org/..
+Fetching dependency metadata from https://rubygems.org/.
+Resolving dependencies...
+Fetching rake 12.1.0
+Installing rake 12.1.0
+Fetching concurrent-ruby 1.0.5
+Installing concurrent-ruby 1.0.5
+Fetching minitest 5.10.3
+Installing minitest 5.10.3
+Fetching thread_safe 0.3.6
+Installing thread_safe 0.3.6
+Fetching builder 3.2.3
+Installing builder 3.2.3
+Fetching erubi 1.7.0
+Installing erubi 1.7.0
+Fetching mini_portile2 2.3.0
+Installing mini_portile2 2.3.0
+Fetching crass 1.0.2
+Installing crass 1.0.2
+Fetching rack 2.0.3
+Installing rack 2.0.3
+Fetching nio4r 2.1.0
+Installing nio4r 2.1.0 with native extensions
+Fetching websocket-extensions 0.1.2
+Installing websocket-extensions 0.1.2
+Fetching mime-types-data 3.2016.0521
+Installing mime-types-data 3.2016.0521
+Fetching arel 8.0.0
+Installing arel 8.0.0
+Fetching public_suffix 3.0.0
+Installing public_suffix 3.0.0
+Fetching bindex 0.5.0
+Installing bindex 0.5.0 with native extensions
+Using bundler 1.15.4
+Fetching byebug 9.1.0
+Installing byebug 9.1.0 with native extensions
+Fetching mini_mime 0.1.4
+Installing mini_mime 0.1.4
+Fetching ffi 1.9.18
+Installing ffi 1.9.18 with native extensions
+Fetching multi_json 1.12.2
+Installing multi_json 1.12.2
+Fetching rb-fsevent 0.10.2
+Installing rb-fsevent 0.10.2
+Fetching ruby_dep 1.5.0
+Installing ruby_dep 1.5.0
+Fetching method_source 0.9.0
+Installing method_source 0.9.0
+Fetching puma 3.10.0
+Installing puma 3.10.0 with native extensions
+Fetching thor 0.20.0
+Installing thor 0.20.0
+Fetching rubyzip 1.2.1
+Installing rubyzip 1.2.1
+Fetching sqlite3 1.3.13
+Installing sqlite3 1.3.13 with native extensions
+Fetching i18n 0.9.0
+Installing i18n 0.9.0
+Fetching tzinfo 1.2.3
+Installing tzinfo 1.2.3
+Fetching nokogiri 1.8.1
+Installing nokogiri 1.8.1 with native extensions
+Fetching rack-test 0.7.0
+Installing rack-test 0.7.0
+Fetching sprockets 3.7.1
+Installing sprockets 3.7.1
+Fetching websocket-driver 0.6.5
+Installing websocket-driver 0.6.5 with native extensions
+Fetching mime-types 3.1
+Installing mime-types 3.1
+Fetching addressable 2.5.2
+Installing addressable 2.5.2
+Fetching childprocess 0.8.0
+Installing childprocess 0.8.0
+Fetching rb-inotify 0.9.10
+Installing rb-inotify 0.9.10
+Fetching activesupport 5.1.4
+Installing activesupport 5.1.4
+Fetching loofah 2.1.1
+Installing loofah 2.1.1
+Fetching xpath 2.1.0
+Installing xpath 2.1.0
+Fetching mail 2.6.6
+Installing mail 2.6.6
+Fetching selenium-webdriver 3.6.0
+Installing selenium-webdriver 3.6.0
+Fetching listen 3.1.5
+Installing listen 3.1.5
+Fetching rails-dom-testing 2.0.3
+Installing rails-dom-testing 2.0.3
+Fetching globalid 0.4.0
+Installing globalid 0.4.0
+Fetching activemodel 5.1.4
+Installing activemodel 5.1.4
+Fetching jbuilder 2.7.0
+Installing jbuilder 2.7.0
+Fetching spring 2.0.2
+Installing spring 2.0.2
+Fetching rails-html-sanitizer 1.0.3
+Installing rails-html-sanitizer 1.0.3
+Fetching capybara 2.15.4
+Installing capybara 2.15.4
+Fetching activejob 5.1.4
+Installing activejob 5.1.4
+Fetching activerecord 5.1.4
+Installing activerecord 5.1.4
+Fetching spring-watcher-listen 2.0.1
+Installing spring-watcher-listen 2.0.1
+Fetching actionview 5.1.4
+Installing actionview 5.1.4
+Fetching actionpack 5.1.4
+Installing actionpack 5.1.4
+Fetching actioncable 5.1.4
+Installing actioncable 5.1.4
+Fetching actionmailer 5.1.4
+Installing actionmailer 5.1.4
+Fetching railties 5.1.4
+Installing railties 5.1.4
+Fetching sprockets-rails 3.2.1
+Installing sprockets-rails 3.2.1
+Fetching web-console 3.5.1
+Installing web-console 3.5.1
+Fetching rails 5.1.4
+Installing rails 5.1.4
+Bundle complete! 12 Gemfile dependencies, 61 gems now installed.
+Bundled gems are installed into ./vendor/bundle.
