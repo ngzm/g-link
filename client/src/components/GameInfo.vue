@@ -13,8 +13,8 @@
       <div>
         <h5 class="title">Instructions</h5>
         <ul>
-          <li v-for="(inst, index) in game.instruction" :key="index">
-            {{ inst }}
+          <li v-for="(is, index) in game.instructions" :key="index">
+            {{ is.inst }}
           </li>
         </ul>
       </div>

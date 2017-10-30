@@ -12,7 +12,12 @@ export default class GameService {
     const url = `/api/game_list/${category}`;
 
     naxios.get(url)
-      .then((res) => { success(res); })
-      .catch((err) => { fail(err); });
+      .then((res) => {
+        console.log(JSON.stringify(res.data));
+        success(res);
+      })
+      .catch((err) => {
+        fail(err);
+      });
   }
 }

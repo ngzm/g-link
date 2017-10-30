@@ -1,7 +1,6 @@
 Game.create!(
   title: 'Driving',
   description: 'なんとなくリアルなドライブシミュレータ',
-  instruction: '右へ、左へ、上へ、下へ、アタック、キック、使い方',
   url: 'aaaa',
   img: '/uploads/tmp/game/img/00-52-29-429_640.jpg',
   category1: 1,
@@ -13,7 +12,6 @@ Game.create!(
 Game.create!(
   title: 'Breakfast',
   description: 'なんでしょう',
-  instruction: '右へ、左へ、上へ、下へ、アタック、キック、使い方',
   url: 'bbbbb',
   img: '/uploads/tmp/game/img/burger-827309_640.jpg',
   category1: 4,
@@ -25,7 +23,6 @@ Game.create!(
 Game.create!(
   title: 'Camera Shooting',
   description: 'いろいろあります',
-  instruction: '右へ、左へ、上へ、下へ、アタック、キック、使い方',
   url: 'aaaa',
   img: '/uploads/tmp/game/img/camera-813814_640.jpg',
   category1: 7,
@@ -37,7 +34,6 @@ Game.create!(
 Game.create!(
   title: 'Hats',
   description: 'ぼうしすか',
-  instruction: '右へ、左へ、上へ、下へ、アタック、キック、使い方',
   url: 'ddddd',
   img: '/uploads/tmp/game/img/hats-829509_640.jpg',
   category1: 5,
@@ -49,7 +45,6 @@ Game.create!(
 Game.create!(
   title: 'Vegitables',
   description: 'ぷちぷち',
-  instruction: '右へ、左へ、上へ、下へ、アタック、キック、使い方',
   url: 'aaaa',
   img: '/uploads/tmp/game/img/vegetables-790022_640.jpg',
   category1: 10,
@@ -61,7 +56,6 @@ Game.create!(
 Game.create!(
   title: 'Honey',
   description: 'これははちみつゲームです',
-  instruction: '右へ、左へ、上へ、下へ、アタック、キック、使い方',
   url: 'aaaa',
   img: '/uploads/tmp/game/img/honey-823614_640.jpg',
   category1: 2,
@@ -73,7 +67,6 @@ Game.create!(
 Game.create!(
   title: 'Morning',
   description: '朝早くにプレイするゲーム',
-  instruction: '右へ、左へ、上へ、下へ、アタック、キック、使い方',
   url: 'aaaa',
   img: '/uploads/tmp/game/img/morning-819362_640.jpg',
   category1: 1,
@@ -85,7 +78,6 @@ Game.create!(
 Game.create!(
   title: 'Water-plant',
   description: 'なんだろうこれは！！',
-  instruction: '右へ、左へ、上へ、下へ、アタック、キック、使い方',
   url: 'aaaa',
   img: '/uploads/tmp/game/img/water-plant-821293_640.jpg',
   category1: 3,
@@ -93,4 +85,51 @@ Game.create!(
   category3: 12,
   star: 2,
   access: 700
+)
+
+Instruction.create!(
+  game_id: 1,
+  inst: 'game1の使い方 - その1'
+)
+Instruction.create!(
+  game_id: 1,
+  inst: 'game1の使い方 - その2'
+)
+Instruction.create!(
+  game_id: 1,
+  inst: 'game1の使い方 - その3'
+)
+
+Instruction.create!(
+  game_id: 2,
+  inst: 'game2の使い方 - その1'
+)
+Instruction.create!(
+  game_id: 2,
+  inst: 'game2の使い方 - その2'
+)
+Instruction.create!(
+  game_id: 2,
+  inst: 'game2の使い方 - その3'
+)
+
+Instruction.create!(
+  game_id: 3,
+  inst: 'game3の使い方 - その1'
+)
+Instruction.create!(
+  game_id: 3,
+  inst: 'game3の使い方 - その2'
+)
+Instruction.create!(
+  game_id: 3,
+  inst: 'game3の使い方 - その3'
+)
+Instruction.create!(
+  game_id: 3,
+  inst: 'game3の使い方 - その4'
+)
+Instruction.create!(
+  game_id: 3,
+  inst: 'game3の使い方 - その5'
 )
