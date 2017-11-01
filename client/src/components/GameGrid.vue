@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapActions } = createNamespacedHelpers('games');
+
 /**
  * GameGrid Component
  */
@@ -27,8 +30,12 @@ export default {
   },
   methods: {
     showDetail: function(game) {
+      this.fetchGame(game.id);
       this.$router.push(`/game/detail/${game.id}`);
     },
+    ...mapActions([
+      'fetchGame',
+    ]),
   },
 };
 </script>

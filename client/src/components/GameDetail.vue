@@ -74,10 +74,10 @@ export default {
   computed: {
     game: function() {
       const id = parseInt(this.id, 10);
-      return this.getGameById(id);
+      return this.getGame;
     },
     ...mapGetters([
-      'getGameById',
+      'getGame',
     ]),
   },
   methods: {

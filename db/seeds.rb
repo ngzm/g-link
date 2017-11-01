@@ -1,3 +1,6 @@
+#
+# Games
+#
 Game.create!(
   title: 'Driving',
   description: 'なんとなくリアルなドライブシミュレータ',
@@ -87,6 +90,28 @@ Game.create!(
   access: 700
 )
 
+#
+# Users
+#
+User.create!(
+  name: 'ngzm',
+  full_name: 'Nao Ngzm',
+  email: 'ngzm@g-link.com'
+)
+User.create!(
+  name: 'test001',
+  full_name: 'test taro',
+  email: 'taro@test.com'
+)
+User.create!(
+  name: 'sarusaru',
+  full_name: 'Osaru Saruwatari',
+  email: 'monkey@cats.com'
+)
+
+#
+# Instructions
+#
 Instruction.create!(
   game_id: 1,
   inst: 'game1の使い方 - その1'
@@ -132,4 +157,96 @@ Instruction.create!(
 Instruction.create!(
   game_id: 3,
   inst: 'game3の使い方 - その5'
+)
+
+Instruction.create!(
+  game_id: 4,
+  inst: 'game4の使い方 - その1'
+)
+Instruction.create!(
+  game_id: 4,
+  inst: 'game4の使い方 - その2'
+)
+Instruction.create!(
+  game_id: 4,
+  inst: 'game4の使い方 - その3'
+)
+Instruction.create!(
+  game_id: 4,
+  inst: 'game4の使い方 - その4'
+)
+
+Instruction.create!(
+  game_id: 5,
+  inst: 'game5の使い方 - その1'
+)
+Instruction.create!(
+  game_id: 5,
+  inst: 'game5の使い方 - その2'
+)
+Instruction.create!(
+  game_id: 5,
+  inst: 'game5の使い方 - その3'
+)
+Instruction.create!(
+  game_id: 5,
+  inst: 'game5の使い方 - その4'
+)
+Instruction.create!(
+  game_id: 5,
+  inst: 'game5の使い方 - その5'
+)
+
+#
+# Reviews
+#
+Review.create!(
+  game_id: 1,
+  user_id: 1,
+  star: 5,
+  comment: 'とっても楽しいです！'
+)
+Review.create!(
+  game_id: 1,
+  user_id: 2,
+  star: 4,
+  comment: 'これはいいですね'
+)
+Review.create!(
+  game_id: 1,
+  user_id: 3,
+  star: 2,
+  comment: 'すこし難しかったけど慣れたらハマりました'
+)
+
+Review.create!(
+  game_id: 2,
+  user_id: 1,
+  star: 3,
+  comment: '2は好きです！'
+)
+Review.create!(
+  game_id: 2,
+  user_id: 2,
+  star: 1,
+  comment: 'これは2ですね'
+)
+
+Review.create!(
+  game_id: 3,
+  user_id: 2,
+  star: 1,
+  comment: 'いろいろおかしい！'
+)
+Review.create!(
+  game_id: 3,
+  user_id: 3,
+  star: 3,
+  comment: '最初あれだけど慣れれば楽しい変なゲーム'
+)
+Review.create!(
+  game_id: 3,
+  user_id: 1,
+  star: 2,
+  comment: 'ちょっと難しいかも'
 )

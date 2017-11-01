@@ -5,6 +5,7 @@ export default {
 
   state: {
     games: [],
+    game: null,
     preCategory: 0,
     fetching: false,
   },
@@ -23,12 +24,16 @@ export default {
       return state.games.slice().sort(comp);
     },
     getGameById: (state) => (id) => (state.games.find(game => game.id === id)),
+    getGame: (state) => (state.game),
     isFetching: (state) => (state.fetching),
   },
 
   mutations: {
     setGames: (state, games) => {
       state.games = games;
+    },
+    setGame: (state, game) => {
+      state.game = game;
     },
     setPreCategory: (state, category) => {
       state.preCategory = category;
@@ -50,6 +55,20 @@ export default {
         (res) => {
           commit('setGames', res.data);
           commit('setPreCategory', category);
+          commit('setFetching', false);
+        },
+        (err) => {
+          console.log(`err = ${err}`);
+          commit('setFetching', false);
+        }
+      );
+    },
+    fetchGame: ({ commit, state }, id) => {
+      // Feching game detail
+      commit('setFetching', true);
+      GameService.fetchGameDetail(id,
+        (res) => {
+          commit('setGame', res.data);
           commit('setFetching', false);
         },
         (err) => {
