@@ -6,7 +6,6 @@ export default {
   namespaced: true,
 
   state: {
-    // 本来はDBからデータを取得する
     categories: [
       { id: 1, title: 'Action', route: 'action', icon: 'track_changes' },
       { id: 2, title: 'Adventure', route: 'adventure', icon: 'terrain' },
@@ -21,8 +20,6 @@ export default {
       { id: 11, title: 'Table', route: 'table', icon: 'grid_on' },
       { id: 12, title: 'Variety', route: 'variety', icon: 'games' },
     ],
-
-    // 本来はDBからデータを取得する
     sortKeys: [
       { id: 1, title: '更新順', icon: 'update' },
       { id: 2, title: '評価順', icon: 'star' },

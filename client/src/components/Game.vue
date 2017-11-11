@@ -1,5 +1,5 @@
 <template>
-  <section v-if="isFetching">
+  <section v-if="isBuzy">
     <div class="progress">
       <v-progress-circular
         indeterminate
@@ -15,17 +15,25 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapGetters } = createNamespacedHelpers('games');
+import { mapGetters } from 'vuex';
+import { dataStatus } from '../stores/StoreStatus';
 
 /**
  * Game Component
  */
 export default {
   computed: {
-    ...mapGetters([
-      'isFetching',
-    ]),
+    isBuzy: function() {
+      const gsBuzy = (this.gamesStatus === dataStatus.BUZY);
+      const gmBuzy = (this.gameStatus === dataStatus.BUZY);
+      return gsBuzy || gmBuzy;
+    },
+    ...mapGetters('games', {
+      gamesStatus: 'getGamesStatus',
+    }),
+    ...mapGetters('game', {
+      gameStatus: 'getGameStatus',
+    }),
   },
 };
 </script>

@@ -23,7 +23,7 @@
             fab
             dark
             class="blue"
-            @click.native.stop="dialog = true"
+            @click.native.stop="onReview"
             v-tooltip:bottom="{ html: '評価する' }"
           ><v-icon>star</v-icon></v-btn>
           <v-btn
@@ -44,18 +44,25 @@
       </v-flex>
 
       <!-- Dialog which register game rating --> 
-      <GameRating :game="game" :dialog="dialog" @setShowDialog="setShowDialog" />
+      <GameReview
+        :dialog="dialog"
+        :setDialog="setDialog"
+        :title="game.title"
+        @onRegister="onRegisterReview"
+      />
+
+      <!-- Information bar at registered review --> 
+      <Infobar :snackbar="snackbar" :setSnackbar="setSnackbar" :message="message" />
 
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import GameInfo from './GameInfo.vue';
-import GameRating from './GameRating.vue';
-
-const { mapGetters } = createNamespacedHelpers('games');
+import GameReview from './GameReview.vue';
+import Infobar from './Infobar.vue';
 
 /**
  * Game Detail Component
@@ -69,25 +76,43 @@ export default {
   data() {
     return {
       dialog: false,
+      snackbar: false,
+      message: '',
     };
   },
   computed: {
-    game: function() {
-      const id = parseInt(this.id, 10);
-      return this.getGame;
-    },
-    ...mapGetters([
-      'getGame',
-    ]),
+    ...mapGetters('game', {
+      game: 'getGame',
+    }),
   },
   methods: {
-    setShowDialog: function(flg) {
+    setDialog: function(flg) {
       this.dialog = flg;
     },
+    setSnackbar: function(flg) {
+      this.snackbar = flg;
+    },
+    onReview: function() {
+      this.fetchReview(this.id);
+      this.setDialog(true);
+    },
+    onRegisterReview: function(review) {
+      this.setDialog(false);
+      this.registerReview(review);
+
+      // display registered message
+      this.message = `${this.game.title} の評価を登録しました`;
+      this.setSnackbar(true);
+    },
+    ...mapActions('greview', [
+      'fetchReview',
+      'registerReview',
+    ]),
   },
   components: {
     GameInfo,
-    GameRating,
+    GameReview,
+    Infobar,
   },
 };
 </script>
