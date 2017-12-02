@@ -20,7 +20,12 @@ naxios.interceptors.request.use(
     }
     return config;
   },
-  error => Promise.reject(error),
+  error => Promise.reject(error)
 );
+
+/**
+ * Axios Header に Rails のCSRF-TOKENをセット
+ */
+naxios.defaults.headers['X-CSRF-TOKEN'] = document.head.querySelector('[name=csrf-token]').content;
 
 export default naxios;

@@ -1,0 +1,61 @@
+########################################################################
+# joins して select して それを attributes より読み込み
+########################################################################
+pry(main)> Game.joins(reviews: :user).select('games.title, reviews.comment, users.name').each do |rv|
+pry(main)*   p rv.attributes
+pry(main)* end
+  Game Load (0.2ms)  SELECT games.title, reviews.comment, users.name FROM "games" INNER JOIN "reviews" ON "reviews"."game_id" = "games"."id" INNER JOIN "users" ON "users"."id" = "reviews"."user_id"
+{"id"=>nil, "title"=>"Driving", "comment"=>"とっても楽しいです！", "name"=>"ngzm"}
+{"id"=>nil, "title"=>"Driving", "comment"=>"これはいいですね", "name"=>"test001"}
+{"id"=>nil, "title"=>"Driving", "comment"=>"すこし難しかったけど慣れたらハマりました", "name"=>"sarusaru"}
+{"id"=>nil, "title"=>"Breakfast", "comment"=>"2は好きです！", "name"=>"ngzm"}
+{"id"=>nil, "title"=>"Breakfast", "comment"=>"これは2ですね", "name"=>"test001"}
+=> [#<Game:0x00007feb47fb2810 id: nil, title: "Driving">,
+ #<Game:0x00007feb47fb2680 id: nil, title: "Driving">,
+ #<Game:0x00007feb47fb24f0 id: nil, title: "Driving">,
+ #<Game:0x00007feb47fb2360 id: nil, title: "Breakfast">,
+ #<Game:0x00007feb47fb21d0 id: nil, title: "Breakfast">]
+
+########################################################################
+# joins して ruby ぽくやる
+########################################################################
+pry(main)> Game.joins(reviews: :user).find(1).reviews.each do |rv|
+pry(main)*   p rv.comment
+pry(main)*   p rv.user.name
+pry(main)* end
+  Game Load (0.1ms)  SELECT  "games".* FROM "games" INNER JOIN "reviews" ON "reviews"."game_id" = "games"."id" INNER JOIN "users" ON "users"."id" = "reviews"."user_id" WHERE "games"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+  Review Load (0.2ms)  SELECT "reviews".* FROM "reviews" WHERE "reviews"."game_id" = ?  [["game_id", 1]]
+"とっても楽しいです！"
+  User Load (0.1ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+"ngzm"
+"これはいいですね"
+  User Load (0.1ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 2], ["LIMIT", 1]]
+"test001"
+"すこし難しかったけど慣れたらハマりました"
+  User Load (0.1ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?  [["id", 3], ["LIMIT", 1]]
+"sarusaru"
+
+###
+### select 文が何度も発行されている
+###
+
+########################################################################
+# includes して ruby ぽくやる -- これでOK
+########################################################################
+pry(main)> Game.includes(:reviews, :users).find(1).reviews.each do |rv|
+pry(main)*   p rv.comment
+pry(main)*   p rv.user.name
+pry(main)* end
+  Game Load (0.1ms)  SELECT  "games".* FROM "games" WHERE "games"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+  Review Load (0.1ms)  SELECT "reviews".* FROM "reviews" WHERE "reviews"."game_id" = 1
+  User Load (0.2ms)  SELECT "users".* FROM "users" WHERE "users"."id" IN (1, 2, 3)
+"とっても楽しいです！"
+"ngzm"
+"これはいいですね"
+"test001"
+"すこし難しかったけど慣れたらハマりました"
+"sarusaru"
+
+###
+### select 文は最小限、いい感じにキャッシュされている
+###

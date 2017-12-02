@@ -1,7 +1,7 @@
 <template>
   <v-card class="grey darken-2 white--text" flat>
-    <v-card-media v-bind:src="game.iconUri" height="200px">
-      <a class="g-grid" href="" @click.stop.prevent="showDetail(game)"></a>
+    <v-card-media v-bind:src="game.img" height="200px">
+      <a class="g-grid" href="" @click.stop.prevent="showDetail(game.id)"></a>
     </v-card-media>
     <v-card-actions>
       <span>{{ game.title }}</span>
@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapActions } = createNamespacedHelpers('game');
+
 /**
  * GameGrid Component
  */
@@ -26,9 +29,13 @@ export default {
     game: Object,
   },
   methods: {
-    showDetail: function(game) {
-      this.$router.push(`/game/detail/${game.id}`);
+    showDetail: function(id) {
+      this.fetchGame(id);
+      this.$router.push(`/game/detail/${id}`);
     },
+    ...mapActions([
+      'fetchGame',
+    ]),
   },
 };
 </script>

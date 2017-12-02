@@ -1,0 +1,61 @@
+###############################################
+# instruction model 生成
+# ----> game:reference が味噌
+################################################
+$ be rails generate model Instruction inst:string game:references
+      invoke  active_record
+      create  db/migrate/20171030085822_create_instructions.rb
+      create  app/models/instruction.rb
+      invoke  test_unit
+      create  test/models/instruction_test.rb
+      create  test/fixtures/instructions.yml
+
+$ cat db/migrate/20171030085822_create_instructions.rb
+---
+class CreateInstructions < ActiveRecord::Migration[5.1]
+  def change
+    create_table :instructions do |t|
+      t.string :inst
+      t.references :game, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+---
+
+$ cat app/models/instruction.rb
+---
+class Instruction < ApplicationRecord
+  belongs_to :game
+end
+---
+  ###
+  ### point :game の gは小文字！！
+  ### point :belongs_to なので 単数
+  ###
+
+#############################################
+# db:migrate
+#############################################
+
+$ be rails db:migrate
+== 20171030085822 CreateInstructions: migrating ===============================
+-- create_table(:instructions)
+   -> 0.0034s
+== 20171030085822 CreateInstructions: migrated (0.0034s) ======================
+
+############################################
+# game に has_many を追加
+############################################
+
+$ cat app/models/game.rb
+---
+class Game < ApplicationRecord
+  has_many :instructions, dependent: :destroy
+end
+---
+  ###
+  ### point :instructions の gは小文字！！
+  ### point :has_many なので 複数形
+  ###

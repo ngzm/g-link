@@ -10,6 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171028031850) do
+ActiveRecord::Schema.define(version: 20171108100139) do
+
+  create_table "games", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description", null: false
+    t.string "url", null: false
+    t.string "img", null: false
+    t.integer "category1", default: 1, null: false
+    t.integer "category2"
+    t.integer "category3"
+    t.integer "access", default: 0, null: false
+    t.integer "star", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "instructions", force: :cascade do |t|
+    t.string "inst"
+    t.integer "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_instructions_on_game_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text "comment", null: false
+    t.integer "game_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "star", default: 0, null: false
+    t.index ["game_id"], name: "index_reviews_on_game_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "full_name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

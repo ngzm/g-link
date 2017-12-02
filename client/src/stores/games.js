@@ -1,12 +1,12 @@
 import GameService from '../services/GameService';
+import { dataStatus } from './StoreStatus';
 
 export default {
   namespaced: true,
 
   state: {
     games: [],
-    preCategory: 0,
-    fetching: false,
+    gamesStatus: dataStatus.INITIAL,
   },
 
   getters: {
@@ -23,38 +23,30 @@ export default {
       return state.games.slice().sort(comp);
     },
     getGameById: (state) => (id) => (state.games.find(game => game.id === id)),
-    isFetching: (state) => (state.fetching),
+    getGamesStatus: state => state.gamesStatus,
   },
 
   mutations: {
     setGames: (state, games) => {
       state.games = games;
     },
-    setPreCategory: (state, category) => {
-      state.preCategory = category;
-    },
-    setFetching: (state, status) => {
-      state.fetching = status;
+    setGamesStatus: (state, stt) => {
+      state.gamesStatus = stt;
     },
   },
 
   actions: {
-    fetchGames: ({ commit, state, rootState }) => {
-      const category = rootState.categories.currentCategory;
-      if (state.preCategory === category) {
-        return;
-      }
-      // Feching lists of games
-      commit('setFetching', true);
-      GameService.fetchGames(category,
+    fetchGames: ({ commit, rootState }) => {
+      commit('setGamesStatus', dataStatus.BUZY);
+      GameService.fetchGames(rootState.categories.currentCategory,
         (res) => {
           commit('setGames', res.data);
-          commit('setPreCategory', category);
-          commit('setFetching', false);
+          commit('setGamesStatus', dataStatus.ACCESSIBLE);
         },
         (err) => {
           console.log(`err = ${err}`);
-          commit('setFetching', false);
+          commit('setGames', []);
+          commit('setGamesStatus', dataStatus.ERROR);
         }
       );
     },
