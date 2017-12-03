@@ -38,6 +38,10 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapGetters, mapMutations } = createNamespacedHelpers('categories');
 const { mapActions } = createNamespacedHelpers('games');
 
+const getButtonColor = k => (
+  (k === 1) ? 'blue' : (k === 2) ? 'yellow darken-2' : 'pink'
+);
+
 /**
  * SortFb (Floating Button) Component
  */
@@ -47,17 +51,14 @@ export default {
   }),
   computed: {
     fbcolor : function() {
-      const key = this.getCurSortKey.id;
-      return (key === 1) ? 'blue darken-2' : (key === 2) ? 'amber darken-2' : 'green darken-2';
+      return getButtonColor(this.getCurSortKey.id);
     },
     fbicon : function() {
       return this.getCurSortKey.icon;
     },
     sortKeys: function() {
       return this.getSortKeys.map((k) => {
-        const color = ((k.id === 1) ? 'blue darken-2' :
-          (k.id === 2) ? 'amber darken-2' : 'green darken-2');
-        return { color, ...k };
+        return { color: getButtonColor(k.id), ...k };
       });
     },
     ...mapGetters([
