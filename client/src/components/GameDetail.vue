@@ -23,7 +23,7 @@
             fab
             dark
             class="blue"
-            @click.native.stop="onReview"
+            @click.native.stop="onOpenReview"
             v-tooltip:bottom="{ html: '評価する' }"
           ><v-icon>star</v-icon></v-btn>
           <v-btn
@@ -45,33 +45,46 @@
 
       <!-- Dialog which register game rating --> 
       <GameReview
-        :dialog="dialog"
+        :dialog="readyReview"
         :setDialog="setDialog"
         :title="game.title"
         @onRegister="onRegisterReview"
       />
 
       <!-- Information bar at registered review --> 
-      <Infobar :snackbar="snackbar" :setSnackbar="setSnackbar" :message="message" />
-
+      <Infobar
+        :snackbar="registeredReview"
+        :setSnackbar="setSnackbar"
+        :message="message"
+      />
     </v-layout>
+
+    <!-- progress --> 
+    <div class="progress" v-if="waiting">
+      <v-progress-circular
+        indeterminate
+        v-bind:size="70"
+        v-bind:width="7"
+        class="mt-5 primary--text"
+      ></v-progress-circular>
+    </div>
+
   </v-container>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import GameInfo from './GameInfo.vue';
 import GameReview from './GameReview.vue';
 import Infobar from './Infobar.vue';
+import { dataStatus } from '../stores/StoreStatus';
 
 /**
  * Game Detail Component
  */
 export default {
   props: {
-    id: {
-      type: String,
-    },
+    id: { type: String, },
   },
   data() {
     return {
@@ -81,9 +94,24 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('game', {
-      game: 'getGame',
-    }),
+    waiting: function() {
+      return this.reviewStatus === dataStatus.INTIAL || this.reviewStatus === dataStatus.BUZY;
+    },
+    readyReview: function() {
+      return this.dialog && this.reviewStatus === dataStatus.ACCESSIBLE;
+    },
+    registeredReview: function() {
+      return this.snackbar && this.reviewStatus === dataStatus.REGISTERED;
+    },
+    hasError: function() {
+      return this.reviewStatus === dataStatus.ERROR;
+    },
+    ...mapState('game', [
+      'game',
+    ]),
+    ...mapState('greview', [
+      'reviewStatus',
+    ]),
   },
   methods: {
     setDialog: function(flg) {
@@ -92,15 +120,13 @@ export default {
     setSnackbar: function(flg) {
       this.snackbar = flg;
     },
-    onReview: function() {
+    onOpenReview: function() {
       this.fetchReview(this.id);
       this.setDialog(true);
     },
     onRegisterReview: function(review) {
       this.setDialog(false);
       this.registerReview(review);
-
-      // display registered message
       this.message = `${this.game.title} の評価を登録しました`;
       this.setSnackbar(true);
     },
@@ -118,4 +144,10 @@ export default {
 </script>
 
 <style>
+.progress {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  text-align: center;
+}
 </style>

@@ -1,6 +1,9 @@
 <template>
-  <section v-if="isBuzy">
-    <div class="progress">
+  <section>
+    <div v-show="!isBuzy">
+      <router-view></router-view>
+    </div>
+    <div v-if="isBuzy" class="progress">
       <v-progress-circular
         indeterminate
         v-bind:size="70"
@@ -9,13 +12,10 @@
       ></v-progress-circular>
     </div>
   </section>
-  <section v-else>
-    <router-view></router-view>
-  </section>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import { dataStatus } from '../stores/StoreStatus';
 
 /**
@@ -28,11 +28,11 @@ export default {
       const gmBuzy = (this.gameStatus === dataStatus.BUZY);
       return gsBuzy || gmBuzy;
     },
-    ...mapGetters('games', {
-      gamesStatus: 'getGamesStatus',
+    ...mapState('games', {
+      gamesStatus: state => state.gamesStatus,
     }),
-    ...mapGetters('game', {
-      gameStatus: 'getGameStatus',
+    ...mapState('game', {
+      gameStatus: state => state.gameStatus,
     }),
   },
 };

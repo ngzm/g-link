@@ -1,15 +1,21 @@
 <template>
   <v-dialog width="600" v-model="displayme">
     <v-card>
+      <!-- game review form --> 
       <v-form v-model="valid" ref="form" lazy-validation>
+
+        <!-- title --> 
         <v-card-title>
           <div>
             <h3 class="headline">評価・口コミ登録</h3>
             <div>{{ title }} は気に入りましたか？</div>
           </div>
         </v-card-title>
+
         <v-divider></v-divider>
-        <v-card-text v-show="accessible">
+
+        <!-- input field --> 
+        <v-card-text>
           <div>
             <h3 class="title">評価</h3>
             <star-rating v-model="star"></star-rating>
@@ -26,53 +32,34 @@
             ></v-text-field>
           </div>
         </v-card-text>
+
         <v-divider></v-divider>
+
+        <!-- action buttons --> 
         <v-card-actions>
           <v-spacer></v-spacer>
           <div>
-            <v-btn
-              v-show="accessible"
-              dark
-              class="blue"
-              @click.native="register"
-              :disabled="!valid"
-            >登録する</v-btn>
-            <v-btn dark class="grey" @click.native="cancel">やめる</v-btn>
+            <v-btn dark class="blue" @click.native="register" :disabled="!valid" >登録する</v-btn>
+            <v-btn dark class="grey" @click.native="setDialog(false)">やめる</v-btn>
           </div>
         </v-card-actions>
+
       </v-form>
     </v-card>
-
-    <div class="progress" v-show="notReady">
-      <v-progress-circular
-        indeterminate
-        v-bind:size="70"
-        v-bind:width="7"
-        class="mt-5 primary--text"
-      ></v-progress-circular>
-    </div>
-
   </v-dialog>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import StarRating from 'vue-star-rating';
-import { dataStatus } from '../stores/StoreStatus';
 
-const { mapGetters, mapMutations } = createNamespacedHelpers('greview');
+const { mapState, mapMutations } = createNamespacedHelpers('greview');
 
 export default {
   props: {
-    dialog: {
-      type: Boolean,
-    },
-    setDialog: {
-      type: Function,
-    },
-    title: {
-      type: String,
-    },
+    title: { type: String, },
+    dialog: { type: Boolean, },
+    setDialog: { type: Function, },
   },
   data() {
     return {
@@ -87,7 +74,7 @@ export default {
   computed: {
     displayme: {
       get: function() {
-        return this.dialog && this.accessible;
+        return this.dialog;
       },
       set: function(flg) {
         this.setDialog(flg);
@@ -98,8 +85,7 @@ export default {
         return this.review.star || 0;
       },
       set: function(star) {
-        let rv = Object.assign(this.review, { star });
-        this.setReview(rv);
+        this.setReview({ ...this.review, star });
       },
     },
     comment: {
@@ -107,29 +93,18 @@ export default {
         return this.review.comment || '';
       },
       set: function(comment) {
-        let rv = Object.assign(this.review, { comment });
-        this.setReview(rv);
+        this.setReview({ ...this.review, comment });
       },
     },
-    notReady: function() {
-      return this.rvstat === dataStatus.INTIAL || this.rvstat === dataStatus.BUZY;
-    },
-    accessible: function() {
-      return this.rvstat === dataStatus.ACCESSIBLE;
-    },
-    ...mapGetters({
-      review: 'getReview',
-      rvstat: 'getReviewStatus',
-    }),
+    ...mapState([
+      'review',
+    ]),
   },
   methods: {
     register: function() {
       if (this.$refs.form.validate()) {
         this.$emit('onRegister', { comment: this.comment, star: this.star });
       }
-    },
-    cancel: function() {
-      this.setDialog(false);
     },
     ...mapMutations([
       'setReview',
@@ -142,10 +117,4 @@ export default {
 </script>
 
 <style>
-.progress {
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  text-align: center;
-}
 </style>

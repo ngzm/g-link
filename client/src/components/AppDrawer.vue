@@ -55,6 +55,9 @@ export default {
     drawer: {
       type: Boolean,
     },
+    setDrawer: {
+      type: Function,
+    },
   },
 
   computed: {
@@ -62,8 +65,8 @@ export default {
       get: function() {
         return this.drawer;
       },
-      set: function(isopn) {
-        this.$emit('setDrawer', isopn);
+      set: function(drawer) {
+        this.setDrawer(drawer);
       },
     },
     ...mapGetters('categories', {

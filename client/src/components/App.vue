@@ -2,7 +2,7 @@
   <v-app toolbar>
 
     <!-- Drawer -->
-    <AppDrawer v-bind:drawer="drawer" @setDrawer="setDrawer" />
+    <AppDrawer v-bind:drawer="drawer" v-bind:setDrawer="setDrawer" />
 
     <!-- Toolbar -->
     <AppToolbar @toggleDrawer="toggleDrawer" />

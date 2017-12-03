@@ -9,11 +9,6 @@ export default {
     gameStatus: dataStatus.INITIAL,
   },
 
-  getters: {
-    getGame: state => state.game,
-    getGameStatus: state => state.gameStatus,
-  },
-
   mutations: {
     setGame: (state, game) => {
       state.game = game;

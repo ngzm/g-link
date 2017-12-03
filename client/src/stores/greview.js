@@ -10,11 +10,6 @@ export default {
     newMode: false,
   },
 
-  getters: {
-    getReview: state => state.review,
-    getReviewStatus: state => state.reviewStatus,
-  },
-
   mutations: {
     setReview: (state, review) => {
       state.review = review;
