@@ -9,11 +9,6 @@ export default {
     gameStatus: dataStatus.INITIAL,
   },
 
-  getters: {
-    getGame: state => state.game,
-    getGameStatus: state => state.gameStatus,
-  },
-
   mutations: {
     setGame: (state, game) => {
       state.game = game;
@@ -28,6 +23,8 @@ export default {
       commit('setGameStatus', dataStatus.BUZY);
       GameService.fetchGameDetail(id,
         (res) => {
+          console.log('game');
+          console.dir(res.data);
           commit('setGame', res.data);
           commit('setGameStatus', dataStatus.ACCCESSIBLE);
         },

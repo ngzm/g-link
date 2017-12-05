@@ -1,7 +1,3 @@
-const idcomp = (a, b) => (
-  (a.id === b.id) ? 0 : ((a.id > b.id) ? 1 : -1)
-);
-
 export default {
   namespaced: true,
 
@@ -30,13 +26,13 @@ export default {
   },
 
   getters: {
-    getCategories: (state) => (state.categories.slice().sort(idcomp)),
+    getCategories: (state) => (state.categories.slice().sort((a, b) => a.id - b.id)),
     getCurCategory: (state) => {
       const match = state.categories.find((c) => (c.id === state.currentCategory));
       if (!match) { return state.categories[0]; }
       return match;
     },
-    getSortKeys: (state) => (state.sortKeys.slice().sort(idcomp)),
+    getSortKeys: (state) => (state.sortKeys.slice().sort((a, b) => a.id - b.id)),
     getCurSortKey: (state) => {
       const match = state.sortKeys.find((k) => (k.id === state.currentSortKey));
       if (!match) { return state.sortKeys[0]; }

@@ -10,11 +10,6 @@ export default {
     newMode: false,
   },
 
-  getters: {
-    getReview: state => state.review,
-    getReviewStatus: state => state.reviewStatus,
-  },
-
   mutations: {
     setReview: (state, review) => {
       state.review = review;
@@ -62,7 +57,10 @@ export default {
       func.call(GameService, Object.assign(state.review, review),
         (res) => {
           commit('setNewMode', false);
-          commit('setReview', res.data);
+          commit('setReview', {});
+
+          // Set the game detail to Game store
+          commit('game/setGame', res.data, { root: true });
           commit('setReviewStatus', dataStatus.REGISTERED);
         },
         (err) => {

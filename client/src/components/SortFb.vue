@@ -9,14 +9,14 @@
   >
     <v-btn
       slot="activator"
-      class="red darken-2"
+      :class="fbcolor"
       v-tooltip:left="{ html: `ｿｰﾄ: ${getCurSortKey.title}` }"
       dark
       fab
       hover
       v-model="fab"
     >
-      <v-icon>sort</v-icon>
+      <v-icon>{{fbicon}}</v-icon>
     </v-btn>
     <v-btn
       v-for="key in sortKeys"
@@ -36,6 +36,11 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 const { mapGetters, mapMutations } = createNamespacedHelpers('categories');
+const { mapActions } = createNamespacedHelpers('games');
+
+const getButtonColor = k => (
+  (k === 1) ? 'blue' : (k === 2) ? 'yellow darken-2' : 'pink'
+);
 
 /**
  * SortFb (Floating Button) Component
@@ -45,13 +50,15 @@ export default {
     fab: false,
   }),
   computed: {
+    fbcolor : function() {
+      return getButtonColor(this.getCurSortKey.id);
+    },
+    fbicon : function() {
+      return this.getCurSortKey.icon;
+    },
     sortKeys: function() {
       return this.getSortKeys.map((k) => {
-        const color = (k.id !== this.getCurSortKey.id) ? 'grey darken-1'
-          : (k.id === 1) ? 'blue darken-2'
-            : (k.id === 2) ? 'amber darken-2'
-              : 'green darken-2';
-        return { color, ...k };
+        return { color: getButtonColor(k.id), ...k };
       });
     },
     ...mapGetters([
@@ -62,9 +69,13 @@ export default {
   methods: {
     setSortOrder: function(key) {
       this.setCurSortKey(key);
+      this.sortGames();
     },
     ...mapMutations([
       'setCurSortKey',
+    ]),
+    ...mapActions([
+      'sortGames',
     ]),
   },
 };

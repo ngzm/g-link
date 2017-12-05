@@ -9,23 +9,6 @@ export default {
     gamesStatus: dataStatus.INITIAL,
   },
 
-  getters: {
-    getGames: (state, getters, rootState) => {
-      const key = rootState.categories.currentSortKey;
-      let comp;
-      if (key === 2) {
-        comp = (a, b) => ((a.star === b.star) ? 0 : ((a.star < b.star) ? 1 : -1));
-      } else if (key === 3) {
-        comp = (a, b) => ((a.access === b.access) ? 0 : ((a.access < b.access) ? 1 : -1));
-      } else {
-        comp = (a, b) => ((a.star === b.star) ? 0 : ((a.star < b.star) ? 1 : -1));
-      }
-      return state.games.slice().sort(comp);
-    },
-    getGameById: (state) => (id) => (state.games.find(game => game.id === id)),
-    getGamesStatus: state => state.gamesStatus,
-  },
-
   mutations: {
     setGames: (state, games) => {
       state.games = games;
@@ -36,11 +19,13 @@ export default {
   },
 
   actions: {
-    fetchGames: ({ commit, rootState }) => {
+    fetchGames: ({ dispatch, commit, rootState }) => {
       commit('setGamesStatus', dataStatus.BUZY);
       GameService.fetchGames(rootState.categories.currentCategory,
         (res) => {
+          console.log('data'); console.dir(res.data);
           commit('setGames', res.data);
+          dispatch('sortGames');
           commit('setGamesStatus', dataStatus.ACCESSIBLE);
         },
         (err) => {
@@ -49,6 +34,27 @@ export default {
           commit('setGamesStatus', dataStatus.ERROR);
         }
       );
+    },
+    sortGames: ({ state, commit, rootState }) => {
+      let func;
+      const key = rootState.categories.currentSortKey;
+      switch (key) {
+      case 2:
+        func = (a, b) => (b.star - a.star);
+        break;
+      case 3:
+        func = (a, b) => (b.access - a.access);
+        break;
+      case 1:
+      default:
+        func = (a, b) => {
+          const adate = new Date(a.created_at);
+          const bdate = new Date(b.created_at);
+          return bdate - adate;
+        };
+        break;
+      }
+      commit('setGames', state.games.slice().sort(func));
     },
   },
 };
