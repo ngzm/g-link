@@ -8,8 +8,7 @@ export default class GameService {
    * fetch games list through Ajax from server
    */
   static fetchGames(category, success, fail) {
-    const url = `/api/game_list/${category}`;
-    naxios.get(url)
+    naxios.get(`/api/game_list/${category}`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }
@@ -18,8 +17,7 @@ export default class GameService {
    * fetch game detail through Ajax from server
    */
   static fetchGameDetail(id, success, fail) {
-    const url = `/api/game_detail/${id}`;
-    naxios.get(url)
+    naxios.get(`/api/game_detail/${id}`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }
@@ -28,8 +26,7 @@ export default class GameService {
    * fetch game review through Ajax from server
    */
   static fetchGameReview(id, success, fail) {
-    const url = `/api/game_review/${id}`;
-    naxios.get(url)
+    naxios.get(`/api/game_review/${id}`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }
@@ -38,19 +35,35 @@ export default class GameService {
    * create game review through Ajax
    */
   static createGameReview(review, success, fail) {
-    const url = `/api/game_review/${review.game_id}`;
-    naxios.post(url, review)
-      .then((res) => { success(res); })
-      .catch((err) => { fail(err); });
+    // Post a new review of the game.
+    naxios.post(`/api/game_review/${review.game_id}`, review)
+      .then((res) => {
+        // Success to create, then fetch the game detail.
+        return naxios.get(`/api/game_detail/${res.data.game_id}`);
+      })
+      .then((res) => {
+        success(res);
+      })
+      .catch((err) => {
+        fail(err);
+      });
   }
 
   /**
    * update game review through Ajax
    */
   static updateGameReview(review, success, fail) {
-    const url = `/api/game_review/${review.game_id}`;
-    naxios.patch(url, review)
-      .then((res) => { success(res); })
-      .catch((err) => { fail(err); });
+    // Patch the updated review of the game.
+    naxios.patch(`/api/game_review/${review.game_id}`, review)
+      .then((res) => {
+        // Success to update, then fetch the game detail.
+        return naxios.get(`/api/game_detail/${res.data.game_id}`);
+      })
+      .then((res) => {
+        success(res);
+      })
+      .catch((err) => {
+        fail(err);
+      });
   }
 }

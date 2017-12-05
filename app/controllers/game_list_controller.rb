@@ -30,7 +30,7 @@ class GameListController < ApplicationController
     if id =~ /^\d+$/
       @gdetail = Game.includes(:instructions, :reviews, :users).find(id)
       @instructions = @gdetail.instructions.sort { |a, b| a.id <=> b.id }
-      @reviews = @gdetail.reviews.sort { |a, b| b.id <=> a.id }[0, 7]
+      @reviews = @gdetail.reviews.sort { |a, b| b.updated_at <=> a.updated_at }[0, 7]
     end
 
     # TODO: dummy
@@ -85,10 +85,7 @@ class GameListController < ApplicationController
       return
     end
 
-    unless @review.update update_review_params
-      head :internal_server_error
-      return
-    end
+    @review.update_review update_review_params
 
     # TODO: dummy
     sleep 1
@@ -111,11 +108,8 @@ class GameListController < ApplicationController
     end
 
     params[:review] = JSON.parse(request.body.read, symbolize_names: true)
-    @review = Review.create({ game_id: gid, user_id: uid }.merge(update_review_params))
-    unless @review
-      head :internal_server_error
-      return
-    end
+    params_review = { game_id: gid, user_id: uid }.merge(update_review_params)
+    @review = Review.create_review(params_review)
 
     # TODO: dummy
     sleep 1

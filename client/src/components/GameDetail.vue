@@ -22,7 +22,7 @@
             icon
             fab
             dark
-            class="blue"
+            class="orange"
             @click.native.stop="onOpenReview"
             v-tooltip:bottom="{ html: '評価する' }"
           ><v-icon>star</v-icon></v-btn>
@@ -30,7 +30,7 @@
             icon
             fab
             dark
-            class="amber darken-1"
+            class="blue"
             @click="$router.back()"
             v-tooltip:bottom="{ html: '一覧に戻る' }"
           ><v-icon>apps</v-icon></v-btn>

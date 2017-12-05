@@ -31,11 +31,9 @@
     <!-- Stars count -->
     <v-card-text>
       <div>
-        <h5 class="title">評価</h5>
+        <h5 class="title">総合評価</h5>
         <div class="ml-2">
-          <v-icon v-for="n in game.star" :key="n" class="yellow--text" >
-            star
-          </v-icon>
+          <v-icon v-for="n in game.star" :key="n" class="orange--text">star</v-icon>
         </div>
       </div>
     </v-card-text>
@@ -47,7 +45,14 @@
 
        <v-expansion-panel expand>
           <v-expansion-panel-content v-for="(rv, index) in game.reviews" :key="index">
-            <div slot="header">{{ rv.user }}</div>
+            <div slot="header">
+              {{ rv.user }}
+              <span>
+                <v-icon v-for="n in rv.star" :key="n" class="yellow--text star">
+                  star
+                </v-icon>
+              </span>
+            </div>
             <v-card>
               <v-card-text class="grey lighten-3">
                 {{ rv.comment }}
@@ -75,4 +80,7 @@ export default {
 </script>
 
 <style>
+.star {
+  font-size: 75%;
+}
 </style>

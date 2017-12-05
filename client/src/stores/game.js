@@ -23,6 +23,8 @@ export default {
       commit('setGameStatus', dataStatus.BUZY);
       GameService.fetchGameDetail(id,
         (res) => {
+          console.log('game');
+          console.dir(res.data);
           commit('setGame', res.data);
           commit('setGameStatus', dataStatus.ACCCESSIBLE);
         },

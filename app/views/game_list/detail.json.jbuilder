@@ -10,6 +10,7 @@ end
 
 json.reviews do
   json.array!(@reviews) do |review|
+    json.star(review.star)
     json.comment(review.comment)
     json.user(review.user.name)
   end
