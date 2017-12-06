@@ -13,6 +13,12 @@ export default {
     setGames: (state, games) => {
       state.games = games;
     },
+    spliceGames: (state, game) => {
+      const idx = state.games.findIndex(g => g.id === game.id);
+      if (idx >= 0 && idx < state.games.length) {
+        state.games.splice(idx, 1, game);
+      }
+    },
     setGamesStatus: (state, stt) => {
       state.gamesStatus = stt;
     },
@@ -23,7 +29,6 @@ export default {
       commit('setGamesStatus', dataStatus.BUZY);
       GameService.fetchGames(rootState.categories.currentCategory,
         (res) => {
-          console.log('data'); console.dir(res.data);
           commit('setGames', res.data);
           dispatch('sortGames');
           commit('setGamesStatus', dataStatus.ACCESSIBLE);

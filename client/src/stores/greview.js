@@ -27,8 +27,8 @@ export default {
       commit('setReviewStatus', dataStatus.BUZY);
       GameService.fetchGameReview(id,
         (res) => {
-          commit('setNewMode', false);
           commit('setReview', res.data);
+          commit('setNewMode', false);
           commit('setReviewStatus', dataStatus.ACCESSIBLE);
         },
         (err) => {
@@ -56,11 +56,16 @@ export default {
       }
       func.call(GameService, Object.assign(state.review, review),
         (res) => {
-          commit('setNewMode', false);
           commit('setReview', {});
+          const gdat = res.data;
 
-          // Set the game detail to Game store
-          commit('game/setGame', res.data, { root: true });
+          // Set game datato the game store
+          commit('game/setGame', gdat, { root: true });
+
+          // Splice game data to the games store
+          commit('games/spliceGames', gdat, { root: true });
+
+          commit('setNewMode', false);
           commit('setReviewStatus', dataStatus.REGISTERED);
         },
         (err) => {

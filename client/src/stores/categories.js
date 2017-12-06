@@ -17,7 +17,7 @@ export default {
       { id: 12, title: 'Variety', route: 'variety', icon: 'games' },
     ],
     sortKeys: [
-      { id: 1, title: '更新順', icon: 'update' },
+      { id: 1, title: '新着順', icon: 'update' },
       { id: 2, title: '評価順', icon: 'star' },
       { id: 3, title: 'ｱｸｾｽ順', icon: 'trending_up' },
     ],
