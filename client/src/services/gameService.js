@@ -38,7 +38,7 @@ export default class GameService {
     // Post a new review of the game.
     naxios.post(`/api/game_review/${review.game_id}`, review)
       .then((res) => {
-        // Success to create, then fetch the game detail.
+        // Success on create, and then fetch the game detail.
         return naxios.get(`/api/game_detail/${res.data.game_id}`);
       })
       .then((res) => {
@@ -56,7 +56,7 @@ export default class GameService {
     // Patch the updated review of the game.
     naxios.patch(`/api/game_review/${review.game_id}`, review)
       .then((res) => {
-        // Success to update, then fetch the game detail.
+        // Success on update, and then fetch the game detail.
         return naxios.get(`/api/game_detail/${res.data.game_id}`);
       })
       .then((res) => {
