@@ -1,8 +1,5 @@
 <template>
   <section>
-    <div v-show="!isBuzy">
-      <router-view></router-view>
-    </div>
     <div v-if="isBuzy" class="progress">
       <v-progress-circular
         indeterminate
@@ -10,6 +7,9 @@
         v-bind:width="7"
         class="mt-5 primary--text"
       ></v-progress-circular>
+    </div>
+    <div v-else>
+      <router-view></router-view>
     </div>
   </section>
 </template>

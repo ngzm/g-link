@@ -2,62 +2,62 @@
 # Games list
 #
 class GameListController < ApplicationController
-  #
+  before_action :authenticated?
+  before_action :check_category_id, only: :index
+  before_action :check_game_id, except: :index
+  before_action :parse_review_json, only: %i[rupdate rcreate]
+
   # Get games list belongs to the specified category
-  #
   def index
-    @games = []
+    @games = Game.where(category1: @category_id)
+                 .or(Game.where(category2: @category_id))
+                 .or(Game.where(category3: @category_id))
+    if @games.empty?
+      head :not_found
+    else
+      # render json: { message: 'err!!' }, status: :bad_request
+      # return
 
-    cid = params[:category_id]
-    if cid =~ /^\d\d?$/
-      @games = Game.where(category1: cid)
-                   .or(Game.where(category2: cid))
-                   .or(Game.where(category3: cid))
+      # raise 'error !!'
+      sleep 1
+
+      render 'index', formats: 'json', handlers: 'jbuilder'
     end
-
-    # TODO: dummy
-    sleep 1
-    # TODO: dummy
-
-    render 'index', formats: 'json', handlers: 'jbuilder'
   end
 
-  #
   # Get game data
-  #
   def detail
-    id = params[:game_id]
-    if id =~ /^\d+$/
-      @gdetail = Game.includes(:instructions, :reviews, :users).find(id)
-      @instructions = @gdetail.instructions.sort { |a, b| a.id <=> b.id }
-      @reviews = @gdetail.reviews.sort { |a, b| b.updated_at <=> a.updated_at }[0, 7]
+    @gdetail = Game.includes(:instructions, :reviews, :users)
+                   .find_by_id(@game_id)
+    if @gdetail
+      @instructions = @gdetail.ordered_instructions
+      @reviews = @gdetail.newer_reviews_top(7)
+
+      # render json: { message: 'err!!' }, status: :bad_request
+      # return
+
+      # raise 'error !!'
+      sleep 1
+
+      render 'detail', formats: 'json', handlers: 'jbuilder'
+    else
+      head :not_found
     end
-
-    # TODO: dummy
-    sleep 1
-    # TODO: dummy
-
-    render 'detail', formats: 'json', handlers: 'jbuilder'
   end
 
   #
   # Get game review data
   #
   def review
-    # とりあえずユーザIDは仮に1とする
-    # 本当は、認証tokenから取得する仕様とする
-    uid = 1
-    gid = params[:game_id]
-    unless gid =~ /^\d+$/
-      head :internal_server_error
-      return
-    end
-    @review = Review.find_by(game_id: gid, user_id: uid)
+    @review = Review.find_by(game_id: @game_id, user_id: @user_id)
     if @review
 
-      # TODO: dummy
+      # render json: { message: 'err!!' }, status: :bad_request
+      # return
+
+      #raise 'error !!'
+
       sleep 1
-      # TODO: dummy
 
       render 'review', formats: 'json', handlers: 'jbuilder'
     else
@@ -69,57 +69,72 @@ class GameListController < ApplicationController
   # Update game review data
   #
   def rupdate
-    # とりあえずユーザIDは仮に1とする
-    # 本当は、認証tokenから取得する仕様とする
-    uid = 1
-    gid = params[:game_id]
-    unless gid =~ /^\d+$/
+    @review = Review.find_by(game_id: @game_id, user_id: @user_id)
+    if @review
+      @review.update_review update_review_params
+
+      # render json: { message: 'err!!' }, status: :bad_request
+      # return
+
+      # raise 'error !!'
+      sleep 1
+
+      render 'review', formats: 'json', handlers: 'jbuilder'
+    else
       head :internal_server_error
-      return
     end
-
-    params[:review] = JSON.parse(request.body.read, symbolize_names: true)
-    @review = Review.find_by(game_id: gid, user_id: uid)
-    unless @review
-      head :internal_server_error
-      return
-    end
-
-    @review.update_review update_review_params
-
-    # TODO: dummy
-    sleep 1
-    # TODO: dummy
-
-    render 'review', formats: 'json', handlers: 'jbuilder'
   end
 
   #
   # Create game review data
   #
   def rcreate
-    # とりあえずユーザIDは仮に1とする
-    # 本当は、認証tokenから取得する仕様とする
-    uid = 1
-    gid = params[:game_id]
-    unless gid =~ /^\d+$/
-      head :internal_server_error
-      return
-    end
+    params_review = { game_id: @game_id, user_id: @user_id }
+                    .merge(update_review_params)
 
-    params[:review] = JSON.parse(request.body.read, symbolize_names: true)
-    params_review = { game_id: gid, user_id: uid }.merge(update_review_params)
+    # TODO: Have to refine create review model methods
     @review = Review.create_review(params_review)
 
-    # TODO: dummy
     sleep 1
-    # TODO: dummy
 
     render 'review', formats: 'json', handlers: 'jbuilder'
   end
 
+  # Lower .. private methods
   private
 
+  # Check authenticated
+  def authenticated?
+    # TODO: Under constructions
+    @user_id = 1
+  end
+
+  # Check parameter category_id
+  def check_category_id
+    @category_id = params[:category_id]
+    error_data = {
+      status: 401,
+      message: "Invalid category id : #{@category_id}"
+    }
+    render json: error_data, status: :bad_request unless @category_id =~ /^\d+$/
+  end
+
+  # Check parameter game_id
+  def check_game_id
+    @game_id = params[:game_id]
+    error_data = {
+      status: 401,
+      message: "Invalid game id : #{@game_id}"
+    }
+    render json: error_data, status: :bad_request unless @game_id =~ /^\d+$/
+  end
+
+  # Check parameter game_id
+  def parse_review_json
+    params[:review] = JSON.parse(request.body.read, symbolize_names: true)
+  end
+
+  # Strong parameters
   def update_review_params
     params.require(:review).permit(:comment, :star)
   end

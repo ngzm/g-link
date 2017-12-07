@@ -1,7 +1,7 @@
 <template>
 <section>
-  <h2>Main</h2>
-  This is Main
+  <h2>Home</h2>
+  This is Home
 </section>
 </template>
 

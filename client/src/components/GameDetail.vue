@@ -1,9 +1,12 @@
 <template>
   <v-container fluid grid-list-xl>
-    <v-layout row wrap>
+    <!-- alerts -->
+    <AlertField v-bind:alerts="serverErrors" />
 
-      <!-- Left or up flexbox -->
+    <!-- game information -->
+    <v-layout row wrap>
       <v-flex md8 lg7 xl6 offset-md2 offset-lg0>
+
         <!-- Game image -->
         <div>
           <img :src="game.img" style="width: 100%" />
@@ -35,12 +38,13 @@
             v-tooltip:bottom="{ html: '一覧に戻る' }"
           ><v-icon>apps</v-icon></v-btn>
         </div>
-      </v-flex>
 
-      <!-- Right or down flexbox -->
+      </v-flex>
       <v-flex md8 lg5 xl6 offset-md2 offset-lg0>
+
         <!-- Game information -->
         <GameInfo :game="game" />
+
       </v-flex>
 
       <!-- Dialog which register game rating --> 
@@ -57,6 +61,7 @@
         :setSnackbar="setSnackbar"
         :message="message"
       />
+
     </v-layout>
 
     <!-- progress --> 
@@ -74,10 +79,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { dataStatus } from '../stores/StoreStatus';
 import GameInfo from './GameInfo.vue';
 import GameReview from './GameReview.vue';
+import AlertField from './AlertField.vue';
 import Infobar from './Infobar.vue';
-import { dataStatus } from '../stores/StoreStatus';
 
 /**
  * Game Detail Component
@@ -103,14 +109,14 @@ export default {
     registeredReview: function() {
       return this.snackbar && this.reviewStatus === dataStatus.REGISTERED;
     },
-    hasError: function() {
-      return this.reviewStatus === dataStatus.ERROR;
-    },
     ...mapState('game', [
       'game',
     ]),
     ...mapState('greview', [
       'reviewStatus',
+    ]),
+    ...mapState('errors', [
+      'serverErrors',
     ]),
   },
   methods: {
@@ -138,6 +144,7 @@ export default {
   components: {
     GameInfo,
     GameReview,
+    AlertField,
     Infobar,
   },
 };
