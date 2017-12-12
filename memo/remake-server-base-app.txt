@@ -1,0 +1,138 @@
+################################
+# genarate game model
+################################
+
+$ be rails generate model game title:string description:string url:string img:string category1:integer category2:integer category3:integer access:integer star:integer
+
+      invoke  active_record
+      create    db/migrate/20171213070159_create_games.rb
+      create    app/models/game.rb
+      invoke    test_unit
+      create      test/models/game_test.rb
+      create      test/fixtures/games.yml
+
+$ vim db/migrate/20171213070159_create_games.rb
+----
+class CreateGames < ActiveRecord::Migration[5.1]
+  def change
+    create_table :games do |t|
+      t.string :title, null: false
+      t.string :description, null: false
+      t.string :url, null: false
+      t.string :img, null: false
+      t.integer :category1, null: false, default: 1
+      t.integer :category2
+      t.integer :category3
+      t.integer :access, null: false, default: 0
+      t.integer :star, null: false, default: 0
+
+      t.timestamps
+    end
+  end
+end
+---
+
+$ be rails db:migrate
+== 20171213070159 CreateGames: migrating ======================================
+-- create_table(:games)
+   -> 0.0011s
+== 20171213070159 CreateGames: migrated (0.0011s) =============================
+
+################################
+# genarate user model
+################################
+
+$ be rails generate model user name:string full_name:string email:string
+      invoke  active_record
+      create    db/migrate/20171213070923_create_users.rb
+      create    app/models/user.rb
+      invoke    test_unit
+      create      test/models/user_test.rb
+      create      test/fixtures/users.yml
+
+$ vim db/migrate/20171213070923_create_users.rb
+---
+class CreateUsers < ActiveRecord::Migration[5.1]
+  def change
+    create_table :users do |t|
+      t.string :name, null: false
+      t.string :full_name, null: false
+      t.string :email, null: false
+
+      t.timestamps
+    end
+  end
+end
+---
+
+$ be rails db:migrate
+== 20171213070923 CreateUsers: migrating ======================================
+-- create_table(:users)
+   -> 0.0011s
+== 20171213070923 CreateUsers: migrated (0.0011s) =============================
+
+
+################################
+# genarate instruction model
+################################
+
+$ be rails generate model instruction explanation:string step:integer game:references
+      invoke  active_record
+      create    db/migrate/20171213074558_create_instructions.rb
+      create    app/models/instruction.rb
+      invoke    test_unit
+      create      test/models/instruction_test.rb
+      create      test/fixtures/instructions.yml
+
+$ vim db/migrate/20171213074558_create_instructions.rb
+---
+class CreateInstructions < ActiveRecord::Migration[5.1]
+  def change
+    create_table :instructions do |t|
+      t.string :explanation, null: false
+      t.integer :step, null: false, default: 1
+      t.references :game, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+---
+
+################################
+# genarate review model
+################################
+
+$ be rails generate model review comment:string star:integer game:references user:references
+      invoke  active_record
+      create    db/migrate/20171213075613_create_reviews.rb
+      create    app/models/review.rb
+      invoke    test_unit
+      create      test/models/review_test.rb
+      create      test/fixtures/reviews.yml
+
+$ vim db/migrate/20171213075613_create_reviews.rb
+---
+class CreateReviews < ActiveRecord::Migration[5.1]
+  def change
+    create_table :reviews do |t|
+      t.string :comment, null: false
+      t.integer :star, null: false, default: 0
+      t.references :game, foreign_key: true
+      t.references :user, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+---
+
+$ be rails db:migrate
+== 20171213075613 CreateReviews: migrating ====================================
+-- create_table(:reviews)
+   -> 0.0028s
+== 20171213075613 CreateReviews: migrated (0.0029s) ===========================
+
+######################
+とりあえず、ここまでで 基本的なDBテーブルと、model スケルトンが作成された。
+
