@@ -1,23 +1,31 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Main from './Main.vue';
+import AppMain from './AppMain.vue';
+import Home from './Home.vue';
 import Game from './Game.vue';
 import GameList from './GameList.vue';
 import GameDetail from './GameDetail.vue';
 import Login from './Login.vue';
+import Error from './Error.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Main },
-  { path: '/game', component: Game,
+  { path: '/', component: AppMain,
     children: [
-      { path: '', component: GameList },
-      { path: 'list/:category', component: GameList },
-      { path: 'detail/:id', component: GameDetail, props: true },
+      { path: '', component: Home },
+      { path: 'home', component: Home },
+      { path: 'game', component: Game,
+        children: [
+          { path: '', component: GameList },
+          { path: 'list/:category', component: GameList },
+          { path: 'detail/:id', component: GameDetail, props: true },
+        ],
+      },
+      { path: 'login', component: Login },
     ],
   },
-  { path: '/login', component: Login },
+  { path: '/error', component: Error },
 ];
 
 const scrollBehavior = (to, from, savedPosition) => {

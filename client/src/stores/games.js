@@ -27,6 +27,7 @@ export default {
   actions: {
     fetchGames: ({ dispatch, commit, rootState }) => {
       commit('setGamesStatus', dataStatus.BUZY);
+      commit('errors/clearServerErrors', null, { root: true });
       GameService.fetchGames(rootState.categories.currentCategory,
         (res) => {
           commit('setGames', res.data);
@@ -34,7 +35,10 @@ export default {
           commit('setGamesStatus', dataStatus.ACCESSIBLE);
         },
         (err) => {
-          console.log(`err = ${err}`);
+          commit('errors/addServerErrors',
+            { status: err.response.status, code: err.response.status, message: err.message },
+            { root: true }
+          );
           commit('setGames', []);
           commit('setGamesStatus', dataStatus.ERROR);
         }

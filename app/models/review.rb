@@ -5,6 +5,20 @@ class Review < ApplicationRecord
   belongs_to :game
   belongs_to :user
 
+  validates :game_id,
+            presence: true,
+            numericality: { only_integer: true, allow_blank: true }
+
+  validates :user_id,
+            presence: true,
+            numericality: { only_integer: true, allow_blank: true }
+
+  validates :star,
+            presence: true,
+            inclusion: { in: (0..5).to_a, allow_blank: true }
+
+  validates :comment, presence: true
+
   class << self
     # create game review and update game table star
     def create_review(review)

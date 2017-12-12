@@ -25,6 +25,8 @@ export default {
   actions: {
     fetchReview: ({ commit }, id) => {
       commit('setReviewStatus', dataStatus.BUZY);
+      commit('errors/clearServerErrors', null, { root: true });
+
       GameService.fetchGameReview(id,
         (res) => {
           commit('setReview', res.data);
@@ -32,13 +34,15 @@ export default {
           commit('setReviewStatus', dataStatus.ACCESSIBLE);
         },
         (err) => {
-          console.log(`err status = ${err.response.status}`);
-          console.log(`err message = ${err.message}`);
           if (err.response.status == 404) {
             commit('setNewMode', true);
             commit('setReview', { game_id: id, comment: '', star: 3 });
             commit('setReviewStatus', dataStatus.ACCESSIBLE);
           } else {
+            commit('errors/addServerErrors',
+              { status: err.response.status, code: err.response.status, message: err.message },
+              { root: true }
+            );
             commit('setReview', {});
             commit('setReviewStatus', dataStatus.ERROR);
           }
@@ -47,6 +51,7 @@ export default {
     },
     registerReview: ({ state, commit }, review) => {
       commit('setReviewStatus', dataStatus.BUZY);
+      commit('errors/clearServerErrors', null, { root: true });
 
       let func = null;
       if (state.newMode) {
@@ -69,8 +74,10 @@ export default {
           commit('setReviewStatus', dataStatus.REGISTERED);
         },
         (err) => {
-          console.log(`err status = ${err.response.status}`);
-          console.log(`err message = ${err.message}`);
+          commit('errors/addServerErrors',
+            { status: err.response.status, code: err.response.status, message: err.message },
+            { root: true }
+          );
           commit('setReview', {});
           commit('setReviewStatus', dataStatus.ERROR);
         }
