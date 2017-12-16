@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace :api do
+    get 'main/index', format: false
+    get 'games/:category_id', to: 'games#index', format: false
+    get 'games/show/:game_id', to: 'games#show', format: false
+  end
+
+  root 'api/main#index'
 end
