@@ -3,27 +3,18 @@ module Api
   # game.link controller of the games
   #
   class GamesController < Api::ApiController
-    before_action :check_category_id, only: :index
-    before_action :check_game_id, except: :index
+    before_action :check_game_id, only: :show
+    before_action :check_category_id, only: :search
+    skip_before_action :authenticated?
 
     #
     # Get games list belongs to the specified category
     #
     def index
-      @games = Game.where(category1: @category_id)
-                   .or(Game.where(category2: @category_id))
-                   .or(Game.where(category3: @category_id))
+      @games = Game.all
       if @games.empty?
         head :not_found
       else
-        # TODO: Just for Test. Do not forget to delete when finish the test.
-        # render json: { message: 'err!!' }, status: :bad_request
-        # return
-
-        # TODO: Just for Test. Do not forget to delete when finish the test.
-        # raise 'error !!'
-        # sleep 1
-
         render 'index', formats: 'json', handlers: 'jbuilder'
       end
     end
@@ -52,6 +43,28 @@ module Api
       end
     end
 
+    #
+    # Get games list belongs to the specified category
+    #
+    def search
+      @games = Game.where(category1: @category_id)
+                   .or(Game.where(category2: @category_id))
+                   .or(Game.where(category3: @category_id))
+      if @games.empty?
+        head :not_found
+      else
+        # TODO: Just for Test. Do not forget to delete when finish the test.
+        # render json: { message: 'err!!' }, status: :bad_request
+        # return
+
+        # TODO: Just for Test. Do not forget to delete when finish the test.
+        # raise 'error !!'
+        # sleep 1
+
+        render 'search', formats: 'json', handlers: 'jbuilder'
+      end
+    end
+
     # private methods
     private
 
@@ -71,7 +84,7 @@ module Api
 
     # Check parameter game_id
     def check_game_id
-      @game_id = params[:game_id]
+      @game_id = params[:id]
       return if @game_id =~ /^\d+$/
 
       error_data = {

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
     get 'main/index', format: false
-    get 'games/:category_id', to: 'games#index', format: false
-    get 'games/show/:game_id', to: 'games#show', format: false
+    get 'games/search/:category_id', to: 'games#search', format: false
+    resources :games, only: %i[index show], format: false
   end
 
   root 'api/main#index'

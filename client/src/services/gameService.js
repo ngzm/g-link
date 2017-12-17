@@ -8,7 +8,7 @@ export default class GameService {
    * fetch games list through Ajax from server
    */
   static fetchGames(category, success, fail) {
-    naxios.get(`/api/games/${category}`)
+    naxios.get(`/api/games/search/${category}`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }
@@ -17,7 +17,7 @@ export default class GameService {
    * fetch game detail through Ajax from server
    */
   static fetchGameDetail(id, success, fail) {
-    naxios.get(`/api/games/show/${id}`)
+    naxios.get(`/api/games/${id}`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }
