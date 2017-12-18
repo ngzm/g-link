@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  inst: MyString
+  explanation: MyString
+  step: 1
   game: one
 
 two:
-  inst: MyString
+  explanation: MyString
+  step: 1
   game: two

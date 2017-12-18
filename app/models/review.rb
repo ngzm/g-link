@@ -1,5 +1,5 @@
 #
-# Game reiew model
+# Game's review model class
 #
 class Review < ApplicationRecord
   belongs_to :game
@@ -19,14 +19,11 @@ class Review < ApplicationRecord
 
   validates :comment, presence: true
 
-  class << self
-    # create game review and update game table star
-    def create_review(review)
-      Review.transaction do
-        rv = Review.create!(review)
-        rv.update_game_star if rv
-        return rv
-      end
+  # save new game review and update game table star
+  def save_review
+    Review.transaction do
+      save!
+      update_game_star
     end
   end
 

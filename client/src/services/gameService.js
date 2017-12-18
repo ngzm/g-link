@@ -8,7 +8,7 @@ export default class GameService {
    * fetch games list through Ajax from server
    */
   static fetchGames(category, success, fail) {
-    naxios.get(`/api/game_list/${category}`)
+    naxios.get(`/api/games/search/${category}`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }
@@ -17,7 +17,7 @@ export default class GameService {
    * fetch game detail through Ajax from server
    */
   static fetchGameDetail(id, success, fail) {
-    naxios.get(`/api/game_detail/${id}`)
+    naxios.get(`/api/games/${id}`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }
@@ -26,7 +26,7 @@ export default class GameService {
    * fetch game review through Ajax from server
    */
   static fetchGameReview(id, success, fail) {
-    naxios.get(`/api/game_review/${id}`)
+    naxios.get(`/api/games/${id}/reviews`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }
@@ -36,10 +36,10 @@ export default class GameService {
    */
   static createGameReview(review, success, fail) {
     // Post a new review of the game.
-    naxios.post(`/api/game_review/${review.game_id}`, review)
+    naxios.post(`/api/games/${review.game_id}/reviews`, review)
       .then((res) => {
         // Success on create, and then fetch the game detail.
-        return naxios.get(`/api/game_detail/${res.data.game_id}`);
+        return naxios.get(`/api/games/${res.data.game_id}`);
       })
       .then((res) => {
         success(res);
@@ -54,10 +54,10 @@ export default class GameService {
    */
   static updateGameReview(review, success, fail) {
     // Patch the updated review of the game.
-    naxios.patch(`/api/game_review/${review.game_id}`, review)
+    naxios.patch(`/api/games/${review.game_id}/reviews`, review)
       .then((res) => {
         // Success on update, and then fetch the game detail.
-        return naxios.get(`/api/game_detail/${res.data.game_id}`);
+        return naxios.get(`/api/games/${res.data.game_id}`);
       })
       .then((res) => {
         success(res);

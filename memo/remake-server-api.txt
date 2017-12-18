@@ -1,0 +1,80 @@
+#################################
+# generate api::main#index
+#################################
+$ be rails generate controller api::main index
+      create  app/controllers/api/main_controller.rb
+       route  namespace :api do
+    get 'main/index'
+  end
+      invoke  erb
+      create    app/views/api/main
+      create    app/views/api/main/index.html.erb
+      invoke  test_unit
+      create    test/controllers/api/main_controller_test.rb
+      invoke  helper
+      create    app/helpers/api/main_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/api/main.coffee
+      invoke    scss
+      create      app/assets/stylesheets/api/main.scss
+
+#################################
+# add root on router 
+#################################
+$ vim config/routes.rb
+---
+Rails.application.routes.draw do
+  namespace :api do
+    get 'main/index', format: false
+  end
+
+  root 'api/main#index'
+end
+---
+
+#################################
+# generate api::main#index
+#################################
+
+$ be rails generate controller api::Games index show
+
+      create  app/controllers/api/games_controller.rb
+       route  namespace :api do
+    get 'games/show'
+  end
+       route  namespace :api do
+    get 'games/index'
+  end
+      invoke  erb
+      create    app/views/api/games
+      create    app/views/api/games/index.html.erb
+      create    app/views/api/games/show.html.erb
+      invoke  test_unit
+      create    test/controllers/api/games_controller_test.rb
+      invoke  helper
+      create    app/helpers/api/games_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/api/games.coffee
+      invoke    scss
+      create      app/assets/stylesheets/api/games.scss
+
+#################################
+# add router 
+#################################
+$ vim config/routes.rb
+
+# resources :games ... を追加
+---
+Rails.application.routes.draw do
+  namespace :api do
+    get 'main/index', format: false
+    resources :games, only: %i[index show], format: false
+  end
+
+  root 'api/main#index'
+end
+---

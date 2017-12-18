@@ -65,7 +65,7 @@ Game.create!(
   category2: 3,
   category3: 4,
   star: 4,
-  access: 33 
+  access: 33
 )
 Game.create!(
   title: 'Morning',
@@ -76,7 +76,7 @@ Game.create!(
   category2: 5,
   category3: 10,
   star: 5,
-  access: 403 
+  access: 403
 )
 Game.create!(
   title: 'Water-plant',
@@ -114,87 +114,107 @@ User.create!(
 #
 Instruction.create!(
   game_id: 1,
-  inst: 'game1の使い方 - その1'
+  explanation: 'game1の使い方 - その1',
+  step: 1
 )
 Instruction.create!(
   game_id: 1,
-  inst: 'game1の使い方 - その2'
+  explanation: 'game1の使い方 - その2',
+  step: 2
 )
 Instruction.create!(
   game_id: 1,
-  inst: 'game1の使い方 - その3'
+  explanation: 'game1の使い方 - その3',
+  step: 3
 )
 
 Instruction.create!(
   game_id: 2,
-  inst: 'game2の使い方 - その1'
+  explanation: 'game2の使い方 - その1',
+  step: 1
 )
 Instruction.create!(
   game_id: 2,
-  inst: 'game2の使い方 - その2'
+  explanation: 'game2の使い方 - その2',
+  step: 2
 )
 Instruction.create!(
   game_id: 2,
-  inst: 'game2の使い方 - その3'
+  explanation: 'game2の使い方 - その3',
+  step: 3
 )
 
 Instruction.create!(
   game_id: 3,
-  inst: 'game3の使い方 - その1'
+  explanation: 'game3の使い方 - その1',
+  step: 1
 )
 Instruction.create!(
   game_id: 3,
-  inst: 'game3の使い方 - その2'
+  explanation: 'game3の使い方 - その2',
+  step: 2
 )
 Instruction.create!(
   game_id: 3,
-  inst: 'game3の使い方 - その3'
+  explanation: 'game3の使い方 - その3',
+  step: 3
 )
 Instruction.create!(
   game_id: 3,
-  inst: 'game3の使い方 - その4'
+  explanation: 'game3の使い方 - その4',
+  step: 4
 )
 Instruction.create!(
   game_id: 3,
-  inst: 'game3の使い方 - その5'
+  explanation: 'game3の使い方 - その5',
+  step: 5
 )
 
 Instruction.create!(
   game_id: 4,
-  inst: 'game4の使い方 - その1'
+  explanation: 'game4の使い方 - その1',
+  step: 1
 )
 Instruction.create!(
   game_id: 4,
-  inst: 'game4の使い方 - その2'
+  explanation: 'game4の使い方 - その2',
+  step: 2
 )
 Instruction.create!(
   game_id: 4,
-  inst: 'game4の使い方 - その3'
+  explanation: 'game4の使い方 - その3',
+  step: 3
 )
 Instruction.create!(
   game_id: 4,
-  inst: 'game4の使い方 - その4'
+  explanation: 'game4の使い方 - その4',
+  step: 4
 )
 
 Instruction.create!(
   game_id: 5,
-  inst: 'game5の使い方 - その1'
+  explanation: 'game5の使い方 - その1',
+  step: 1
 )
 Instruction.create!(
   game_id: 5,
-  inst: 'game5の使い方 - その2'
+  explanation: 'game5の使い方 - その2',
+  step: 2
 )
 Instruction.create!(
   game_id: 5,
-  inst: 'game5の使い方 - その3'
+  explanation: 'game5の使い方 - その3',
+  step: 3
 )
 Instruction.create!(
   game_id: 5,
-  inst: 'game5の使い方 - その4'
+  explanation: 'game5の使い方 - その4',
+  step: 4
 )
 Instruction.create!(
   game_id: 5,
-  inst: 'game5の使い方 - その5'
+  explanation: 'game5の使い方 - その5',
+  step: 5
 )
 
 #

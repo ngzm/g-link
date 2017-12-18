@@ -12,6 +12,9 @@ Writing new Gemfile to /Users/nagazumi/DEV-NAO/g-link/Gemfile
 ############################
 
 NAGA-MAC:g-link nagazumi$ vim Gemfile
+---
+gem 'rails'  # ここのコメントアウトを外す
+---
 
 ############################
 ## install Rails
