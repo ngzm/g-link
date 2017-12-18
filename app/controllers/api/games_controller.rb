@@ -3,7 +3,7 @@ module Api
   # game.link controller of the games
   #
   class GamesController < Api::ApiController
-    before_action :check_game_id, only: :show
+    before_action :check_id, only: :show
     before_action :check_category_id, only: :search
     skip_before_action :authenticated?
 
@@ -12,35 +12,29 @@ module Api
     #
     def index
       @games = Game.all
-      if @games.empty?
-        head :not_found
-      else
-        render 'index', formats: 'json', handlers: 'jbuilder'
-      end
+      raise RecordNotFound, 'No records on games' if @games.empty?
+
+      # TODO: Just for Test. Do not forget to delete when finish the test.
+      # render json: { message: 'err!!' }, status: :bad_request
+      # return
+
+      # TODO: Just for Test. Do not forget to delete when finish the test.
+      # raise 'error !!'
+      # sleep 1
+
+      render 'index', formats: 'json', handlers: 'jbuilder'
     end
 
     #
     # Get game data specified by the game_id
     #
     def show
-      @game = Game.includes(:instructions, :reviews, :users)
-                  .find_by_id(@game_id)
-      if @game
-        @instructions = @game.ordered_instructions
-        @reviews = @game.newer_reviews_top(7)
+      @game = Game.includes(:instructions, :reviews, :users).find_by_id(@id)
+      raise RecordNotFound, 'Not found' if @game.nil?
 
-        # TODO: Just for Test. Do not forget to delete when finish the test.
-        # render json: { message: 'err!!' }, status: :bad_request
-        # return
-
-        # TODO: Just for Test. Do not forget to delete when finish the test.
-        # raise 'error !!'
-        # sleep 1
-
-        render 'show', formats: 'json', handlers: 'jbuilder'
-      else
-        head :not_found
-      end
+      @instructions = @game.ordered_instructions
+      @reviews = @game.newer_reviews_top(7)
+      render 'show', formats: 'json', handlers: 'jbuilder'
     end
 
     #
@@ -50,19 +44,9 @@ module Api
       @games = Game.where(category1: @category_id)
                    .or(Game.where(category2: @category_id))
                    .or(Game.where(category3: @category_id))
-      if @games.empty?
-        head :not_found
-      else
-        # TODO: Just for Test. Do not forget to delete when finish the test.
-        # render json: { message: 'err!!' }, status: :bad_request
-        # return
+      raise RecordNotFound, 'No games found' if @games.empty?
 
-        # TODO: Just for Test. Do not forget to delete when finish the test.
-        # raise 'error !!'
-        # sleep 1
-
-        render 'search', formats: 'json', handlers: 'jbuilder'
-      end
+      render 'index', formats: 'json', handlers: 'jbuilder'
     end
 
     # private methods
@@ -72,28 +56,14 @@ module Api
     def check_category_id
       @category_id = params[:category_id]
       return if @category_id =~ /^\d+$/
-
-      error_data = {
-        status: 401,
-        message: "Invalid category id : #{@category_id}"
-      }
-
-      # TODO: create error json builder
-      render json: error_data, status: :bad_request
+      raise BadRequest, "Invalid category id: #{@category_id}"
     end
 
-    # Check parameter game_id
-    def check_game_id
-      @game_id = params[:id]
-      return if @game_id =~ /^\d+$/
-
-      error_data = {
-        status: 401,
-        message: "Invalid game id : #{@game_id}"
-      }
-
-      # TODO: create error json builder
-      render json: error_data, status: :bad_request
+    # Check parameter id
+    def check_id
+      @id = params[:id]
+      return if @id =~ /^\d+$/
+      raise BadRequest, "Invalid game id: #{@id}"
     end
   end
 end

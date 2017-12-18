@@ -26,7 +26,6 @@ export default {
     fetchReview: ({ commit }, id) => {
       commit('setReviewStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
-
       GameService.fetchGameReview(id,
         (res) => {
           commit('setReview', res.data);
@@ -39,10 +38,10 @@ export default {
             commit('setReview', { game_id: id, comment: '', star: 3 });
             commit('setReviewStatus', dataStatus.ACCESSIBLE);
           } else {
+            const edata = err.response.data || { level: 'error',  message: 'server error' };
             commit('errors/addServerErrors',
-              { status: err.response.status, code: err.response.status, message: err.message },
-              { root: true }
-            );
+              { status: err.response.status, level: edata.level, message: edata.message },
+              { root: true });
             commit('setReview', {});
             commit('setReviewStatus', dataStatus.ERROR);
           }
@@ -74,10 +73,10 @@ export default {
           commit('setReviewStatus', dataStatus.REGISTERED);
         },
         (err) => {
+          const edata = err.response.data || { level: 'error',  message: 'server error' };
           commit('errors/addServerErrors',
-            { status: err.response.status, code: err.response.status, message: err.message },
-            { root: true }
-          );
+            { status: err.response.status, level: edata.level, message: edata.message },
+            { root: true });
           commit('setReview', {});
           commit('setReviewStatus', dataStatus.ERROR);
         }

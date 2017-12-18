@@ -1,23 +1,17 @@
 <template>
   <v-container fluid>
-    <h2>Fatal Error</h2>
-    <p>
-      A fatal system error has occured. http status: {{ status }} </br>
-      Sorry, I can not proceed ..
-    </p>
+    <h2>System Error</h2>
+    <p>System error has occured, disable to proceed .. </p>
 
-    <div class="mt-2">
-      <!-- Errors alert -->
-      <v-alert class="error" icon="error" value="true" v-for="(err, index) in errors" :key="index">
-        {{ err.message }} (error code: {{ err.code }})
-      </v-alert>
-
-    </div>
+    <!-- alerts -->
+    <AlertField v-bind:alerts="serverErrors" />
   </v-container>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
+import AlertField from './AlertField.vue';
+
 const { mapState } = createNamespacedHelpers('errors');
 
 /**
@@ -25,10 +19,10 @@ const { mapState } = createNamespacedHelpers('errors');
  */
 export default {
   computed: {
-    ...mapState({
-      status: 'httpStatus',
-      errors: 'serverErrors',
-    }),
+    ...mapState(['serverErrors']),
+  },
+  components: {
+    AlertField,
   },
 };
 </script>

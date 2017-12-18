@@ -28,10 +28,10 @@ export default {
           commit('setGameStatus', dataStatus.ACCCESSIBLE);
         },
         (err) => {
+          const edata = err.response.data || { level: 'error',  message: 'server error' };
           commit('errors/addServerErrors',
-            { status: err.response.status, code: err.response.status, message: err.message },
-            { root: true }
-          );
+            { status: err.response.status, level: edata.level, message: edata.message },
+            { root: true });
           commit('setGame', {});
           commit('setGameStatus', dataStatus.ERROR);
         }
