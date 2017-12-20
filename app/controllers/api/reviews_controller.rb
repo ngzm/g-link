@@ -12,11 +12,7 @@ module Api
       raise RecordNotFound, 'Not found' if @review.nil?
 
       # TODO: Just for Test. Do not forget to delete when finish the test.
-      # render json: { message: 'err!!' }, status: :bad_request
-      # return
-
-      # TODO: Just for Test. Do not forget to delete when finish the test.
-      # raise 'error !!'
+      # raise 'system error ooooooooo!!'
       # sleep 1
 
       render 'show', formats: 'json', handlers: 'jbuilder'

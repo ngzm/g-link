@@ -38,10 +38,13 @@ export default {
             commit('setReview', { game_id: id, comment: '', star: 3 });
             commit('setReviewStatus', dataStatus.ACCESSIBLE);
           } else {
-            const edata = err.response.data || { level: 'error',  message: 'server error' };
-            commit('errors/addServerErrors',
-              { status: err.response.status, level: edata.level, message: edata.message },
-              { root: true });
+            const edata = err.response.data || [{ level: 'error',  message: 'server error' }];
+            const estat = err.response.status;
+            edata.forEach((err) => {
+              commit('errors/addServerErrors',
+                { status: estat, level: err.level, message: err.message },
+                { root: true });
+            });
             commit('setReview', {});
             commit('setReviewStatus', dataStatus.ERROR);
           }
@@ -73,10 +76,13 @@ export default {
           commit('setReviewStatus', dataStatus.REGISTERED);
         },
         (err) => {
-          const edata = err.response.data || { level: 'error',  message: 'server error' };
-          commit('errors/addServerErrors',
-            { status: err.response.status, level: edata.level, message: edata.message },
-            { root: true });
+          const edata = err.response.data || [{ level: 'error',  message: 'server error' }];
+          const estat = err.response.status;
+          edata.forEach((err) => {
+            commit('errors/addServerErrors',
+              { status: estat, level: err.level, message: err.message },
+              { root: true });
+          });
           commit('setReview', {});
           commit('setReviewStatus', dataStatus.ERROR);
         }

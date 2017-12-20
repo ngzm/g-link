@@ -44,6 +44,9 @@ module Api
   #
   class ApiController < ApplicationController
     before_action :authenticated?
+
+    rescue_from StandardError, with: :handle_500_error
+    rescue_from ActiveRecord::RecordInvalid, with: :handle_422_error
     rescue_from BusinessError, with: :handle_business_error
 
     private
@@ -54,11 +57,27 @@ module Api
       @user_id = 1
     end
 
-    # Error handler
-    def handle_business_error(e)
-      @error = e
-      error_data = { level: e.error_level, message: e.message }
-      render json: error_data, status: e.http_status
+    # Standard Error handler
+    def handle_500_error(err)
+      error_datas = []
+      error_datas.push(level: 'fatal', message: err.message)
+      render json: error_datas, status: 500
+    end
+
+    # Validate Error handler
+    def handle_422_error(invalid)
+      error_datas = []
+      invalid.record.errors.full_messages.each do |msg|
+        error_datas.push(level: 'warning', message: msg)
+      end
+      render json: error_datas, status: 422
+    end
+
+    # Business Error handler
+    def handle_business_error(err)
+      error_datas = []
+      error_datas.push(level: err.error_level, message: err.message)
+      render json: error_datas, status: err.http_status
     end
   end
 end

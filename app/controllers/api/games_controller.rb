@@ -15,10 +15,6 @@ module Api
       raise RecordNotFound, 'No records on games' if @games.empty?
 
       # TODO: Just for Test. Do not forget to delete when finish the test.
-      # render json: { message: 'err!!' }, status: :bad_request
-      # return
-
-      # TODO: Just for Test. Do not forget to delete when finish the test.
       # raise 'error !!'
       # sleep 1
 
