@@ -15,4 +15,9 @@ class Game < ApplicationRecord
   def newer_reviews_top(num)
     (reviews.sort { |a, b| b.updated_at <=> a.updated_at })[0, num]
   end
+
+  # increment game access column
+  def increment_access
+    update! access: access + 1
+  end
 end

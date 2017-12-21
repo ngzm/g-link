@@ -25,6 +25,7 @@ export default {
       GameService.fetchGameDetail(id,
         (res) => {
           commit('setGame', res.data);
+          commit('games/spliceGames', res.data, { root: true });
           commit('setGameStatus', dataStatus.ACCCESSIBLE);
         },
         (err) => {

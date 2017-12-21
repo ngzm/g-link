@@ -63,15 +63,9 @@ export default {
       }
       func.call(GameService, Object.assign(state.review, review),
         (res) => {
+          commit('game/setGame', res.data, { root: true });
+          commit('games/spliceGames', res.data, { root: true });
           commit('setReview', {});
-          const gdat = res.data;
-
-          // Set game datato the game store
-          commit('game/setGame', gdat, { root: true });
-
-          // Splice game data to the games store
-          commit('games/spliceGames', gdat, { root: true });
-
           commit('setNewMode', false);
           commit('setReviewStatus', dataStatus.REGISTERED);
         },
