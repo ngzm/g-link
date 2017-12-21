@@ -28,6 +28,9 @@ module Api
       @game = Game.includes(:instructions, :reviews, :users).find_by_id(@id)
       raise RecordNotFound, 'Not found' if @game.nil?
 
+      # set access counter +1
+      @game.increment_access
+
       @instructions = @game.ordered_instructions
       @reviews = @game.newer_reviews_top(7)
       render 'show', formats: 'json', handlers: 'jbuilder'
