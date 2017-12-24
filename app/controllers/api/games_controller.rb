@@ -2,7 +2,7 @@ module Api
   #
   # game.link controller of the games
   #
-  class GamesController < Api::ApiController
+  class GamesController < ApiController
     before_action :check_id, only: :show
     before_action :check_category_id, only: :search
     skip_before_action :authenticated?

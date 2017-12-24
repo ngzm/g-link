@@ -23,6 +23,9 @@
 
 .byebug_history
 
+# Server apps
+/config/rp_config_google_ngzm.yml
+
 # Client
 /public/js/build.js
 /client/node_modules
