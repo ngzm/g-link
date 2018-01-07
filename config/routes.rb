@@ -19,9 +19,13 @@ Rails.application.routes.draw do
   # User autentication using Other OP Services,
   # with using OpenID Connect or Oath2 protocols
   namespace :rp do
+    get 'main/index'
     get 'google/show'
     get 'google/create'
   end
+
+  # Api for g-link client using ajax
+  match 'game/*other', to: 'api/main#index', via: :all
 
   # Root
   root 'api/main#index'
