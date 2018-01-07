@@ -4,7 +4,7 @@ import WebStorage from '../libs/webstorage';
 /**
  * URL of the authentication service
  */
-const AUTHENTICATE_URL = '/rp/google/create';
+const AUTHENTICATE_URL = '/rp/main/index';
 
 /**
  * Define CLIENT TOKEN data

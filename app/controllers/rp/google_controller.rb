@@ -2,8 +2,8 @@ module Rp
   # Authenticate and Authorize by Google endpoint
   class GoogleController < RpController
     before_action :new_rp
-    before_action :check_create_param, only: :create
     before_action :check_show_param, only: :show
+    skip_before_action :check_create_param, except: :create
 
     PROVIDER = 'google'.freeze
 
@@ -47,14 +47,6 @@ module Rp
       @auth_token = AuthToken.find_by(client_token: @client_token)
       raise 'client_token is NOT FOUND' if @auth_token.nil?
       @auth_token.update!(id_token: @id_token, access_token: @access_token)
-    end
-
-    # Check parameters for create method
-    def check_create_param
-      @client_token = params[:client_token]
-      @redirect_uri = params[:redirect_uri]
-      raise 'Missing parameter client_token' if @client_token.nil?
-      raise 'Missing parameter redirect_uri' if @redirect_uri.nil?
     end
 
     # Check parameters for show method
