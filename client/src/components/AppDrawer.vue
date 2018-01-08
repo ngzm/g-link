@@ -11,7 +11,7 @@
     <!-- Menu Lists -->
     <v-list>
 
-      <v-list-tile exact to="/">
+      <v-list-tile exact to="/cview">
         <v-list-tile-action>
           <v-icon>home</v-icon>
         </v-list-tile-action>
@@ -33,7 +33,7 @@
 
       <!-- Game Categpries -->
       <template v-for="item in listItems">
-        <v-list-tile exact :key="item.id" :to="`/game/list/${item.route}`">
+        <v-list-tile exact :key="item.id" :to="`/cview/category/${item.id}`">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>

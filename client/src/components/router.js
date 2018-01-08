@@ -5,27 +5,24 @@ import Home from './Home.vue';
 import Game from './Game.vue';
 import GameList from './GameList.vue';
 import GameDetail from './GameDetail.vue';
-import Login from './Login.vue';
+// NO USE !!!!! import Login from './Login.vue';
 import Error from './Error.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: AppMain,
+  { path: '/cview', component: AppMain,
     children: [
       { path: '', component: Home },
-      { path: 'home', component: Home },
-      { path: 'game', component: Game,
+      { path: 'category/:cid', component: Game,
         children: [
-          { path: '', component: GameList },
-          { path: 'list/:category', component: GameList },
-          { path: 'detail/:id', component: GameDetail, props: true },
+          { path: '', component: GameList, props: true },
+          { path: 'game/:gid', component: GameDetail, props: true },
         ],
       },
-      { path: 'login', component: Login },
     ],
   },
-  { path: '/error', component: Error },
+  { path: '/cerror', component: Error },
 ];
 
 const scrollBehavior = (to, from, savedPosition) => {

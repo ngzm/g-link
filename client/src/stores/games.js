@@ -25,10 +25,10 @@ export default {
   },
 
   actions: {
-    fetchGames: ({ dispatch, commit, rootState }) => {
+    fetchGames: ({ dispatch, commit }, cid) => {
       commit('setGamesStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
-      GameService.fetchGames(rootState.categories.currentCategory,
+      GameService.fetchGames(cid,
         (res) => {
           commit('setGames', res.data);
           dispatch('sortGames');

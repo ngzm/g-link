@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import { dataStatus } from '../stores/StoreStatus';
 import GameInfo from './GameInfo.vue';
 import GameReview from './GameReview.vue';
@@ -90,7 +90,8 @@ import Infobar from './Infobar.vue';
  */
 export default {
   props: {
-    id: { type: String, },
+    cid: { type: String, },
+    gid: { type: String, },
   },
   data() {
     return {
@@ -118,9 +119,6 @@ export default {
     ...mapState('errors', [
       'serverErrors',
     ]),
-    ...mapGetters('categories', [
-      'getCurCategory',
-    ]),
   },
   methods: {
     setDialog: function(flg) {
@@ -130,7 +128,7 @@ export default {
       this.snackbar = flg;
     },
     onOpenReview: function() {
-      this.fetchReview(this.id);
+      this.fetchReview(this.gid);
       this.setDialog(true);
     },
     onRegisterReview: function(review) {
@@ -140,8 +138,7 @@ export default {
       this.setSnackbar(true);
     },
     onGoBackList: function() {
-      const croute = this.getCurCategory.route;
-      this.$router.push(`/game/list/${croute}`);
+      this.$router.push(`/cview/category/${this.cid}`);
     },
     ...mapActions('game', [
       'fetchGame',
@@ -151,13 +148,13 @@ export default {
       'registerReview',
     ]),
   },
-  beforeRouteEnter (to, from, next) {
+  beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.fetchGame(to.params.id);
+      vm.fetchGame(to.params.gid);
     });
   },
-  beforeRouteUpdate (to, from, next) {
-    this.fetchGame(to.params.id);
+  beforeRouteUpdate(to, from, next) {
+    this.fetchGame(to.params.gid);
     next();
   },
   components: {
