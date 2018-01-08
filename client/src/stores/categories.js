@@ -44,6 +44,12 @@ export default {
     setCurCategory: (state, category) => {
       state.currentCategory = category;
     },
+    setCurCategoryByRoute: (state, route) => {
+      const match = state.categories.find((c) => (c.route === route));
+      if (match) {
+        state.currentCategory = match.id;
+      }
+    },
     setCurSortKey: (state, sortkey) => {
       state.currentSortKey = sortkey;
     },

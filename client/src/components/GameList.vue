@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import GameGrid from './GameGrid.vue';
 import AlertField from './AlertField.vue';
 import SortFb from './SortFb.vue';
@@ -42,17 +42,30 @@ export default {
   },
   methods: {
     onSelectGame: function(id) {
-      this.fetchGame(id);
       this.$router.push(`/game/detail/${id}`);
     },
-    ...mapActions('game', [
-      'fetchGame',
+    ...mapMutations('categories', [
+      'setCurCategoryByRoute',
+    ]),
+    ...mapActions('games', [
+      'fetchGames',
     ]),
   },
   components: {
     GameGrid,
     AlertField,
     SortFb,
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.setCurCategoryByRoute(to.params.category);
+      vm.fetchGames();
+    });
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.setCurCategoryByRoute(to.params.category);
+    this.fetchGames();
+    next();
   },
 };
 </script>

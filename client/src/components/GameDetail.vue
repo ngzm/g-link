@@ -34,7 +34,7 @@
             fab
             dark
             class="blue"
-            @click="$router.back()"
+            @click="onGoBackList"
             v-tooltip:bottom="{ html: '一覧に戻る' }"
           ><v-icon>apps</v-icon></v-btn>
         </div>
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import { dataStatus } from '../stores/StoreStatus';
 import GameInfo from './GameInfo.vue';
 import GameReview from './GameReview.vue';
@@ -118,6 +118,9 @@ export default {
     ...mapState('errors', [
       'serverErrors',
     ]),
+    ...mapGetters('categories', [
+      'getCurCategory',
+    ]),
   },
   methods: {
     setDialog: function(flg) {
@@ -136,10 +139,26 @@ export default {
       this.message = `${this.game.title} の評価を登録しました`;
       this.setSnackbar(true);
     },
+    onGoBackList: function() {
+      const croute = this.getCurCategory.route;
+      this.$router.push(`/game/list/${croute}`);
+    },
+    ...mapActions('game', [
+      'fetchGame',
+    ]),
     ...mapActions('greview', [
       'fetchReview',
       'registerReview',
     ]),
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.fetchGame(to.params.id);
+    });
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.fetchGame(to.params.id);
+    next();
   },
   components: {
     GameInfo,

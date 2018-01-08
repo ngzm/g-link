@@ -33,7 +33,7 @@
 
       <!-- Game Categpries -->
       <template v-for="item in listItems">
-        <v-list-tile exact :key="item.id" @click="fetchList(item.id)" :to="`/game/list/${item.route}`">
+        <v-list-tile exact :key="item.id" :to="`/game/list/${item.route}`">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -48,7 +48,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+const { mapGetters } = createNamespacedHelpers('categories');
 
 export default {
   props: {
@@ -69,22 +70,7 @@ export default {
         this.setDrawer(drawer);
       },
     },
-    ...mapGetters('categories', {
-      listItems: 'getCategories',
-    }),
-  },
-
-  methods: {
-    fetchList: function(id) {
-      this.setCurCategory(id);
-      this.fetchGames();
-    },
-    ...mapMutations('categories', [
-      'setCurCategory',
-    ]),
-    ...mapActions('games', [
-      'fetchGames',
-    ]),
+    ...mapGetters({ listItems: 'getCategories' }),
   },
 };
 </script>

@@ -33,17 +33,6 @@ export default {
   },
   created: function() {
     this.authAction();
-
-    // TODO: ridirect_uri はクライアントで制御するのは変かも
-    // TODO: なので再検討してみよう
-    /**
-     *
-    if (this.authenticated && this.redirect) {
-      this.$router.push(this.redirect);
-    } else {
-      this.$router.push('/');
-    }
-    */
   },
 };
 </script>
