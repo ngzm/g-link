@@ -5,14 +5,23 @@
 <script>
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 Vue.use(Vuetify);
 
 export default {
   computed: {
+    ...mapState('user', [
+      'user',
+      'authenticated',
+    ]),
     ...mapGetters('errors', [
       'serious',
+    ]),
+  },
+  methods: {
+    ...mapActions('user', [
+      'authAction',
     ]),
   },
   watch: {
@@ -23,7 +32,18 @@ export default {
     },
   },
   created: function() {
-    this.$router.push('/');
+    this.authAction();
+
+    // TODO: ridirect_uri はクライアントで制御するのは変かも
+    // TODO: なので再検討してみよう
+    /**
+     *
+    if (this.authenticated && this.redirect) {
+      this.$router.push(this.redirect);
+    } else {
+      this.$router.push('/');
+    }
+    */
   },
 };
 </script>

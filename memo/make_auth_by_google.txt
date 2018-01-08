@@ -1,0 +1,43 @@
+naomac:app naoki$ be rails g controller rp::auth show create
+      create  app/controllers/rp/auth_controller.rb
+       route  namespace :rp do
+    get 'auth/create'
+  end
+       route  namespace :rp do
+    get 'auth/show'
+  end
+      invoke  erb
+      create    app/views/rp/auth
+      create    app/views/rp/auth/show.html.erb
+      create    app/views/rp/auth/create.html.erb
+      invoke  test_unit
+      create    test/controllers/rp/auth_controller_test.rb
+      invoke  helper
+      create    app/helpers/rp/auth_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/rp/auth.coffee
+      invoke    scss
+      create      app/assets/stylesheets/rp/auth.scss
+naomac:app naoki$ pwd
+/Users/naoki/DEV/g-link/app
+naomac:app naoki$ cd controllers/
+naomac:controllers naoki$ ll
+total 8
+drwxr-xr-x  6 naoki  staff  204 12 22 22:43 api/
+-rw-r--r--  1 naoki  staff   97 10 29 11:51 application_controller.rb
+drwxr-xr-x  3 naoki  staff  102 10 29 11:51 concerns/
+drwxr-xr-x  3 naoki  staff  102 12 23 18:01 rp/
+naomac:controllers naoki$ cd rp/
+naomac:rp naoki$ pwd
+/Users/naoki/DEV/g-link/app/controllers/rp
+naomac:rp naoki$ ll
+total 8
+-rw-r--r--  1 naoki  staff  90 12 23 18:01 auth_controller.rb
+naomac:rp naoki$ ls ../api/api_controller.rb
+../api/api_controller.rb
+naomac:rp naoki$ pwd
+/Users/naoki/DEV/g-link/app/controllers/rp
+naomac:rp naoki$ touch rp_controller.rb
+naomac:rp naoki$

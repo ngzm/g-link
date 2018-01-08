@@ -2,7 +2,7 @@ module Api
   #
   # Review of the game class
   #
-  class ReviewsController < Api::ApiController
+  class ReviewsController < ApiController
     before_action :check_game_id
     before_action :parse_json, only: %i[update create]
 
@@ -31,7 +31,6 @@ module Api
     def update
       @review = Review.find_by(game_id: @game_id, user_id: @user_id)
       raise ServerError, 'Update failed, not found the game' if @review.nil?
-
       @review.update_review review_params
       render 'show', formats: 'json', handlers: 'jbuilder'
     end

@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171213075613) do
+ActiveRecord::Schema.define(version: 20180103080643) do
+
+  create_table "auth_tokens", force: :cascade do |t|
+    t.string "client_token", null: false
+    t.string "id_token"
+    t.string "redirect_uri", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "access_token"
+    t.string "provider", null: false
+    t.index ["client_token"], name: "index_auth_tokens_on_client_token", unique: true
+    t.index ["id_token"], name: "index_auth_tokens_on_id_token", unique: true
+  end
 
   create_table "games", force: :cascade do |t|
     t.string "title", null: false
@@ -52,6 +64,8 @@ ActiveRecord::Schema.define(version: 20171213075613) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "picture"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end
