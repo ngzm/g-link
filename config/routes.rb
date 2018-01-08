@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   end
 
   # Api for g-link client using ajax
-  match 'game/*other', to: 'api/main#index', via: :all
+  get 'cview', to: 'api/main#index'
+  match 'cview/*other', to: 'api/main#index', via: :all
 
   # Root
   root 'api/main#index'

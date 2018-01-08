@@ -28,12 +28,8 @@ export default {
       const gmBuzy = (this.gameStatus === dataStatus.BUZY);
       return gsBuzy || gmBuzy;
     },
-    ...mapState('games', {
-      gamesStatus: state => state.gamesStatus,
-    }),
-    ...mapState('game', {
-      gameStatus: state => state.gameStatus,
-    }),
+    ...mapState('games', ['gamesStatus']),
+    ...mapState('game', ['gameStatus']),
   },
 };
 </script>

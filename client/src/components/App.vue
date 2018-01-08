@@ -5,16 +5,12 @@
 <script>
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 Vue.use(Vuetify);
 
 export default {
   computed: {
-    ...mapState('user', [
-      'user',
-      'authenticated',
-    ]),
     ...mapGetters('errors', [
       'serious',
     ]),
@@ -27,7 +23,7 @@ export default {
   watch: {
     serious: function(value) {
       if (value) {
-        this.$router.replace('/error');
+        this.$router.replace('/cerror');
       }
     },
   },

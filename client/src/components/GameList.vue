@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-lg>
-    <h3>{{ getCurCategory.title }}</h3>
+    <h3>{{ category.title }}</h3>
 
     <!-- alerts -->
     <AlertField v-bind:alerts="serverErrors" />
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import GameGrid from './GameGrid.vue';
 import AlertField from './AlertField.vue';
 import SortFb from './SortFb.vue';
@@ -29,7 +29,13 @@ import SortFb from './SortFb.vue';
  * GameList Component
  */
 export default {
+  props: {
+    cid: { type: String, },
+  },
   computed: {
+    category: function() {
+      return this.getCurCategory(parseInt(this.cid, 10));
+    },
     ...mapState('games', [
       'games',
     ]),
@@ -41,12 +47,9 @@ export default {
     ]),
   },
   methods: {
-    onSelectGame: function(id) {
-      this.$router.push(`/game/detail/${id}`);
+    onSelectGame: function(gid) {
+      this.$router.push(`/cview/category/${this.cid}/game/${gid}`);
     },
-    ...mapMutations('categories', [
-      'setCurCategoryByRoute',
-    ]),
     ...mapActions('games', [
       'fetchGames',
     ]),
@@ -58,13 +61,11 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      vm.setCurCategoryByRoute(to.params.category);
-      vm.fetchGames();
+      vm.fetchGames(to.params.cid);
     });
   },
   beforeRouteUpdate (to, from, next) {
-    this.setCurCategoryByRoute(to.params.category);
-    this.fetchGames();
+    this.fetchGames(to.params.cid);
     next();
   },
 };
