@@ -24,9 +24,16 @@ Rails.application.routes.draw do
     get 'google/create'
   end
 
+  # Admin
+  namespace :admin do
+    resources :games, format: false do
+      resource :instructions, only: %i[edit create], format: false
+    end
+  end
+
   # Api for g-link client using ajax
-  get 'cview', to: 'api/main#index'
-  match 'cview/*other', to: 'api/main#index', via: :all
+  get 'cview', to: 'api/main#index', format: false
+  match 'cview/*other', to: 'api/main#index', via: :all, format: false
 
   # Root
   root 'api/main#index'

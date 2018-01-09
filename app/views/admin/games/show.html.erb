@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Game info</h1>
+
+<% categories = {
+    1 => 'Action',
+    2 => 'Adventure',
+    3 => 'Battle',
+    4 => 'Shooting',
+    5 => 'Racing',
+    6 => 'Sports',
+    7 => 'Fancy',
+    8 => 'Jewels',
+    9 => 'Puzzle',
+    10 => 'Brain',
+    11 => 'Table',
+    12 => 'Variety'
+  } %>
+<% insts = @game.instructions.sort { |a, b| a <=> b } %>
+
+<table class="admin">
+  <tr><th>ID</th><td><%= @game.id %></td></tr>
+  <tr><th>Title</th><td><%= @game.title %></td></tr>
+  <tr><th>Description</th><td><%= @game.description %></td></tr>
+  <tr><th>Instruction</th>
+      <td>
+      <% insts.each do |ins| %>
+        <%= ins.step %>: <%= ins.explanation %>
+        <br />
+      <% end %>
+      </td>
+  </tr>
+  <tr><th>Category1</th><td><%= categories[@game.category1] %></td></tr>
+  <tr><th>Category2</th><td><%= categories[@game.category2] %></td></tr>
+  <tr><th>Category3</th><td><%= categories[@game.category3] %></td></tr>
+  <tr><th>URL</th><td><%= @game.url %></td></tr>
+  <tr><th>IMG</th><td><%= @game.img %></td></tr>
+  <tr><th>STAR</th><td><%= @game.star %></td></tr>
+  <tr><th>ACCESS</th><td><%= @game.access %></td></tr>
+  <tr><th>CREATE</th><td><%= @game.created_at %></td></tr>
+  <tr><th>UPDATE</th><td><%= @game.updated_at %></td></tr>
+</table>
+
+<br />
+<hr />
+
+<%= link_to 'Edit', edit_admin_game_path(@game) %> |
+<%= link_to 'Edit intructions', edit_admin_game_instructions_path(@game) %> |
+<%= link_to 'Back', admin_games_path %>

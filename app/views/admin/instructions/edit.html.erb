@@ -1,0 +1,25 @@
+<h1>Editing Instructions</h1>
+Game ID: <%= @game.id %> / Game Title: <%= @game.title %>
+
+<%= form_tag(admin_game_instructions_path, method: :post) do %>
+  <table class="admin">
+  <tr><th>STEP</th><th>Instruction</th></tr>
+  <% (0...10).each do |stp| %>
+    <tr>
+      <td><%= stp + 1 %></td>
+      <td>
+        <% if stp < @instructions.size %>
+          <%= text_field_tag('explanations[]', @instructions[stp].explanation, size: 100) %>
+        <% else %>
+          <%= text_field_tag('explanations[]', nil, size: 100) %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+  <%= submit_tag "追加" %>
+<% end %>
+<br />
+<%= link_to 'Game Edit', edit_admin_game_path(@game) %> |
+<%= link_to 'Game Show', [:admin, @game] %> |
+<%= link_to 'Back', admin_games_path %>
