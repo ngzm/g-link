@@ -56,16 +56,8 @@
       />
     </v-layout>
 
-    <!-- progress --> 
-    <div class="progress" v-show="waiting">
-      <v-progress-circular
-        indeterminate
-        v-bind:size="70"
-        v-bind:width="7"
-        class="mt-5 primary--text"
-      ></v-progress-circular>
-    </div>
-
+    <!-- progress Bar --> 
+    <PinWheel v-bind:waitfor="waiting" />
   </v-container>
 </template>
 
@@ -75,6 +67,7 @@ import { dataStatus } from '../stores/StoreStatus';
 import GameInfo from './GameInfo.vue';
 import GameReview from './GameReview.vue';
 import Infobar from './Infobar.vue';
+import PinWheel from './PinWheel.vue';
 
 /**
  * Game Detail Component
@@ -130,15 +123,10 @@ export default {
     GameInfo,
     GameReview,
     Infobar,
+    PinWheel,
   },
 };
 </script>
 
 <style>
-.progress {
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  text-align: center;
-}
 </style>

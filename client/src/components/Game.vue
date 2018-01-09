@@ -6,15 +6,8 @@
     <!-- game information -->
     <GameDetail v-bind:game="game" v-on:onGoBackList="onGoBackList" />
 
-    <!-- Progress when waite for loading -->
-    <div v-show="waiting" class="progress">
-      <v-progress-circular
-        indeterminate
-        v-bind:size="70"
-        v-bind:width="7"
-        class="mt-5 primary--text"
-      ></v-progress-circular>
-    </div>
+    <!-- Progress Bar -->
+    <PinWheel v-bind:waitfor="waiting" />
   </section>
 </template>
 
@@ -23,6 +16,7 @@ import { mapState, mapActions } from 'vuex';
 import { dataStatus } from '../stores/StoreStatus';
 import GameDetail from './GameDetail.vue';
 import AlertField from './AlertField.vue';
+import PinWheel from './PinWheel.vue';
 
 /**
  * Game Detail Component
@@ -64,15 +58,10 @@ export default {
   components: {
     GameDetail,
     AlertField,
+    PinWheel,
   },
 };
 </script>
 
 <style>
-.progress {
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  text-align: center;
-}
 </style>
