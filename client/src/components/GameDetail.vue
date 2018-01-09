@@ -1,12 +1,7 @@
 <template>
   <v-container fluid grid-list-xl>
-    <!-- alerts -->
-    <AlertField v-bind:alerts="serverErrors" />
-
-    <!-- game information -->
     <v-layout row wrap>
       <v-flex md8 lg7 xl6 offset-md2 offset-lg0>
-
         <!-- Game image -->
         <div>
           <img :src="game.img" style="width: 100%" />
@@ -34,17 +29,15 @@
             fab
             dark
             class="blue"
-            @click="onGoBackList"
+            @click="$emit('onGoBackList')"
             v-tooltip:bottom="{ html: '一覧に戻る' }"
           ><v-icon>apps</v-icon></v-btn>
         </div>
-
       </v-flex>
-      <v-flex md8 lg5 xl6 offset-md2 offset-lg0>
 
+      <v-flex md8 lg5 xl6 offset-md2 offset-lg0>
         <!-- Game information -->
         <GameInfo :game="game" />
-
       </v-flex>
 
       <!-- Dialog which register game rating --> 
@@ -61,11 +54,10 @@
         :setSnackbar="setSnackbar"
         :message="message"
       />
-
     </v-layout>
 
     <!-- progress --> 
-    <div class="progress" v-if="waiting">
+    <div class="progress" v-show="waiting">
       <v-progress-circular
         indeterminate
         v-bind:size="70"
@@ -82,7 +74,6 @@ import { mapState, mapActions } from 'vuex';
 import { dataStatus } from '../stores/StoreStatus';
 import GameInfo from './GameInfo.vue';
 import GameReview from './GameReview.vue';
-import AlertField from './AlertField.vue';
 import Infobar from './Infobar.vue';
 
 /**
@@ -90,8 +81,7 @@ import Infobar from './Infobar.vue';
  */
 export default {
   props: {
-    cid: { type: String, },
-    gid: { type: String, },
+    game: { type: Object, },
   },
   data() {
     return {
@@ -102,7 +92,7 @@ export default {
   },
   computed: {
     waiting: function() {
-      return this.reviewStatus === dataStatus.INTIAL || this.reviewStatus === dataStatus.BUZY;
+      return this.reviewStatus === dataStatus.BUZY;
     },
     readyReview: function() {
       return this.dialog && this.reviewStatus === dataStatus.ACCESSIBLE;
@@ -110,14 +100,8 @@ export default {
     registeredReview: function() {
       return this.snackbar && this.reviewStatus === dataStatus.REGISTERED;
     },
-    ...mapState('game', [
-      'game',
-    ]),
     ...mapState('greview', [
       'reviewStatus',
-    ]),
-    ...mapState('errors', [
-      'serverErrors',
     ]),
   },
   methods: {
@@ -128,7 +112,7 @@ export default {
       this.snackbar = flg;
     },
     onOpenReview: function() {
-      this.fetchReview(this.gid);
+      this.fetchReview(this.game.id);
       this.setDialog(true);
     },
     onRegisterReview: function(review) {
@@ -137,30 +121,14 @@ export default {
       this.message = `${this.game.title} の評価を登録しました`;
       this.setSnackbar(true);
     },
-    onGoBackList: function() {
-      this.$router.push(`/cview/category/${this.cid}`);
-    },
-    ...mapActions('game', [
-      'fetchGame',
-    ]),
     ...mapActions('greview', [
       'fetchReview',
       'registerReview',
     ]),
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.fetchGame(to.params.gid);
-    });
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.fetchGame(to.params.gid);
-    next();
-  },
   components: {
     GameInfo,
     GameReview,
-    AlertField,
     Infobar,
   },
 };
