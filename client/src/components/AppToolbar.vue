@@ -11,54 +11,41 @@
     <v-spacer></v-spacer>
 
     <!-- Right Menu -->
-    <v-menu bottom left>
-      <v-btn icon slot="activator" dark>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-      <v-list dense>
-        <v-list-tile to="/search">
-          <v-list-tile-content>
-            <v-list-tile-title>検索</v-list-tile-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon>search</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-
-        <v-list-tile to="/login">
-          <v-list-tile-content>
-            <v-list-tile-title>ログイン</v-list-tile-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon>person_outline</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-
-        <v-list-tile to="/account">
-          <v-list-tile-content>
-            <v-list-tile-title>アカウント管理</v-list-tile-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon>account_box</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-
-        <v-list-tile to="/info">
-          <v-list-tile-content>
-            <v-list-tile-title>サイト情報</v-list-tile-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon>info</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-
-      </v-list>
-    </v-menu>
-
+    <AppUserMenu :user="user" @logout="signOutAction" v-if="authenticated" />
+    <AppRightMenu :auth="authenticated" @login="login" />
   </v-toolbar>
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+import AppUserMenu from './AppUserMenu.vue';
+import AppRightMenu from './AppRightMenu.vue';
+import Authenticate from '../libs/authenticate';
+
+const { mapState, mapActions } = createNamespacedHelpers('user');
+
+export default {
+  computed: {
+    ...mapState([
+      'user',
+      'authenticated',
+    ]),
+  },
+  methods: {
+    login: function() {
+      Authenticate.clearAllStorage();
+      Authenticate.setClientToken();
+      window.location.href = Authenticate.getAuthUri();
+    },
+    ...mapActions([
+      'signOutAction',
+    ]),
+  },
+  components: {
+    AppUserMenu,
+    AppRightMenu,
+  },
+};
 </script>
 
 <style>
