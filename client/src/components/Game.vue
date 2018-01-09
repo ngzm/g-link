@@ -7,7 +7,7 @@
     <GameDetail v-bind:game="game" v-on:onGoBackList="onGoBackList" />
 
     <!-- Progress Bar -->
-    <PinWheel v-bind:waitfor="waiting" />
+    <Spinner v-bind:waitfor="waiting" />
   </section>
 </template>
 
@@ -16,7 +16,7 @@ import { mapState, mapActions } from 'vuex';
 import { dataStatus } from '../stores/StoreStatus';
 import GameDetail from './GameDetail.vue';
 import AlertField from './AlertField.vue';
-import PinWheel from './PinWheel.vue';
+import Spinner from './Spinner.vue';
 
 /**
  * Game Detail Component
@@ -58,7 +58,7 @@ export default {
   components: {
     GameDetail,
     AlertField,
-    PinWheel,
+    Spinner,
   },
 };
 </script>

@@ -13,7 +13,7 @@
     <SortFb />
 
     <!-- Progress Bar -->
-    <PinWheel v-bind:waitfor="waiting" />
+    <Spinner v-bind:waitfor="waiting" />
   </section>
 </template>
 
@@ -23,7 +23,7 @@ import { dataStatus } from '../stores/StoreStatus';
 import GameList from './GameList.vue';
 import AlertField from './AlertField.vue';
 import SortFb from './SortFb.vue';
-import PinWheel from './PinWheel.vue';
+import Spinner from './Spinner.vue';
 
 /**
  * Game Component
@@ -62,7 +62,7 @@ export default {
     GameList,
     AlertField,
     SortFb,
-    PinWheel,
+    Spinner,
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {

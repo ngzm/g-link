@@ -57,7 +57,7 @@
     </v-layout>
 
     <!-- progress Bar --> 
-    <PinWheel v-bind:waitfor="waiting" />
+    <Spinner v-bind:waitfor="waiting" />
   </v-container>
 </template>
 
@@ -67,7 +67,7 @@ import { dataStatus } from '../stores/StoreStatus';
 import GameInfo from './GameInfo.vue';
 import GameReview from './GameReview.vue';
 import Infobar from './Infobar.vue';
-import PinWheel from './PinWheel.vue';
+import Spinner from './Spinner.vue';
 
 /**
  * Game Detail Component
@@ -123,7 +123,7 @@ export default {
     GameInfo,
     GameReview,
     Infobar,
-    PinWheel,
+    Spinner,
   },
 };
 </script>
