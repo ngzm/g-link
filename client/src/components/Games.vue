@@ -12,15 +12,8 @@
     <!-- Floating action buttons for sorting the games list -->
     <SortFb />
 
-    <!-- Progress when waiting for loading -->
-    <div v-show="waiting" class="progress">
-      <v-progress-circular
-        indeterminate
-        v-bind:size="70"
-        v-bind:width="7"
-        class="mt-5 primary--text"
-      ></v-progress-circular>
-    </div>
+    <!-- Progress Bar -->
+    <PinWheel v-bind:waitfor="waiting" />
   </section>
 </template>
 
@@ -30,6 +23,7 @@ import { dataStatus } from '../stores/StoreStatus';
 import GameList from './GameList.vue';
 import AlertField from './AlertField.vue';
 import SortFb from './SortFb.vue';
+import PinWheel from './PinWheel.vue';
 
 /**
  * Game Component
@@ -68,6 +62,7 @@ export default {
     GameList,
     AlertField,
     SortFb,
+    PinWheel,
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -82,10 +77,4 @@ export default {
 </script>
 
 <style>
-.progress {
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  text-align: center;
-}
 </style>
