@@ -24,8 +24,11 @@ module Rp
       @rp.validate_id_token(@id_token)
       profile = @rp.obtain_user_profile(@access_token)
 
-      register_user(profile)
+      user = register_user(profile)
       update_auth_token
+
+      # It's for admin menu, look up id_token when it is admin menu.
+      session[:id_token] = @id_token if user.admin
 
       redirect_to @auth_token.redirect_uri
     end

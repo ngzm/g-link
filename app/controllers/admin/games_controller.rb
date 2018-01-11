@@ -2,7 +2,7 @@ module Admin
   #
   # Admin game controller
   #
-  class GamesController < ApplicationController
+  class GamesController < AdminController
     before_action :set_game, only: %i[show edit update destroy]
 
     # GET /games

@@ -1,6 +1,6 @@
 module Admin
   # admin instructions
-  class InstructionsController < ApplicationController
+  class InstructionsController < AdminController
     before_action :game
 
     def edit
