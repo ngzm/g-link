@@ -1,0 +1,26 @@
+<h1>Admin</h1>
+
+<% if @logined %>
+  <h3>You are now logged in the game link admin system</h3>
+  <p>
+  <%= link_to 'Continue to manage Games', admin_games_path %>
+  </p>
+  <p>
+  Your profile
+  <ul>
+    <li>user id = <%= @user.id %></li>
+    <li>user name = <%= @user.name %></li>
+    <li>user email = <%= @user.email %></li>
+  </ul>
+  </p>
+  <hr />
+  <%= link_to 'Main', admin_admin_main_path %>
+<% else %>
+  <p>
+  <strong>Failed to logged in to the system.</strong>
+  <br>
+  Bye!
+  </p>
+  <hr />
+  <%= link_to 'Main', admin_admin_main_path %>
+<% end %>

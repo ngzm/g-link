@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   # Admin
   namespace :admin do
+    get 'admin/main'
+    get 'admin/login'
     resources :games, format: false do
       resource :instructions, only: %i[edit create], format: false
     end

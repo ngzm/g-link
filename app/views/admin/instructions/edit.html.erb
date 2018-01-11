@@ -1,3 +1,7 @@
+<%= link_to 'Main', admin_admin_main_path %>
+
+<p id="notice"><%= notice %></p>
+
 <h1>Editing Instructions</h1>
 Game ID: <%= @game.id %> / Game Title: <%= @game.title %>
 
@@ -7,13 +11,11 @@ Game ID: <%= @game.id %> / Game Title: <%= @game.title %>
   <% (0...10).each do |stp| %>
     <tr>
       <td><%= stp + 1 %></td>
-      <td>
-        <% if stp < @instructions.size %>
-          <%= text_field_tag('explanations[]', @instructions[stp].explanation, size: 100) %>
-        <% else %>
-          <%= text_field_tag('explanations[]', nil, size: 100) %>
-        <% end %>
-      </td>
+      <% if stp < @instructions.size %>
+        <td><%= text_field_tag('explanations[]', @instructions[stp].explanation, size: 100) %></td>
+      <% else %>
+        <td><%= text_field_tag('explanations[]', '', size: 100) %></td>
+      <% end %>
     </tr>
   <% end %>
   </table>
