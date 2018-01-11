@@ -1,0 +1,93 @@
+#
+# Generate admin game manage controllers
+#
+$ be rails g scaffold_controller admin/games --model-name=game
+      create  app/controllers/admin/games_controller.rb
+      invoke  erb
+      create    app/views/admin/games
+      create    app/views/admin/games/index.html.erb
+      create    app/views/admin/games/edit.html.erb
+      create    app/views/admin/games/show.html.erb
+      create    app/views/admin/games/new.html.erb
+      create    app/views/admin/games/_form.html.erb
+      invoke  test_unit
+      create    test/controllers/admin/games_controller_test.rb
+      invoke  helper
+      create    app/helpers/admin/games_helper.rb
+      invoke    test_unit
+      invoke  jbuilder
+      create    app/views/admin/games/index.json.jbuilder
+      create    app/views/admin/games/show.json.jbuilder
+      create    app/views/admin/games/_game.json.jbuilder
+
+
+# Add routes
+$ vim config/routes.rb
+--- add this
+  # Admin
+  namespace :admin do
+    resources :games
+  end
+---
+
+あとは、各ファイル、まずは vciews を地道に修正すること
+
+(参考)
+https://qiita.com/ryo-ichikawa/items/2a9159b489a7b16c3dc6
+
+例えば、index.html.erb
+-- 修正前 ---
+<td><%= link_to 'Show', game %></td>
+<td><%= link_to 'Edit', edit_game_path(game) %></td>
+<td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+-- 修正後 ---
+<td><%= link_to 'Show', [:admin, game] %></td>
+<td><%= link_to 'Edit', edit_admin_game_path(game) %></td>
+<td><%= link_to 'Destroy', [:admin, game], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+-------------
+
+一点だけ、_form.html.erb で form_with がサポートされていたが、その NameSpace 対応はあまり情報がないので
+ブログに書くべき
+
+以下のように修正して対応できた。
+
+-- 修正前 ---
+<%= form_with(model: game, local: true) do |form| %>
+  <% if game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+      <% game.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+-- 修正後 ---
+## １行目を修正
+<%= form_with(model: [:admin, game], local: true) do |form| %>
+## [:admin ..] とすればOK
+  <% if game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+      <% game.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+-------------
+
