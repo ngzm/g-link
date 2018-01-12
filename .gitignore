@@ -26,6 +26,9 @@
 # Server apps
 /config/rp_config_google_ngzm.yml
 
+# public
+/public/uploads
+
 # Client
 /public/js/build.js
 /client/node_modules
