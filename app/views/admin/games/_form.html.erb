@@ -1,7 +1,6 @@
 <%= form_with(model: [:admin, game], local: true) do |form| %>
   <% if game.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
       <ul>
       <% game.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,34 +9,21 @@
     </div>
   <% end %>
 
-  <% categories = [
-    [ 'Action', 1 ],
-    [ 'Adventure', 2 ],
-    [ 'Battle', 3 ],
-    [ 'Shooting', 4 ],
-    [ 'Racing', 5 ],
-    [ 'Sports', 6 ],
-    [ 'Fancy', 7 ],
-    [ 'Jewels', 8 ],
-    [ 'Puzzle', 9 ],
-    [ 'Brain', 10 ],
-    [ 'Table', 11 ],
-    [ 'Variety', 12 ],
-  ]
-  %>
+  <% categories = hashed_categories.map { |k, v| [v, k] } %>
+
   <table class="admin">
     <tr><th>ID</th><td><%= form.label :id, game.id %></td></tr>
     <tr><th>Title</th><td><%= form.text_field :title, size: 40 %></td></tr>
     <tr><th>Description</th><td><%= form.text_field :description, size: 100 %></td></tr>
+    <tr><th>categories1</th><td><%= form.select :category1, categories %></td></tr>
+    <tr><th>categories2</th><td><%= form.select :category2, categories, include_blank: true %></td></tr>
+    <tr><th>categories3</th><td><%= form.select :category3, categories, include_blank: true %></td></tr>
     <% unless game.id.nil? %>
       <tr>
       <th>Instructions</th>
       <td><%= link_to 'Edit intructions', edit_admin_game_instructions_path(game) %></td>
       </tr>
     <% end %>
-    <tr><th>categories1</th><td><%= form.select :category1, categories %></td></tr>
-    <tr><th>categories2</th><td><%= form.select :category2, categories, include_blank: true %></td></tr>
-    <tr><th>categories3</th><td><%= form.select :category3, categories, include_blank: true %></td></tr>
     <tr><th>Game URL</th><td><%= form.text_field :url, size: 100 %></td></tr>
     <tr><th>Game Image</th><td><%= form.label :path, game.img %><br><%= form.file_field :img %></td></tr>
   </table>

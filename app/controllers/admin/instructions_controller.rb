@@ -17,7 +17,7 @@ module Admin
         step += 1
       end
       respond_to do |format|
-        format.html { redirect_to [:admin, @game], notice: 'Instructions was successfully created.' }
+        format.html { redirect_to [:admin, @game], notice: 'Instructions was successfully registered.' }
       end
     end
 

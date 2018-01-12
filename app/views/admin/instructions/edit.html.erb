@@ -1,8 +1,12 @@
-<%= link_to 'Main', admin_admin_main_path %>
+<%= link_to 'Main', admin_admin_main_path %> |
+<%= link_to 'Games', admin_games_path %> |
+<%= link_to 'Show game', [:admin, @game] %> |
+<%= link_to 'Edit game', edit_admin_game_path(@game) %>
+<hr>
 
 <p id="notice"><%= notice %></p>
 
-<h1>Editing Instructions</h1>
+<h3>Editing Instructions</h3>
 Game ID: <%= @game.id %> / Game Title: <%= @game.title %>
 
 <%= form_tag(admin_game_instructions_path, method: :post) do %>
@@ -19,9 +23,5 @@ Game ID: <%= @game.id %> / Game Title: <%= @game.title %>
     </tr>
   <% end %>
   </table>
-  <%= submit_tag "追加" %>
+  <%= submit_tag "Register Instructions" %>
 <% end %>
-<br />
-<%= link_to 'Game Show', [:admin, @game] %> |
-<%= link_to 'Game Edit', edit_admin_game_path(@game) %> |
-<%= link_to 'Back', admin_games_path %>

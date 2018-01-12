@@ -21,3 +21,21 @@
   padding: 0.5em;
   background-color: #DDDDDD;
 }
+
+.admin_flex {
+  display: flex;
+}
+.admin_flex div:first-child {
+  margin-right: 20px;
+}
+
+#notice {
+  background-color: #DDFFCC;
+  color: #009933;
+}
+#error_explanation {
+  background-color: #FFDDEE;
+  color: #DD0033;
+  margin: 14px 0;
+  padding: 0 2px;
+}
