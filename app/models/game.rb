@@ -6,6 +6,10 @@ class Game < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :users, through: :reviews
 
+  mount_uploader :img, ImgUploader
+
+  validate :img_size
+
   # Get instructions of the game
   def ordered_instructions
     instructions.sort_by(&:id)
@@ -19,5 +23,11 @@ class Game < ApplicationRecord
   # increment game access column
   def increment_access
     update! access: access + 1
+  end
+
+  private
+
+  def img_size
+    errors.add(:img, 'should be less than 5MB') if img.size > 5.megabytes
   end
 end

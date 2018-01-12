@@ -24,6 +24,23 @@
   <tr><th>ID</th><td><%= @game.id %></td></tr>
   <tr><th>Title</th><td><%= @game.title %></td></tr>
   <tr><th>Description</th><td><%= @game.description %></td></tr>
+  <tr>
+    <th>Category</th>
+    <td>
+      <%= categories[@game.category1] %> /
+      <%= categories[@game.category2] %> /
+      <%= categories[@game.category3] %>
+    </td>
+  </tr>
+  <tr><th>URL</th><td><%= @game.url %></td></tr>
+  <tr><th>IMG Path</th><td><%= @game.img %></td></tr>
+  <tr><th>STAR</th><td><%= @game.star %></td></tr>
+  <tr><th>ACCESS</th><td><%= @game.access %></td></tr>
+  <tr><th>CREATE</th><td><%= @game.created_at %></td></tr>
+  <tr><th>UPDATE</th><td><%= @game.updated_at %></td></tr>
+</table>
+
+<table class="admin">
   <tr><th>Instruction</th>
       <td>
       <% insts.each do |ins| %>
@@ -32,17 +49,8 @@
       <% end %>
       </td>
   </tr>
-  <tr><th>Category1</th><td><%= categories[@game.category1] %></td></tr>
-  <tr><th>Category2</th><td><%= categories[@game.category2] %></td></tr>
-  <tr><th>Category3</th><td><%= categories[@game.category3] %></td></tr>
-  <tr><th>URL</th><td><%= @game.url %></td></tr>
-  <tr><th>IMG</th><td><%= @game.img %></td></tr>
-  <tr><th>STAR</th><td><%= @game.star %></td></tr>
-  <tr><th>ACCESS</th><td><%= @game.access %></td></tr>
-  <tr><th>CREATE</th><td><%= @game.created_at %></td></tr>
-  <tr><th>UPDATE</th><td><%= @game.updated_at %></td></tr>
+  <tr><th>IMG</th><td><%= image_tag @game.img.url if @game.img? %></td></tr>
 </table>
-
 <br />
 <hr />
 
