@@ -8,20 +8,6 @@
 
 <h3>Show game</h3>
 
-<% categories = {
-    1 => 'Action',
-    2 => 'Adventure',
-    3 => 'Battle',
-    4 => 'Shooting',
-    5 => 'Racing',
-    6 => 'Sports',
-    7 => 'Fancy',
-    8 => 'Jewels',
-    9 => 'Puzzle',
-    10 => 'Brain',
-    11 => 'Table',
-    12 => 'Variety'
-  } %>
 <% insts = @game.instructions.sort { |a, b| a.step <=> b.step } %>
 
 <div class="admin_flex">
@@ -30,6 +16,9 @@
       <tr><th>ID</th><td><%= @game.id %></td></tr>
       <tr><th>Title</th><td><%= @game.title %></td></tr>
       <tr><th>Description</th><td><%= @game.description %></td></tr>
+      <tr><th>Category1</th><td><%= hashed_categories[@game.category1] %></td></tr>
+      <tr><th>Category2</th><td><%= hashed_categories[@game.category2] %></td></tr>
+      <tr><th>Category3</th><td><%= hashed_categories[@game.category3] %></td></tr>
       <tr><th>Instruction</th>
         <td>
           <% insts.each do |ins| %>
@@ -38,9 +27,6 @@
           <% end %>
         </td>
       </tr>
-      <tr><th>Category1</th><td><%= categories[@game.category1] %></td></tr>
-      <tr><th>Category2</th><td><%= categories[@game.category2] %></td></tr>
-      <tr><th>Category3</th><td><%= categories[@game.category3] %></td></tr>
       <tr><th>STAR</th><td><%= @game.star %></td></tr>
       <tr><th>ACCESS</th><td><%= @game.access %></td></tr>
       <tr><th>CREATE</th><td><%= @game.created_at %></td></tr>
