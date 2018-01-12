@@ -1,8 +1,10 @@
 <%= link_to 'Main', admin_admin_main_path %>
-
+<hr>
 <p id="notice"><%= notice %></p>
 
-<h1>Games</h1>
+<h3>Games</h3>
+
+<p><%= link_to 'New Game', new_admin_game_path %></p>
 
 <table class="admin">
   <thead>
@@ -25,7 +27,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Game', new_admin_game_path %>
