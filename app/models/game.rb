@@ -8,6 +8,15 @@ class Game < ApplicationRecord
 
   mount_uploader :img, ImgUploader
 
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :url, presence: true
+  validates :img, presence: true
+  validates :category1, presence: true, numericality: { only_integer: true }
+  validates :category2, numericality: { only_integer: true }, allow_blank: true
+  validates :category3, numericality: { only_integer: true }, allow_blank: true
+  validates :access, numericality: { only_integer: true }, allow_blank: true
+  validates :star, numericality: { only_integer: true }, allow_blank: true
   validate :img_size
 
   # Get instructions of the game
