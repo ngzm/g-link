@@ -22,6 +22,6 @@ Game ID: <%= @game.id %> / Game Title: <%= @game.title %>
   <%= submit_tag "追加" %>
 <% end %>
 <br />
-<%= link_to 'Game Edit', edit_admin_game_path(@game) %> |
 <%= link_to 'Game Show', [:admin, @game] %> |
+<%= link_to 'Game Edit', edit_admin_game_path(@game) %> |
 <%= link_to 'Back', admin_games_path %>

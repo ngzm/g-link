@@ -3,21 +3,27 @@ module Admin
   class AdminController < ApplicationController
     include Authentication
 
-    before_action :authenticate?, except: %i[main login]
+    before_action :authenticate, except: %i[main]
 
-    def main; end
-
-    def login
+    def main
       @logined = authenticate_token
+    end
+
+    def login; end
+
+    def logout
+      session.delete(:id_token)
+      redirect_to admin_admin_main_path
     end
 
     private
 
-    def authenticate?
-      return if authenticate_token
+    def authenticate
+      @logined = authenticate_token
+      return if @logined
 
       ctkn = 'admin'
-      ruri = '/admin/admin/login'
+      ruri = '/admin/admin/main'
       url = "/rp/main/index?client_token=#{ctkn}&redirect_uri=#{ruri}"
       redirect_to url
     end

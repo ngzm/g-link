@@ -1,26 +1,20 @@
+<%= link_to 'Main', admin_admin_main_path %>
+
 <h1>Admin</h1>
 
 <% if @logined %>
   <h3>You are now logged in the game link admin system</h3>
-  <p>
-  <%= link_to 'Continue to manage Games', admin_games_path %>
-  </p>
-  <p>
   Your profile
-  <ul>
-    <li>user id = <%= @user.id %></li>
-    <li>user name = <%= @user.name %></li>
-    <li>user email = <%= @user.email %></li>
-  </ul>
-  </p>
-  <hr />
-  <%= link_to 'Main', admin_admin_main_path %>
+  <table class="admin">
+    <tr><th>user id</th><td><%= @user.id %></td></tr>
+    <tr><th>name</th><td><%= @user.name %></td></tr>
+    <tr><th>full name</th><td><%= @user.full_name %></td></tr>
+    <tr><th>email</th><td><%= @user.email %></td></tr>
+  </table>
 <% else %>
   <p>
-  <strong>Failed to logged in to the system.</strong>
+  <h3>Failed to logged in to the system</h3>
   <br>
   Bye!
   </p>
-  <hr />
-  <%= link_to 'Main', admin_admin_main_path %>
 <% end %>

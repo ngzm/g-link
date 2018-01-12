@@ -1,10 +1,14 @@
-<h1>Admin</h1>
-<p>
-This is main menu for administrator of game link website.
-</p>
+<h1>game.link admin menu</h1>
 
-<h3>Select Menu</h3>
-<ul>
-  <li><%= link_to 'Manage Games', admin_games_path %></li>
-  <li><%= link_to 'Logout', admin_admin_login_path %></li>
-</ul>
+<% if @logined %>
+  <h3>Hello <%= @user.name %> san !!</h3>
+  操作を選択してね
+  <ul>
+    <li><%= link_to 'Manage Games', admin_games_path %></li>
+    <li><%= link_to 'Your Profile', admin_admin_login_path %></li>
+    <li><%= link_to 'Logout', admin_admin_logout_path %></li>
+  </ul>
+<% else %>
+  <p>ログインしてください</p>
+  <%= link_to 'ログインする', admin_admin_login_path %>
+<% end %>
