@@ -10,16 +10,5 @@ module Auths
         'warning'
       end
     end
-
-    # Authentication Error
-    class Unauthorized < AuthError
-    end
-
-    #  Forbidden Error
-    class Forbidden < AuthError
-      def http_status
-        :forbidden
-      end
-    end
   end
 end

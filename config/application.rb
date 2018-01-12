@@ -16,6 +16,6 @@ module GLink
     # -- all .rb files in that directory are automatically loaded.
 
     # Autoload lib
-    config.autoload_paths += %W[#{config.root}/lib]
+    config.paths.add 'lib', eager_load: true
   end
 end
