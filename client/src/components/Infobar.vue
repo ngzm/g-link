@@ -1,7 +1,7 @@
 <template>
-  <v-snackbar v-model="displayme" success :timeout="3000" multi-line>
+  <v-snackbar v-model="displayme" success :timeout="2000" multi-line>
     {{ message }}
-    <v-btn dark flat @click.native="cancel">Close</v-btn>
+    <v-btn dark flat @click.native="cancel" class="hidden-xs-only">Close</v-btn>
   </v-snackbar>
 </template>
 

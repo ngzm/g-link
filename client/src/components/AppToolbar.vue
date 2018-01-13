@@ -1,6 +1,6 @@
 <template>
   <!-- Toolbar -->
-  <v-toolbar class="indigo" dark fixed>
+  <v-toolbar class="indigo darken-4" dark fixed>
 
     <!-- Left Menu -->
     <v-toolbar-title>
