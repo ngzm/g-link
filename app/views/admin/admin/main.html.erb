@@ -2,7 +2,7 @@
 <hr>
 
 <% if @logined %>
-  <h3>Hello <%= @user.name %> san !!</h3>
+  <h3 id="admin_user">Hello <%= @user.name %> san !!</h3>
   操作を選択してね
   <ul>
     <li><%= link_to 'Manage Games', admin_games_path %></li>
