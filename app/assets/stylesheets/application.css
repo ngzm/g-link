@@ -29,6 +29,10 @@
   margin-right: 20px;
 }
 
+#admin_user {
+  background-color: #DDEEFF;
+  color: #003399;
+}
 #notice {
   background-color: #DDFFCC;
   color: #009933;
