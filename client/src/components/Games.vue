@@ -1,13 +1,10 @@
 <template>
   <section>
-    <!-- Title -->
-    <h5 class="headline mt-3 ml-3 mb-0">{{ category.title }}</h5>
-
     <!-- Alerts -->
     <AlertField v-bind:alerts="serverErrors" />
 
     <!-- Games list -->
-    <GameList v-bind:games="games" v-on:onSelect="onSelectGame" />
+    <GameList :title="ctitle" :games="games" @onSelect="onSelectGame" />
 
     <!-- Floating action buttons for sorting the games list -->
     <SortFb />
@@ -36,8 +33,9 @@ export default {
     waiting: function() {
       return this.gamesStatus === dataStatus.BUZY;
     },
-    category: function() {
-      return this.getCurCategory(parseInt(this.cid, 10));
+    ctitle: function() {
+      const category = this.getCurCategory(parseInt(this.cid, 10));
+      return category ? category.title : 'No Title';
     },
     ...mapState('games', [
       'games',
