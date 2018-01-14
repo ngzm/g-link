@@ -4,7 +4,28 @@
     <AlertField v-bind:alerts="serverErrors" />
 
     <!-- game information -->
-    <GameDetail v-bind:game="game" v-on:onGoBackList="onGoBackList" />
+    <GameDetail v-bind:game="game" />
+
+    <!-- Game Detail commands -->
+    <GameCommandbar
+      @onReview="onOpenReview"
+      @onGoBack="onGoBackList"
+    />
+
+    <!-- Dialog which register game rating --> 
+    <GameReview
+      :dialog="readyReview"
+      :setDialog="setDialog"
+      :title="game.title"
+      @onRegister="onRegisterReview"
+    />
+
+    <!-- Information bar at registered review --> 
+    <Infobar
+      :snackbar="registeredReview"
+      :setSnackbar="setSnackbar"
+      :message="message"
+    />
 
     <!-- Progress Bar -->
     <Spinner v-bind:waitfor="waiting" />
@@ -15,7 +36,10 @@
 import { mapState, mapActions } from 'vuex';
 import { dataStatus } from '../stores/StoreStatus';
 import GameDetail from './GameDetail.vue';
+import GameReview from './GameReview.vue';
+import GameCommandbar from './GameCommandbar.vue';
 import AlertField from './AlertField.vue';
+import Infobar from './Infobar.vue';
 import Spinner from './Spinner.vue';
 
 /**
@@ -26,10 +50,27 @@ export default {
     cid: { type: String, },
     gid: { type: String, },
   },
+  data() {
+    return {
+      dialog: false,
+      snackbar: false,
+      message: '',
+    };
+  },
   computed: {
     waiting: function() {
-      return this.gameStatus === dataStatus.BUZY;
+      return this.gameStatus === dataStatus.BUZY ||
+             this.reviewStatus === dataStatus.BUZY;
     },
+    readyReview: function() {
+      return this.dialog && this.reviewStatus === dataStatus.ACCESSIBLE;
+    },
+    registeredReview: function() {
+      return this.snackbar && this.reviewStatus === dataStatus.REGISTERED;
+    },
+    ...mapState('greview', [
+      'reviewStatus',
+    ]),
     ...mapState('game', [
       'game',
       'gameStatus',
@@ -39,11 +80,36 @@ export default {
     ]),
   },
   methods: {
+    setDialog: function(flg) {
+      this.dialog = flg;
+    },
+    setSnackbar: function(flg) {
+      this.snackbar = flg;
+    },
+    onOpenReview: function() {
+      this.fetchReview(this.gid);
+      this.setDialog(true);
+    },
+    onRegisterReview: function(review) {
+      this.setDialog(false);
+      this.registerReview(review);
+      this.message = `${this.game.title} の評価を登録しました`;
+      this.setSnackbar(true);
+    },
     onGoBackList: function() {
+      // TODO:
+      // 以前表示していたゲームリストのポジションを記録しているので
+      // 通常であれば、historuy.back で戻すべきである。
+      // このため、ユーザログインなどで変な history がなければ、
+      // history.back するように修正することを検討。
       this.$router.push(`/cview/category/${this.cid}`);
     },
     ...mapActions('game', [
       'fetchGame',
+    ]),
+    ...mapActions('greview', [
+      'fetchReview',
+      'registerReview',
     ]),
   },
   beforeRouteEnter(to, from, next) {
@@ -56,9 +122,12 @@ export default {
     next();
   },
   components: {
-    GameDetail,
     AlertField,
     Spinner,
+    GameDetail,
+    GameReview,
+    GameCommandbar,
+    Infobar,
   },
 };
 </script>
