@@ -25,7 +25,7 @@ export default {
   },
 
   actions: {
-    fetchGames: ({ dispatch, commit }, cid) => {
+    fetchGames: ({ commit, dispatch }, cid) => {
       commit('setGamesStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
       GameService.fetchGames(cid,
@@ -35,15 +35,11 @@ export default {
           commit('setGamesStatus', dataStatus.ACCESSIBLE);
         },
         (err) => {
-          const edata = err.response.data || [{ level: 'error',  message: 'server error' }];
-          const estat = err.response.status;
-          edata.forEach((err) => {
-            commit('errors/addServerErrors',
-              { status: estat, level: err.level, message: err.message },
-              { root: true });
-          });
           commit('setGames', []);
           commit('setGamesStatus', dataStatus.ERROR);
+          dispatch('errors/setServerErrors',
+            { stat: err.response.status, errors: err.response.data },
+            { root: true });
         }
       );
     },

@@ -23,7 +23,7 @@ export default {
   },
 
   actions: {
-    fetchReview: ({ commit }, id) => {
+    fetchReview: ({ commit, dispatch }, id) => {
       commit('setReviewStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
       GameService.fetchGameReview(id,
@@ -38,20 +38,16 @@ export default {
             commit('setReview', { game_id: id, comment: '', star: 3 });
             commit('setReviewStatus', dataStatus.ACCESSIBLE);
           } else {
-            const edata = err.response.data || [{ level: 'error',  message: 'server error' }];
-            const estat = err.response.status;
-            edata.forEach((err) => {
-              commit('errors/addServerErrors',
-                { status: estat, level: err.level, message: err.message },
-                { root: true });
-            });
             commit('setReview', {});
             commit('setReviewStatus', dataStatus.ERROR);
+            dispatch('errors/setServerErrors',
+              { stat: err.response.status, errors: err.response.data },
+              { root: true });
           }
         }
       );
     },
-    registerReview: ({ state, commit }, review) => {
+    registerReview: ({ state, commit, dispatch }, review) => {
       commit('setReviewStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
 
@@ -70,15 +66,11 @@ export default {
           commit('setReviewStatus', dataStatus.REGISTERED);
         },
         (err) => {
-          const edata = err.response.data || [{ level: 'error',  message: 'server error' }];
-          const estat = err.response.status;
-          edata.forEach((err) => {
-            commit('errors/addServerErrors',
-              { status: estat, level: err.level, message: err.message },
-              { root: true });
-          });
           commit('setReview', {});
           commit('setReviewStatus', dataStatus.ERROR);
+          dispatch('errors/setServerErrors',
+            { stat: err.response.status, errors: err.response.data },
+            { root: true });
         }
       );
     },
