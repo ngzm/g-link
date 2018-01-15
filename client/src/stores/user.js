@@ -20,40 +20,18 @@ export default {
   },
 
   actions: {
-    authAction: ({ commit }) => {
+    authAction: ({ commit, dispatch }) => {
       commit('signOut');
       UserService.auth(
         (res) => {
-
-          // TODO: debug
-          console.log('user');
-          console.dir(res.data);
-
           commit('signIn', res.data);
         },
         (err) => {
-
-          // TODO: debug
-          console.log('err');
-          console.dir(err);
-
           commit('signOut');
-
           if (err.response.status != 401) {
-            //
-            // TODO: error データのコミット部分は共通化しよう！！
-            //
-            const estat = err.response.status;
-            const edata = Array.isArray(err.response.data) ?
-              err.response.data : [{ level: 'error',  message: 'server error' }];
-            edata.forEach((err) => {
-              commit('errors/addServerErrors',
-                { status: estat, level: err.level, message: err.message },
-                { root: true });
-            });
-            //
-            // TODO: error データのコミット部分は共通化しよう！！
-            //
+            dispatch('errors/setServerErrors',
+              { stat: err.response.status, errors: err.response.data },
+              { root: true });
           }
         }
       );
