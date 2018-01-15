@@ -33,7 +33,7 @@ module Auths
 
       def setup_client(server, token)
         conn = Faraday.new(url: server) do |client|
-          client.request :oauth2, token unless token.nil?
+          client.request :oauth2, token, token_type: 'bearer' unless token.nil?
           client.request :url_encoded
           client.adapter Faraday.default_adapter
         end
