@@ -1,16 +1,22 @@
 <template>
   <v-card>
-    <!-- Game title and description -->
     <v-card-media :src="game.img" height="340px">
     </v-card-media>
+
+    <v-card-actions>
+      <v-btn block dark class="red darken-4" @click="$emit('onReview')" >
+        やってみる
+        <v-icon>play_arrow</v-icon>
+      </v-btn>
+    </v-card-actions>
+
     <v-card-title primary-title>
       <div>
-        <h3 class="headline mb-0">{{ game.title }}</h3>
+        <h5 class="title">{{ game.title }}</h5>
         <div>{{ game.description }}</div>
       </div>
     </v-card-title>
 
-    <!-- Game instructions -->
     <v-card-text>
       <div>
         <h5 class="title">遊び方</h5>

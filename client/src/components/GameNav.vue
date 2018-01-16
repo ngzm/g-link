@@ -1,35 +1,35 @@
 <template>
   <div>
     <!-- FAB Buttons when window size is greater than XS -->
-    <div class="hidden-xs-only text-xs-right g-fab-commands">
+    <div class="hidden-sm-and-down text-xs-right g-fab-commands">
       <v-btn
-        icon
         fab
         dark
-        class="pink"
+        small
+        class="blue"
         @click="$emit('onReview')"
-        v-tooltip:bottom="{ html: 'プレイする' }"
+        v-tooltip:bottom="{ html: 'PLAY GAME' }"
       ><v-icon>play_arrow</v-icon></v-btn>
       <v-btn
-        icon
         fab
         dark
-        class="orange"
+        small
+        class="blue"
         @click="$emit('onReview')"
-        v-tooltip:bottom="{ html: '評価する' }"
+        v-tooltip:bottom="{ html: 'REVIEW GAME' }"
       ><v-icon>star</v-icon></v-btn>
       <v-btn
-        icon
         fab
         dark
+        small
         class="blue"
         @click="$emit('onGoBack')"
-        v-tooltip:bottom="{ html: '一覧に戻る' }"
+        v-tooltip:bottom="{ html: 'BACK TO LIST' }"
       ><v-icon>apps</v-icon></v-btn>
     </div>
 
     <!-- Bottm navigation buttons when window size is less equal XS -->
-    <v-card height="50px" flat class="hidden-sm-and-up">
+    <v-card height="50px" flat class="hidden-md-and-up">
       <v-bottom-nav :value="true">
         <v-btn flat class="white--text" @click="$emit('onReview')">
           <span>Play game</span>
@@ -54,8 +54,7 @@
 <style>
 .g-fab-commands {
   position: fixed;
-  top: 74px;
-  right: 4px;
-  float: left;
+  top: 80px;
+  right: 25px;
 }
 </style>
