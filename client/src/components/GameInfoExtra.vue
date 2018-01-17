@@ -16,6 +16,12 @@
           <v-icon v-for="n in game.star" :key="n" class="orange--text">star</v-icon>
         </div>
       </div>
+      <div style="float: right;">
+        <v-btn dark class="teal darken-2" @click="$emit('onReview')" >
+          評価する
+          <v-icon>star</v-icon>
+        </v-btn>
+      </div>
     </v-card-text>
 
     <!-- User commets -->
@@ -28,7 +34,7 @@
             <div slot="header">
               {{ rv.user }}
               <span>
-                <v-icon v-for="n in rv.star" :key="n" class="yellow--text star">
+                <v-icon v-for="n in rv.star" :key="n" class="yellow--text text--darken-2 star">
                   star
                 </v-icon>
               </span>

@@ -1,13 +1,19 @@
 <template>
   <v-container fluid grid-list-xl>
-    <v-layout row wrap>
-      <v-flex sm8 md6 lg6 xl6 offset-sm2 offset-md0>
-        <!-- Game information -->
-        <GameInfo :game="game" />
+    <v-layout row wrap class="hidden-sm-and-down">
+      <v-flex sm10 md6 lg6 xl5 offset-sm1 offset-md0 mt-0 mb-0 pt-0 pb-0>
+        <h5 class="headline">{{ game.title }}</h5>
       </v-flex>
-      <v-flex sm8 md6 lg6 xl6 offset-sm2 offset-md0>
+    </v-layout>
+
+    <v-layout row wrap>
+      <v-flex sm10 md6 lg6 xl5 offset-sm1 offset-md0>
+        <!-- Game information -->
+        <GameInfo :game="game" @onReview="$emit('onReview')" />
+      </v-flex>
+      <v-flex sm10 md6 lg6 xl5 offset-sm1 offset-md0>
         <!-- Game extra information -->
-        <GameInfoExtra :game="game" />
+        <GameInfoExtra :game="game" @onReview="$emit('onReview')" />
       </v-flex>
     </v-layout>
   </v-container>

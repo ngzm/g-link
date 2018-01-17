@@ -1,13 +1,17 @@
 <template>
   <section>
     <!-- Alerts -->
-    <AlertField v-bind:alerts="serverErrors" />
+    <AlertField :alerts="serverErrors" />
 
     <!-- game information -->
-    <GameDetail v-bind:game="game" />
+    <GameDetail
+      :game="game"
+      @onReview="onOpenReview"
+      @onGoBack="onGoBackList"
+    />
 
-    <!-- Game Detail commands -->
-    <GameCommandbar
+    <!-- Game navigation commands -->
+    <GameNav
       @onReview="onOpenReview"
       @onGoBack="onGoBackList"
     />
@@ -28,7 +32,7 @@
     />
 
     <!-- Progress Bar -->
-    <Spinner v-bind:waitfor="waiting" />
+    <Spinner :waitfor="waiting" />
   </section>
 </template>
 
@@ -37,7 +41,7 @@ import { mapState, mapActions } from 'vuex';
 import { dataStatus } from '../stores/StoreStatus';
 import GameDetail from './GameDetail.vue';
 import GameReview from './GameReview.vue';
-import GameCommandbar from './GameCommandbar.vue';
+import GameNav from './GameNav.vue';
 import AlertField from './AlertField.vue';
 import Infobar from './Infobar.vue';
 import Spinner from './Spinner.vue';
@@ -126,7 +130,7 @@ export default {
     Spinner,
     GameDetail,
     GameReview,
-    GameCommandbar,
+    GameNav,
     Infobar,
   },
 };
