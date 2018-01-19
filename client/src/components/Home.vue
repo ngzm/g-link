@@ -1,12 +1,82 @@
 <template>
-<section>
-  <h2>Home</h2>
-  This is Home
-</section>
+  <section>
+    <v-container grid-list-lg>
+      <!-- Alerts -->
+      <AlertField v-bind:alerts="serverErrors" />
+
+      <!-- Logo -->
+      <div class="main_logo">
+        <img src="/images/webgame_link_logo2.png" alt="webgame.link" />
+      </div>
+
+      <!-- AD -->
+      <div>
+        <h5 class="headline">オススメ</h5>
+        <HomeAdvertise />
+      </div>
+
+      <!-- Ranking -->
+      <div class="mt-5">
+        <h5 class="headline">ランキング</h5>
+        <HomeRanking />
+      </div>
+
+      <!-- Contents -->
+      <div class="mt-5">
+        <h5 class="headline">カテゴリー</h5>
+        <HomeNavi />
+      </div>
+
+      <div class="mt-5">
+        <h5 class="headline">お問い合わせ</h5>
+        FRENCH CONNECTION
+      </div>
+    </v-container>
+  </section>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+import AlertField from './AlertField.vue';
+import HomeAdvertise from './HomeAdvertise.vue';
+import HomeRanking from './HomeRanking.vue';
+import HomeNavi from './HomeNavi.vue';
+
+export default {
+  computed: {
+    ...mapState('errors', [
+      'serverErrors',
+    ]),
+  },
+  methods: {
+    ...mapActions('ranking', [
+      'fetchRanking',
+    ]),
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.fetchRanking(3);
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.fetchRanking(3);
+    next();
+  },
+  components: {
+    AlertField,
+    HomeAdvertise,
+    HomeRanking,
+    HomeNavi,
+  },
+};
 </script>
 
 <style>
+.main_logo {
+  padding: 18px;
+  text-align: center;
+}
+.main_logo img {
+  max-width: 100%;
+}
 </style>
