@@ -56,6 +56,7 @@ export default {
   },
   data() {
     return {
+      direct: false,
       dialog: false,
       snackbar: false,
       message: '',
@@ -100,13 +101,16 @@ export default {
       this.message = `${this.game.title} の評価を登録しました`;
       this.setSnackbar(true);
     },
+    setDirect: function(fp) {
+      // A value of from.fulPath is always '/' when load this content directly
+      this.direct = (fp == '/') ? true : false;
+    },
     onGoBackList: function() {
-      // TODO:
-      // 以前表示していたゲームリストのポジションを記録しているので
-      // 通常であれば、historuy.back で戻すべきである。
-      // このため、ユーザログインなどで変な history がなければ、
-      // history.back するように修正することを検討。
-      this.$router.push(`/cview/category/${this.cid}`);
+      if (this.direct) {
+        this.$router.push(`/cview/category/${this.cid}`);
+      } else {
+        this.$router.go(-1);
+      }
     },
     ...mapActions('game', [
       'fetchGame',
@@ -118,6 +122,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
+      vm.setDirect(from.fullPath);
       vm.fetchGame(to.params.gid);
     });
   },

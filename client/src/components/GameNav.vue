@@ -24,7 +24,7 @@
         small
         class="blue"
         @click="$emit('onGoBack')"
-        v-tooltip:bottom="{ html: 'BACK TO LIST' }"
+        v-tooltip:bottom="{ html: 'BACK' }"
       ><v-icon>apps</v-icon></v-btn>
     </div>
 
@@ -32,11 +32,11 @@
     <v-card height="50px" flat class="hidden-md-and-up">
       <v-bottom-nav :value="true">
         <v-btn flat class="white--text" @click="$emit('onReview')">
-          <span>Play game</span>
+          <span>PLAY GAME</span>
           <v-icon>play_arrow</v-icon>
         </v-btn>
         <v-btn flat class="white--text" @click="$emit('onReview')">
-          <span>Review game</span>
+          <span>REVIEW GAME</span>
           <v-icon>star</v-icon>
         </v-btn>
         <v-btn flat class="white--text" @click="$emit('onGoBack')">
