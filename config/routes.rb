@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     # Api for user authentication
     get 'users/auth/exchange', to: 'users#exchange_auth_token', format: false
     get 'users/auth', format: false
+
+    # Api for ranking of games
+    get 'ranking', to: 'ranking#index', format: false
   end
 
   # User autentication using Other OP Services,

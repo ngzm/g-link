@@ -20,19 +20,19 @@
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-list-tile exact to="/top-ten">
+      <v-list-tile exact to="/cview/ranking">
         <v-list-tile-action>
           <v-icon>new_releases</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>オススメ</v-list-tile-title>
+          <v-list-tile-title>ランキング</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
 
       <v-divider class="mt-2"></v-divider>
 
       <!-- Game Categpries -->
-      <template v-for="item in listItems">
+      <template v-for="item in categories">
         <v-list-tile exact :key="item.id" :to="`/cview/category/${item.id}`">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -70,7 +70,7 @@ export default {
         this.setDrawer(drawer);
       },
     },
-    ...mapGetters({ listItems: 'getCategories' }),
+    ...mapGetters({ categories: 'getCategories' }),
   },
 };
 </script>
