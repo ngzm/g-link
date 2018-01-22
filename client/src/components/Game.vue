@@ -6,12 +6,14 @@
     <!-- game information -->
     <GameDetail
       :game="game"
+      @onPlay="onPlayGame"
       @onReview="onOpenReview"
       @onGoBack="onGoBackList"
     />
 
     <!-- Game navigation commands -->
     <GameNav
+      @onPlay="onPlayGame"
       @onReview="onOpenReview"
       @onGoBack="onGoBackList"
     />
@@ -90,6 +92,9 @@ export default {
     },
     setSnackbar: function(flg) {
       this.snackbar = flg;
+    },
+    onPlayGame: function() {
+      window.open(this.game.url, '_game');
     },
     onOpenReview: function() {
       this.fetchReview(this.gid);

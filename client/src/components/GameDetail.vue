@@ -9,7 +9,7 @@
     <v-layout row wrap>
       <v-flex sm10 md6 lg6 xl5 offset-sm1 offset-md0>
         <!-- Game information -->
-        <GameInfo :game="game" @onReview="$emit('onReview')" />
+        <GameInfo :game="game" @onPlay="$emit('onPlay')" />
       </v-flex>
       <v-flex sm10 md6 lg6 xl5 offset-sm1 offset-md0>
         <!-- Game extra information -->

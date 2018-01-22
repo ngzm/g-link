@@ -4,7 +4,7 @@
     </v-card-media>
 
     <v-card-actions>
-      <v-btn block dark class="red darken-4" @click="$emit('onReview')" >
+      <v-btn block dark class="red darken-4" @click="$emit('onPlay')" >
         やってみる
         <v-icon>play_arrow</v-icon>
       </v-btn>
