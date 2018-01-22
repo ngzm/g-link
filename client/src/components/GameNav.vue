@@ -7,7 +7,7 @@
         dark
         small
         class="blue"
-        @click="$emit('onReview')"
+        @click="$emit('onPlay')"
         v-tooltip:bottom="{ html: 'PLAY GAME' }"
       ><v-icon>play_arrow</v-icon></v-btn>
       <v-btn
@@ -31,7 +31,7 @@
     <!-- Bottm navigation buttons when window size is less equal XS -->
     <v-card height="50px" flat class="hidden-md-and-up">
       <v-bottom-nav :value="true">
-        <v-btn flat class="white--text" @click="$emit('onReview')">
+        <v-btn flat class="white--text" @click="$emit('onPlay')">
           <span>PLAY GAME</span>
           <v-icon>play_arrow</v-icon>
         </v-btn>
