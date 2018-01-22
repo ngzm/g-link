@@ -8,7 +8,7 @@
         <p class="gtitle">{{ game.title }}</p>
       </div>
       <div class="right">
-        <v-icon v-for="n in game.star" :key="n" class="yellow--text star" >
+        <v-icon v-for="n in intStar" :key="n" class="yellow--text star" >
           star
         </v-icon>
         <span class="gaccess">{{ game.access }}</span>
@@ -25,6 +25,11 @@
 export default {
   props: {
     game: Object,
+  },
+  computed: {
+    intStar: function() {
+      return (this.game.star) ? Math.round(this.game.star) : 0;
+    },
   },
 };
 </script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111104255) do
+ActiveRecord::Schema.define(version: 20180122023929) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string "client_token", null: false
@@ -33,9 +33,10 @@ ActiveRecord::Schema.define(version: 20180111104255) do
     t.integer "category2"
     t.integer "category3"
     t.integer "access", default: 0, null: false
-    t.integer "star", default: 0, null: false
+    t.float "star", default: 0.0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "gtype", default: 99, null: false
   end
 
   create_table "instructions", force: :cascade do |t|

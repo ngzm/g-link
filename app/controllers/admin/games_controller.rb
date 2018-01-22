@@ -25,6 +25,8 @@ module Admin
     def create
       @game = Game.new(game_params)
 
+      puts @game.star
+
       respond_to do |format|
         if @game.save
           format.html { redirect_to [:admin, @game], notice: 'Game was successfully created.' }
@@ -62,7 +64,7 @@ module Admin
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.require(:game).permit(:title, :description, :category1, :category2, :category3, :url, :img)
+      params.require(:game).permit(:title, :description, :category1, :category2, :category3, :url, :img, :gtype)
     end
   end
 end

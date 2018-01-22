@@ -14,6 +14,7 @@
       <th>Category1</th>
       <th>Category2</th>
       <th>Category3</th>
+      <th>Type</th>
       <th colspan="3">Operation</th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
         <td><%= hashed_categories[game.category1] %></td>
         <td><%= hashed_categories[game.category2] %></td>
         <td><%= hashed_categories[game.category3] %></td>
+        <td><%= hashed_game_type[game.gtype] %></td>
         <td><%= link_to 'Show', [:admin, game] %></td>
         <td><%= link_to 'Edit', edit_admin_game_path(game) %></td>
         <td><%= link_to 'Destroy', [:admin, game], method: :delete, data: { confirm: 'Are you sure?' } %></td>

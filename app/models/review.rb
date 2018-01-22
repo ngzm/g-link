@@ -37,7 +37,7 @@ class Review < ApplicationRecord
 
   # update game table with average stars on review table
   def update_game_star
-    star_avg = Review.where(game_id: game_id).average(:star).round
+    star_avg = Review.where(game_id: game_id).average(:star)
     game.update!(star: star_avg)
   end
 end

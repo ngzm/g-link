@@ -15,4 +15,11 @@ module Admin::GamesHelper
       12 => 'Variety'
     }
   end
+  def hashed_game_type
+    {
+      1 => 'HTML5',
+      2 => 'Flash',
+      99 => 'ETC'
+    }
+  end
 end
