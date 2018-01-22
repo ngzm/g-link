@@ -32,7 +32,7 @@
     <v-card-text>
       <div>
         <h5 class="title">最新口コミ</h5>
-        <div v-if="game.reviews.length > 0">
+        <div v-if="game.reviews && game.reviews.length > 0">
           <v-expansion-panel expand>
             <v-expansion-panel-content v-for="(rv, index) in game.reviews" :key="index" value="true">
               <div slot="header">

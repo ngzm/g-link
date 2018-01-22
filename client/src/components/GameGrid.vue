@@ -14,7 +14,7 @@
         <span class="gaccess">{{ game.access }}</span>
       </div>
     </v-card-text>
-    <div class="g-type">HTML5</div>
+    <div :class="classGtype">{{ labelGtype }}</div>
   </v-card>
 </template>
 
@@ -29,6 +29,12 @@ export default {
   computed: {
     intStar: function() {
       return (this.game.star) ? Math.round(this.game.star) : 0;
+    },
+    labelGtype: function() {
+      return (this.game.gtype === 1) ? 'HTML5' : (this.game.gtype === 2) ? 'FLASH' : 'ETC';
+    },
+    classGtype: function() {
+      return (this.game.gtype === 1) ? 'g-type g-blue' : (this.game.gtype === 2) ? 'g-type g-red' : 'g-type';
     },
   },
 };
@@ -73,7 +79,13 @@ a.g-grid {
   left: 8px;
   float: left;
   padding: 4px;
-  background-color: rgba(0, 0, 80, 0.25);
+  background-color: rgba(10, 10, 10, 0.25);
   font-size: 75%;
+}
+.g-red {
+  background-color: rgba(90, 0, 0, 0.25);
+}
+.g-blue {
+  background-color: rgba(0, 0, 90, 0.25);
 }
 </style>
