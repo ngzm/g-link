@@ -25,8 +25,6 @@ module Admin
     def create
       @game = Game.new(game_params)
 
-      puts @game.star
-
       respond_to do |format|
         if @game.save
           format.html { redirect_to [:admin, @game], notice: 'Game was successfully created.' }

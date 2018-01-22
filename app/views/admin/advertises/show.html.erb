@@ -1,0 +1,24 @@
+<%= link_to 'Main', admin_admin_main_path %> |
+<%= link_to 'Advertises', admin_advertises_path %> |
+<%= link_to 'Edit Advertise', edit_admin_advertise_path(@advertise) %>
+<hr />
+
+<p id="notice"><%= notice %></p>
+
+<h3>Show Advertise</h3>
+
+<div class="admin_flex">
+  <div>
+    <table class="admin">
+      <tr><th>ID</th><td><%= @advertise.id %></td></tr>
+      <tr><th>Title</th><td><%= @advertise.title %></td></tr>
+      <tr><th>Description</th><td><%= @advertise.description %></td></tr>
+      <tr><th>Src</th><td><%= @advertise.src %></td></tr>
+      <tr><th>Adtype</th><td><%= hashed_adtypes[@advertise.adtype] %></td></tr>
+      <tr><th>Priority</th><td><%= hashed_priorities[@advertise.priority] %></td></tr>
+      <tr><th>Show</th><td><%= @advertise.show %></td></tr>
+      <tr><th>CREATE</th><td><%= @advertise.created_at %></td></tr>
+      <tr><th>UPDATE</th><td><%= @advertise.updated_at %></td></tr>
+    </table>
+  </div>
+</div>

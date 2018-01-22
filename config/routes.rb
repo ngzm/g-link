@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :games, format: false do
       resource :instructions, only: %i[edit create], format: false
     end
+    resources :advertises, format: false
   end
 
   # Api for g-link client using ajax
