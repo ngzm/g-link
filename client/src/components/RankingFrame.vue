@@ -62,7 +62,7 @@ export default {
           id: g.id,
           cid: g.category1,
           title: g.title,
-          value: g.star,
+          value: (g.star) ? g.star.toFixed(2) : '-',
         };
       });
     },

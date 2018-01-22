@@ -16,7 +16,7 @@ class Game < ApplicationRecord
   validates :category2, numericality: { only_integer: true }, allow_blank: true
   validates :category3, numericality: { only_integer: true }, allow_blank: true
   validates :access, numericality: { only_integer: true }, allow_blank: true
-  validates :star, numericality: { only_integer: true }, allow_blank: true
+  validates :star, numericality: true, allow_blank: true
   validate :img_size
 
   # Get instructions of the game
