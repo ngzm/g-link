@@ -25,8 +25,8 @@
         <td><%= advertise.id %></td>
         <td><%= advertise.title %></td>
         <td><%= advertise.description %></td>
-        <td><%= advertise.adtype %></td>
-        <td><%= advertise.priority %></td>
+        <td><%= hashed_adtypes[advertise.adtype] %></td>
+        <td><%= hashed_priorities[advertise.priority] %></td>
         <td><%= advertise.show %></td>
         <td><%= link_to 'Show', [:admin, advertise] %></td>
         <td><%= link_to 'Edit', edit_admin_advertise_path(advertise) %></td>

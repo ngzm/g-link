@@ -21,8 +21,9 @@
     <tr><th>Priority</th><td><%= form.select :priority, priorities %></td></tr>
     <tr><th>Show</th>
       <td>
+        <input name="post[validated]" type="hidden" value="0" />
         <%= form.label :表示する? %>
-        <%= form.check_box  :show, {}, true, false %>
+        <%= form.check_box  :show, {}, "true", "false" %>
       </td>
     </tr>
   </table>
