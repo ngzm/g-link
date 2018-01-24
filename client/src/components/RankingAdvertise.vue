@@ -2,44 +2,11 @@
   <v-layout row wrap>
     <h5 class="title">オススメ</h5>
 
-    <v-flex xs12>
+    <v-flex xs12 v-for="(ad, index) in displayRank" :key="index">
       <v-card class="grey lighten-2" flat>
         <v-card-text class="text-xs-center">
-          <p class="atitle">
-777タウン.net
-          </p>
-
-          <div>
-<a href="http://www.accesstrade.net/at/c.html?rk=01002cpb000ppz" target="_blank"><img src="http://www.accesstrade.net/at/r.html?rk=01002cpb000ppz" alt="" border="0" /></a>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-
-    <v-flex xs12>
-      <v-card class="grey lighten-2" flat>
-        <v-card-text class="text-xs-center">
-          <p class="atitle">
-777タウン.net
-          </p>
-
-          <div>
-<a href="http://www.accesstrade.net/at/c.html?rk=01002cpb000ppz" target="_blank"><img src="http://www.accesstrade.net/at/r.html?rk=01002cpb000ppz" alt="" border="0" /></a>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-
-    <v-flex xs12>
-      <v-card class="grey lighten-2" flat>
-        <v-card-text class="text-xs-center">
-          <p class="atitle">
-777タウン.net
-          </p>
-
-          <div>
-<a href="http://www.accesstrade.net/at/c.html?rk=01002cpb000ppz" target="_blank"><img src="http://www.accesstrade.net/at/r.html?rk=01002cpb000ppz" alt="" border="0" /></a>
-          </div>
+          <p class="atitle" v-text="ad.title"></p>
+          <div v-html="ad.src"></div>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -48,6 +15,27 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapMutations } = createNamespacedHelpers('advertise');
+
+/**
+ * Advertise list on Home Component
+ */
+export default {
+  computed: {
+    ...mapState([
+      'displayRank',
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'arrangeDisplayRank',
+    ]),
+  },
+  created: function() {
+    this.arrangeDisplayRank();
+  },
+};
 </script>
 
 <style>
