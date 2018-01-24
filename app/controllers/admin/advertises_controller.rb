@@ -7,7 +7,7 @@ module Admin
 
     # GET /advertises
     def index
-      @advertises = Advertise.all
+      @advertises = Advertise.all.order({ show: :DESC }, :adtype, :priority)
     end
 
     # GET /advertises/1
