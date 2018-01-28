@@ -1,27 +1,13 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12 md6 lg4 xl2 v-for="ad in advertises" :key="ad.id">
-      <v-card class="grey lighten-2" flat>
+    <v-flex xs12 md6 lg4 xl2 v-for="(ad, index) in displayHome" :key="index">
+      <v-card class="grey lighten-2" flat height="152px" >
         <v-card-text>
-
-          <v-container fluid grid-list-sm>
-            <v-layout row>
-              <v-flex>
-                <div>
-<a href="http://www.accesstrade.net/at/c.html?rk=01002cpb000ppz" target="_blank"><img src="http://www.accesstrade.net/at/r.html?rk=01002cpb000ppz" alt="" border="0" /></a>
-                </div>
-              </v-flex>
-              <v-flex>
-                <p class="atitle">
-777タウン.net
-                </p>
-                <p>
-パチンコもパチスロも24時間遊び放題！！稼いだコインで景品をGETできるよ！
-                </p>
-              </v-flex>
-            </v-layout>
-          </v-container>
-
+          <div class="asrc" v-html="ad.src"></div>
+          <div>
+            <p class="atitle" v-text="ad.title"></p>
+            <p v-text="ad.description"></p>
+          </div>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -29,28 +15,34 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapMutations } = createNamespacedHelpers('advertise');
+
 /**
  * Advertise list on Home Component
  */
 export default {
-  //
-  // TODO: 本来はDBから読み込むデータ
-  data() {
-    return {
-      advertises: [
-        { id: 1, title: '進撃の巨人', img: 'sss/bbb/ccc/.png' },
-        { id: 2, title: 'マンハッタン島', img: 'sss/bbb/ccc/.png' },
-        { id: 3, title: 'ファアリーテイル', img: 'sss/bbb/ccc/.png' },
-        { id: 4, title: 'Monster Hunter', img: 'sss/bbb/ccc/.png' },
-        { id: 5, title: 'マリオブラザース', img: 'sss/bbb/ccc/.png' },
-        { id: 6, title: 'Packman', img: 'sss/bbb/ccc/.png' },
-      ],
-    };
+  computed: {
+    ...mapState([
+      'displayHome',
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'arrangeDisplayHome',
+    ]),
+  },
+  created: function() {
+    this.arrangeDisplayHome();
   },
 };
 </script>
 
 <style>
+.asrc {
+  float: left;
+  padding-right: 14px;
+}
 .atitle {
   color: #666666;
   font-weight: bold;

@@ -1,0 +1,37 @@
+<%= link_to 'Main', admin_admin_main_path %>
+<hr />
+<p id="notice"><%= notice %></p>
+
+<h3>Advertises</h3>
+
+<p><%= link_to 'New Advertise', new_admin_advertise_path %></p>
+
+<table class="admin">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Adtype</th>
+      <th>Priority</th>
+      <th>Show</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @advertises.each do |advertise| %>
+      <tr>
+        <td><%= advertise.id %></td>
+        <td><%= advertise.title %></td>
+        <td><%= advertise.description %></td>
+        <td><%= hashed_adtypes[advertise.adtype] %></td>
+        <td><%= hashed_priorities[advertise.priority] %></td>
+        <td><%= advertise.show %></td>
+        <td><%= link_to 'Show', [:admin, advertise] %></td>
+        <td><%= link_to 'Edit', edit_admin_advertise_path(advertise) %></td>
+        <td><%= link_to 'Destroy', [:admin, advertise], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

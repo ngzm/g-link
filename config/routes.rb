@@ -5,11 +5,12 @@ Rails.application.routes.draw do
     get 'main/index', format: false
 
     # Api access to games resources
-    # Api access to reviews of a game
-    get 'games/search/:category_id', to: 'games#search', format: false
     resources :games, only: %i[index show], format: false do
+      # Api access to reviews resources
       resource :reviews, only: %i[show update create], format: false
     end
+    # Api access to games searched by category id
+    get 'games/search/:category_id', to: 'games#search', format: false
 
     # Api for user authentication
     get 'users/auth/exchange', to: 'users#exchange_auth_token', format: false
@@ -17,6 +18,10 @@ Rails.application.routes.draw do
 
     # Api for ranking of games
     get 'ranking', to: 'ranking#index', format: false
+
+    # Api for advertises for client
+    get 'advertises', to: 'advertises#index', format: false
+    get 'advertises/search', format: false
   end
 
   # User autentication using Other OP Services,
@@ -29,12 +34,13 @@ Rails.application.routes.draw do
 
   # Admin
   namespace :admin do
-    get 'admin/main'
-    get 'admin/login'
-    get 'admin/logout'
+    get 'admin/main', format: false
+    get 'admin/login', format: false
+    get 'admin/logout', format: false
     resources :games, format: false do
       resource :instructions, only: %i[edit create], format: false
     end
+    resources :advertises, format: false
   end
 
   # Api for g-link client using ajax

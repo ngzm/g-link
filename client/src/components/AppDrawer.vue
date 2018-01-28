@@ -60,7 +60,6 @@ export default {
       type: Function,
     },
   },
-
   computed: {
     dopen: {
       get: function() {

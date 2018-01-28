@@ -1,55 +1,31 @@
 <template>
   <div>
     <router-view></router-view>
-    <Infobar
-      :snackbar="snackbar"
-      :setSnackbar="setSnackbar"
-      :message="message"
-    />
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import { mapState, mapGetters, mapActions } from 'vuex';
-import Infobar from './Infobar.vue';
+import { mapGetters, mapActions } from 'vuex';
 
 Vue.use(Vuetify);
 
 export default {
-  data() {
-    return {
-      snackbar: false,
-      message: '',
-    };
-  },
   computed: {
-    ...mapState('user', [
-      'user',
-      'authenticated',
-    ]),
     ...mapGetters('errors', [
       'serious',
     ]),
   },
   methods: {
-    setSnackbar: function(flg) {
-      this.snackbar = flg;
-    },
     ...mapActions('user', [
       'authAction',
     ]),
+    ...mapActions('advertise', [
+      'fetchAdvertise',
+    ]),
   },
   watch: {
-    authenticated: function(value) {
-      if (value) {
-        this.message = `ようこそ ${this.user.name} さん`;
-      } else {
-        this.message = 'ログアウトしました';
-      }
-      this.snackbar = true;
-    },
     serious: function(value) {
       if (value) {
         this.$router.replace('/cerror');
@@ -57,10 +33,12 @@ export default {
     },
   },
   created: function() {
+    // 認証処理
     this.authAction();
-  },
-  components: {
-    Infobar,
+
+    // 広告情報取得
+    this.fetchAdvertise(1);
+    this.fetchAdvertise(2);
   },
 };
 </script>

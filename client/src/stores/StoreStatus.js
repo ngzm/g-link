@@ -5,3 +5,8 @@ export const dataStatus = {
   REGISTERED: 3,
   ERROR: 9,
 };
+
+export const advertiseSize = {
+  DISP_HOME_SIZE: 6,
+  DISP_RANK_SIZE: 6,
+};

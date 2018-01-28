@@ -1,0 +1,35 @@
+<%= form_with(model: [:admin, advertise], local: true) do |form| %>
+  <% if advertise.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% advertise.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% adtypes = hashed_adtypes.map { |k, v| [v, k] } %>
+  <% priorities = hashed_priorities.map { |k, v| [v, k] } %>
+
+  <table class="admin">
+    <tr><th>ID</th><td><%= form.label :id, advertise.id %></td></tr>
+    <tr><th>Title</th><td><%= form.text_field :title, size: 40 %></td></tr>
+    <tr><th>Description</th><td><%= form.text_field :description, size: 100 %></td></tr>
+    <tr><th>Src</th><td><%= form.text_area :src, cols: 128, rows: 10 %></td></tr>
+    <tr><th>AdType</th><td><%= form.select :adtype, adtypes %></td></tr>
+    <tr><th>Priority</th><td><%= form.select :priority, priorities %></td></tr>
+    <tr><th>Show</th>
+      <td>
+        <input name="post[validated]" type="hidden" value="0" />
+        <%= form.label :表示する? %>
+        <%= form.check_box  :show, {}, "true", "false" %>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

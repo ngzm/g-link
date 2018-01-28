@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122023929) do
+ActiveRecord::Schema.define(version: 20180123090226) do
+
+  create_table "advertises", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description"
+    t.string "src", null: false
+    t.integer "adtype", null: false
+    t.integer "priority", null: false
+    t.boolean "show", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "auth_tokens", force: :cascade do |t|
     t.string "client_token", null: false
