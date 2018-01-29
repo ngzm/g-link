@@ -4,7 +4,7 @@
 
     <!-- Left Menu -->
     <v-toolbar-title>
-      <v-toolbar-side-icon @click.stop="$emit('toggleDrawer')"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
       <a class="main-title" @click.stop.prevent="$router.push('/cview')" href="">webgames.link</a>
     </v-toolbar-title>
 
@@ -25,6 +25,11 @@ import Authenticate from '../libs/authenticate';
 const { mapState, mapActions } = createNamespacedHelpers('user');
 
 export default {
+  props: {
+    toggleDrawer: {
+      type: Function,
+    },
+  },
   computed: {
     ...mapState([
       'user',
