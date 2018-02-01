@@ -1,0 +1,47 @@
+####################################################
+# (1) RAILS_ENV 環境変数
+####################################################
+$ export RAILS_ENV=production
+
+
+####################################################
+# (2) Rconfig/secrets.ymlにてsecret_key_baseを設定しないと
+#   app error: Missing secret_token and secret_key_base for
+#   'production' environment, set these values in config/secrets.yml (RuntimeError)』
+# と怒られる対策
+#
+# 本番環境にデプロイしたタイミングで実施した方が良い？
+####################################################
+$ be rake secret
+09f920bcb85f7b81c9fcf34ea7c6de6b7d2dedafbab82f402e566113bb1e48f1c56f244008fa9a044ae50f4143fc08a34e87e2d219e34c8e1cd610e3cd267015
+
+$ export SECRET_KEY_BASE=09f920bcb85f7b81c9fcf34ea7c6de6b7d2dedafbab82f402e566113bb1e48f1c56f244008fa9a044ae50f4143fc08a34e87e2d219e34c8e1cd610e3cd267015
+
+
+####################################################
+# (3) 自動で assets:precompile してくれない対策
+####################################################
+$ be rake assets:precompile
+Yarn executable was not detected in the system.
+Download Yarn at https://yarnpkg.com/en/docs/install
+I, [2018-02-02T17:46:15.373436 #18134]  INFO -- : Writing /Users/nagazumi/DEV-NAO/SANDBOX/glink/public/assets/application-352b7b7df68b3e259c06342d6b98c91fb375b549a04d43afd36cff22758d5f3a.js
+I, [2018-02-02T17:46:15.379972 #18134]  INFO -- : Writing /Users/nagazumi/DEV-NAO/SANDBOX/glink/public/assets/application-352b7b7df68b3e259c06342d6b98c91fb375b549a04d43afd36cff22758d5f3a.js.gz
+I, [2018-02-02T17:46:15.591626 #18134]  INFO -- : Writing /Users/nagazumi/DEV-NAO/SANDBOX/glink/public/assets/application-8801971f7eaf02ada70ada2ac34aa25e393ce1f0806bbcc7f3cbb2be4dca1862.css
+I, [2018-02-02T17:46:15.603941 #18134]  INFO -- : Writing /Users/nagazumi/DEV-NAO/SANDBOX/glink/public/assets/application-8801971f7eaf02ada70ada2ac34aa25e393ce1f0806bbcc7f3cbb2be4dca1862.css.gz
+
+
+####################################################
+# (4) public 配下を静的コンテンツとして扱ってくれない
+# 環境変数 RAILS_SERVE_STATIC_FILES をセット
+####################################################
+$ export RAILS_SERVE_STATIC_FILES=1
+
+
+あとは、ログ周りを整備すること
+
+以上でOK
+
+#
+# docker run command sequence
+#
+docker run -v /home/vagrant/gvol/tmp/:/usr/src/app/tmp -v /home/vagrant/gvol/log:/usr/src/app/log -v /home/vagrant/gvol/uploads:/usr/src/app/public/uploads -p 3000:3000 glink

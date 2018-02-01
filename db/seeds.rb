@@ -45,3 +45,11 @@ Instruction.create!([
   {explanation: "時間内に全アイテムを落とせばクリア", step: 2, game_id: 4},
   {explanation: "ハンマが貯まったらうまく使おう", step: 3, game_id: 4}
 ])
+User.create!([
+  {
+    name: 'Naoki',
+    full_name: 'Naoki Nagazumi',
+    email: 'nk.ngzm@gmail.com',
+    admin: true
+  }
+])
