@@ -36,6 +36,12 @@
 /client/dist/build.js
 /client/npm-debug.log
 
+# Staging
+/staging
+
+# Production
+/production/app/glink
+
 # Others
 .DS_Store
 .idea

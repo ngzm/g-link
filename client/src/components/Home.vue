@@ -6,7 +6,7 @@
 
       <!-- Logo -->
       <div class="main_logo">
-        <img src="/images/webgame_link_logo2.png" alt="webgame.link" />
+        <img src="/images/freegame_link_logo1.png" alt="freegame.link" />
       </div>
 
       <!-- AD -->

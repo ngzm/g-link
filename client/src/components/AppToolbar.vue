@@ -5,7 +5,9 @@
     <!-- Left Menu -->
     <v-toolbar-title>
       <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
-      <a class="main-title" @click.stop.prevent="$router.push('/cview')" href="">webgames.link</a>
+      <a class="main-title" @click.stop.prevent="$router.push('/cview')" href="">
+        freegame.link
+      </a>
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
