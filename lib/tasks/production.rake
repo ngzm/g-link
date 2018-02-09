@@ -35,7 +35,7 @@ namespace :production do
     puts '--- export_server ---'
     src_path = './'
     exclude_dirs = ['.', '..', '.DS_Store', '.bundle', '.git', '.gitignore', \
-                    'client', 'log', 'memo', 'production', 'test', 'vendor']
+                    'client', 'log', 'memo', 'production', 'test', 'tmp', 'vendor']
     Dir.entries(src_path).each do |f|
       next if exclude_dirs.include?(f)
       src = src_path + f

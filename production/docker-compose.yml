@@ -4,15 +4,15 @@ services:
     build: ./app
     volumes:
       - sockets:/usr/src/app/tmp/sockets
-      - ./volume/app/database:/usr/src/app/database
-      - ./volume/app/log:/usr/src/app/log
-      - ./volume/app/uploads:/usr/src/app/public/uploads
+      - ./app/volume/database:/usr/src/app/database
+      - ./app/volume/log:/usr/src/app/log
+      - ./app/volume/uploads:/usr/src/app/public/uploads
   web:
     build: ./web
     ports:
       - "80:80"
     volumes:
       - sockets:/var/tmp/sockets
-      - ./volume/web/log:/var/log/nginx
+      - ./web/volume/log:/var/log/nginx
 volumes:
   sockets:
