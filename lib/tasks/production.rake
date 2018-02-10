@@ -13,9 +13,9 @@ namespace :production do
   task :build_client do
     puts '--- build_client start ---'
     Dir.chdir('./client') do
-      `npm run build`
+      `npm run release`
       unless $CHILD_STATUS.exitstatus.zero?
-        puts 'Failed at npm run build'
+        puts 'Failed at npm run release'
         next
       end
     end
