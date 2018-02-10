@@ -1,5 +1,5 @@
 <template>
-  <v-menu bottom left>
+  <v-menu bottom left offset-y>
     <v-btn icon slot="activator" dark>
       <v-icon>more_vert</v-icon>
     </v-btn>

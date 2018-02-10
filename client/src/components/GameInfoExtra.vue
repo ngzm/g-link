@@ -20,13 +20,14 @@
           <span v-else>評価は未だありません</span>
         </div>
       </div>
-      <div style="float: right;">
-        <v-btn dark class="teal darken-2" @click="$emit('onReview')" >
-          評価する
-          <v-icon>star</v-icon>
-        </v-btn>
-      </div>
     </v-card-text>
+
+    <v-card-actions>
+      <v-btn block dark class="teal darken-2" @click="$emit('onReview')" >
+        評価する
+        <v-icon>star</v-icon>
+      </v-btn>
+    </v-card-actions>
 
     <!-- User commets -->
     <v-card-text>
@@ -34,7 +35,11 @@
         <h5 class="title">最新口コミ</h5>
         <div v-if="game.reviews && game.reviews.length > 0">
           <v-expansion-panel expand>
-            <v-expansion-panel-content v-for="(rv, index) in game.reviews" :key="index" value="true">
+            <v-expansion-panel-content
+              v-for="(rv, index) in game.reviews"
+              :key="index"
+              value="true"
+            >
               <div slot="header">
                 {{ rv.user }}
                 <span>
