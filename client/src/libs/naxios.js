@@ -43,6 +43,17 @@ naxios.interceptors.response.use(
     if (401 === error.response.status || 403 === error.response.status) {
       Authenticate.clearAllStorage();
       Authenticate.setClientToken();
+
+      // When click history back on iOS Safari, actually it will not reload,
+      // only display from its own cache.
+      // So we add code as follows to fix this problem. 
+      window.onpageshow = (event) => {
+        if (event.persisted) {
+          window.location.reload();
+        }
+      };
+
+      // Jumping to Authentication URL
       window.location.href = Authenticate.getAuthUri();
     } else {
       return Promise.reject(error);
