@@ -4,7 +4,7 @@
     <AlertField v-bind:alerts="serverErrors" />
 
     <!-- Games list -->
-    <GameList :title="ctitle" :games="games" @onSelect="onSelectGame" />
+    <GameList :title="ctitle" :games="games" @onSelect="onSelectGame" v-show="!waiting"/>
 
     <!-- Floating action buttons for sorting the games list -->
     <SortFb />

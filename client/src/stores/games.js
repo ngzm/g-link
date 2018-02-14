@@ -26,6 +26,7 @@ export default {
 
   actions: {
     fetchGames: ({ commit, dispatch }, cid) => {
+      commit('setGames', []);
       commit('setGamesStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
       GameService.fetchGames(cid,

@@ -9,6 +9,7 @@
       @onPlay="onPlayGame"
       @onReview="onOpenReview"
       @onGoBack="onGoBackList"
+      v-show="!waiting"
     />
 
     <!-- Game navigation commands -->
