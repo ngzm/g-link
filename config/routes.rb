@@ -48,5 +48,5 @@ Rails.application.routes.draw do
   match 'cview/*other', to: 'api/main#index', via: :all, format: false
 
   # Root
-  root 'api/main#index'
+  root to: redirect('/cview')
 end
