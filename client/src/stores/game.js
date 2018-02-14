@@ -20,6 +20,7 @@ export default {
 
   actions: {
     fetchGame: ({ commit, dispatch }, id) => {
+      commit('setGame', {});
       commit('setGameStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
       GameService.fetchGameDetail(id,
