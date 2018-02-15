@@ -1,9 +1,5 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12>
-      <h5 class="title">新着順</h5>
-      <RankingList :headers="headers_update" :items="items_update" />
-    </v-flex>
     <v-flex>
       <h5 class="title">評価順ランキング</h5>
       <RankingList :headers="headers_star" :items="items_star" />
@@ -11,6 +7,10 @@
     <v-flex>
       <h5 class="title">アクセス数ランキング</h5>
       <RankingList :headers="headers_access" :items="items_access" />
+    </v-flex>
+    <v-flex xs12>
+      <h5 class="title">新着順</h5>
+      <RankingList :headers="headers_update" :items="items_update" />
     </v-flex>
   </v-layout>
 </template>
