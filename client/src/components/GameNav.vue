@@ -7,9 +7,9 @@
         dark
         small
         class="blue"
-        @click="$emit('onPlay')"
-        v-tooltip:bottom="{ html: 'PLAY GAME' }"
-      ><v-icon>play_arrow</v-icon></v-btn>
+        @click="$emit('onGoBack')"
+        v-tooltip:bottom="{ html: 'BACK' }"
+      ><v-icon>navigate_before</v-icon></v-btn>
       <v-btn
         fab
         dark
@@ -23,25 +23,25 @@
         dark
         small
         class="blue"
-        @click="$emit('onGoBack')"
-        v-tooltip:bottom="{ html: 'BACK' }"
-      ><v-icon>apps</v-icon></v-btn>
+        @click="$emit('onPlay')"
+        v-tooltip:bottom="{ html: 'PLAY GAME' }"
+      ><v-icon>play_arrow</v-icon></v-btn>
     </div>
 
     <!-- Bottm navigation buttons when window size is less equal XS -->
     <v-card height="50px" flat class="hidden-md-and-up">
       <v-bottom-nav :value="true">
-        <v-btn flat class="white--text" @click="$emit('onPlay')">
-          <span>PLAY GAME</span>
-          <v-icon>play_arrow</v-icon>
+        <v-btn flat class="white--text" @click="$emit('onGoBack')">
+          <span>Back</span>
+          <v-icon>navigate_before</v-icon>
         </v-btn>
         <v-btn flat class="white--text" @click="$emit('onReview')">
           <span>REVIEW GAME</span>
           <v-icon>star</v-icon>
         </v-btn>
-        <v-btn flat class="white--text" @click="$emit('onGoBack')">
-          <span>Back</span>
-          <v-icon>apps</v-icon>
+        <v-btn flat class="white--text" @click="$emit('onPlay')">
+          <span>PLAY GAME</span>
+          <v-icon>play_arrow</v-icon>
         </v-btn>
       </v-bottom-nav>
     </v-card>
