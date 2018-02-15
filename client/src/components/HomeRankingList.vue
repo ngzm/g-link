@@ -45,15 +45,15 @@ export default {
     },
     color_one: function() {
       return (this.mode == '1') ? 'blue--text' :
-        (this.mode == '2') ? 'green--text' : 'deep-orange--text text--darken-1';
+        (this.mode == '2') ? 'deep-orange--text text--darken-1' : 'green--text';
     },
     color_two: function() {
       return (this.mode == '1') ? 'cyan--text' :
-        (this.mode == '2') ? 'light-green--text' : 'orange--text text--darken-1';
+        (this.mode == '2') ? 'orange--text text--darken-1' : 'light-green--text';
     },
     color_3: function() {
       return (this.mode == '1') ? 'teal--text text--accent-3' :
-        (this.mode == '2') ? 'lime--text' : 'amber--text text--darken-1';
+        (this.mode == '2') ? 'amber--text text--darken-1' : 'lime--text';
     },
   },
 };
