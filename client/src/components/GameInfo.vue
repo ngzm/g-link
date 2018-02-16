@@ -30,13 +30,17 @@
     </v-card-text>
 
     <v-card-text>
-      <div>
-        <h5 class="title">タイプ</h5>
-        <v-avatar tile size="30px" class="ml-1">
-          <img :src="logoGtype" alt="gtype logo" />
-        </v-avatar>
-        {{ labelGtype }}
-      </div>
+      <v-layout row wrap>
+        <v-flex xs6>
+          <v-avatar tile size="30px" class="ml-1">
+            <img :src="logoGtype" alt="gtype logo" />
+          </v-avatar>
+          {{ labelGtype }}
+        </v-flex>
+        <v-flex xs6 class="text-xs-right">
+          <div class="ml-2">{{ formatRegister }} 登録</div>
+        </v-flex>
+      </v-layout>
     </v-card-text>
 
   </v-card>
@@ -53,6 +57,15 @@ export default {
     },
   },
   computed: {
+    formatRegister: function() {
+      const dt = new Date(this.game.created_at);
+      const yy = dt.getFullYear();
+      const mm = dt.getMonth() + 1;
+      const dd = dt.getDate();
+      const hh = dt.getHours();
+      const ms = dt.getMinutes();
+      return `${yy}/${mm}/${dd} ${hh}:${ms}`;
+    },
     labelGtype: function() {
       return (this.game.gtype === 1) ? 'HTML5' : (this.game.gtype === 2) ? 'FLASH' : 'ETC';
     },
