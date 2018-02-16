@@ -10,11 +10,6 @@ module Api
     def show
       @review = Review.find_by(game_id: @game_id, user_id: @user_id)
       raise RecordNotFound, 'Not found' if @review.nil?
-
-      # TODO: Just for Test. Do not forget to delete when finish the test.
-      # raise 'system error ooooooooo!!'
-      # sleep 1
-
       render 'show', formats: 'json', handlers: 'jbuilder'
     end
 

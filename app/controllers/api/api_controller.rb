@@ -62,7 +62,7 @@ module Api
 
     # Standard Error handler
     def handle_500_error(err)
-      # TODO: ログ出す処理を追加
+      logger.error("500 ERROR: #{err.message}")
       error_datas = []
       error_datas.push(level: 'fatal', message: err.message)
       render json: error_datas, status: 500
@@ -70,9 +70,9 @@ module Api
 
     # Validate Error handler
     def handle_422_error(invalid)
-      # TODO: ログ出す処理を追加
       error_datas = []
       invalid.record.errors.full_messages.each do |msg|
+        logger.warn("422 ERROR: #{msg}")
         error_datas.push(level: 'warning', message: msg)
       end
       render json: error_datas, status: 422
@@ -80,7 +80,7 @@ module Api
 
     # Auth Error handler
     def handle_auth_error(err)
-      # TODO: ログ出す処理を追加
+      logger.warn("AUTH ERROR: status: #{err.http_status}: #{err.message}")
       error_datas = []
       error_datas.push(level: err.error_level, message: err.message)
       render json: error_datas, status: err.http_status
@@ -88,7 +88,7 @@ module Api
 
     # Business Error handler
     def handle_business_error(err)
-      # TODO: ログ出す処理を追加
+      logger.error("BUSINESS ERROR: status: #{err.http_status}: #{err.message}")
       error_datas = []
       error_datas.push(level: err.error_level, message: err.message)
       render json: error_datas, status: err.http_status
