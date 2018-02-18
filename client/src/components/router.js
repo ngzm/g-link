@@ -5,6 +5,9 @@ import Home from './Home.vue';
 import Ranking from './Ranking.vue';
 import Games from './Games.vue';
 import Game from './Game.vue';
+import Account from './Account.vue';
+import Contact from './Contact.vue';
+import Information from './Information.vue';
 import Error from './Error.vue';
 
 Vue.use(VueRouter);
@@ -16,6 +19,9 @@ const routes = [
       { path: 'ranking', component: Ranking },
       { path: 'category/:cid', component: Games, props: true },
       { path: 'category/:cid/game/:gid', component: Game, props: true },
+      { path: 'account', component: Account },
+      { path: 'contact', component: Contact },
+      { path: 'information', component: Information },
     ],
   },
   { path: '/cerror', component: Error },

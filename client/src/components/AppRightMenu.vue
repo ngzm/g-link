@@ -14,7 +14,7 @@
         </v-list-tile-action>
       </v-list-tile>
 
-      <v-list-tile to="/info">
+      <v-list-tile to="/cview/information">
         <v-list-tile-content>
           <v-list-tile-title>サイト情報</v-list-tile-title>
         </v-list-tile-content>
@@ -23,7 +23,7 @@
         </v-list-tile-action>
       </v-list-tile>
 
-      <v-list-tile to="/info">
+      <v-list-tile to="/cview/contact">
         <v-list-tile-content>
           <v-list-tile-title>お問い合わせ</v-list-tile-title>
         </v-list-tile-content>
