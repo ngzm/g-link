@@ -15,9 +15,9 @@
     </v-btn>
     <v-list dense>
 
-      <v-list-tile to="/account">
+      <v-list-tile to="/cview/account">
         <v-list-tile-content>
-          <v-list-tile-title>アカウント管理</v-list-tile-title>
+          <v-list-tile-title>アカウント情報</v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
           <v-icon>account_box</v-icon>
