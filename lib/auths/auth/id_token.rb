@@ -31,15 +31,15 @@ module Auths
 
       def decode_id_token(token)
         (JWT.decode token, @secret, true, algorithm: 'HS256')[0]
-      rescue ExpiredSignature => e
-        raise Auths::Error::Unauthorized, e
+      rescue JWT::DecodeError => e
+        raise Auths::Error::Unauthorized, e.message
       end
 
       def validate_id_token_payload(payload)
-        raise Auth::Error::Unauthorized 'iss is not valid' \
+        raise Auth::Error::Unauthorized, 'iss is not valid' \
           unless payload['iss'] == ISS
 
-        raise Auth::Error::Unauthorized 'aud is not valid' \
+        raise Auth::Error::Unauthorized, 'aud is not valid' \
           unless payload['aud'] == @aud
       end
     end
