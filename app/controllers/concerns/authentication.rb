@@ -15,19 +15,20 @@ module Authentication
     raise Auths::Error::Unauthorized, 'id_token is not found in auth_tokens' \
       if auth_token.nil?
 
-    email = inspect_id_token(id_token, 'google')
-    user = User.find_by(email: email)
-    raise Auths::Error::Unauthorized, 'User is not found' \
-      if user.nil?
+    payload = validate_id_token(id_token, auth_token.client_token)
+
+    identifer = payload['ident']
+    user = User.find_by(identifer: identifer)
+    raise Auths::Error::Unauthorized, 'User is not found' if user.nil?
 
     user
   end
 
-  # Validate id_token according to id_token provider
-  # Get user email from id_token
-  def inspect_id_token(id_token, provider = 'google')
-    authenticator = Auths::Auth::AuthToken.authenticator(provider)
-    authenticator.validate_id_token(id_token)
-    authenticator.email_from_id_token(id_token)
+  # valiadte id_token payload
+  def validate_id_token(id_token, client_token)
+    idt = Auths::Auth::IdToken.new(client_token)
+    payload = idt.decode_id_token(id_token)
+    idt.validate_id_token_payload(payload)
+    payload
   end
 end

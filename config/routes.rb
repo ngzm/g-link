@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     get 'main/index'
     get 'google/show'
     get 'google/create'
+    get 'facebook/show'
+    get 'facebook/create'
   end
 
   # Admin

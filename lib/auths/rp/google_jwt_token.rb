@@ -1,8 +1,8 @@
 module Auths
   # Module for Relay Provider (RP) on OprnID connect
-  module Auth
-    # module for Google Open id connect tokens
-    module AuthTokenForGoogle
+  module Rp
+    # module for Google jwt tokens
+    module GoogleJwtToken
       include Auths::Config
 
       # Validate id_token
@@ -16,12 +16,9 @@ module Auths
       # Validate ID token which is JWT
       def validate_jwt(token)
         validator = GoogleIDToken::Validator.new
-        begin
-          payload = validator.check(token, conf['client_id'])
-        rescue GoogleIDToken::ValidationError => e
-          raise Auths::Error::Unauthorized, "Invalid ID token: #{e}"
-        end
-        payload
+        validator.check(token, conf['client_id'])
+      rescue GoogleIDToken::ValidationError => e
+        raise Auths::Error::Unauthorized, "Invalid ID token: #{e}"
       end
 
       # aud must equal to client_id

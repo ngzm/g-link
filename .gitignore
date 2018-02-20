@@ -25,6 +25,7 @@
 
 # Server apps
 /config/rp_config_google_ngzm.yml
+/config/rp_config_facebook_ngzm.yml
 
 # public
 /public/uploads

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123090226) do
+ActiveRecord::Schema.define(version: 20180220024820) do
 
   create_table "advertises", force: :cascade do |t|
     t.string "title", null: false
@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 20180123090226) do
     t.string "redirect_uri", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "access_token"
+    t.string "provider_access_token"
     t.string "provider", null: false
+    t.string "provider_id_token"
     t.index ["client_token"], name: "index_auth_tokens_on_client_token", unique: true
     t.index ["id_token"], name: "index_auth_tokens_on_id_token", unique: true
   end
@@ -73,12 +74,13 @@ ActiveRecord::Schema.define(version: 20180123090226) do
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "full_name", null: false
-    t.string "email", null: false
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "picture"
     t.boolean "admin"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.string "identifer"
+    t.index ["identifer"], name: "index_users_on_identifer", unique: true
   end
 
 end

@@ -5,7 +5,7 @@ module Auths
     class GoogleOpenidConnect
       include Auths::Config
       include Auths::Http::Client
-      include Auths::Auth::AuthTokenForGoogle
+      include GoogleJwtToken
 
       # Get redirect uri to google authentication end point
       def authrization_endpoint(client_token)
@@ -116,7 +116,10 @@ module Auths
 
       # Google profile data to params
       def profile_params(profile)
+        puts "profile = #{profile}"
+
         {
+          identifer: "#{profile['sub']}@google",
           name: profile['given_name'],
           full_name: profile['name'],
           email: profile['email'],

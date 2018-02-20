@@ -7,5 +7,12 @@ module Auths
         File.join(Rails.root, 'config/rp_config_google_ngzm.yml')
       )
     end
+
+    def fconf
+      @@fconf ||= YAML.load_file(
+        # File.join(Rails.root, 'config/rp_config_facebook.yml')
+        File.join(Rails.root, 'config/rp_config_facebook_ngzm.yml')
+      )
+    end
   end
 end
