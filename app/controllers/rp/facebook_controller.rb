@@ -10,9 +10,6 @@ module Rp
     # Request to facebook authorization_endpoint
     def create
       register_auth_token
-      uri = @rp.authrization_endpoint(@client_token)
-      logger.debug "------- URI = #{uri}"
-
       redirect_to @rp.authrization_endpoint(@client_token)
     end
 
@@ -24,25 +21,32 @@ module Rp
       @client_token = @rp.validate_state_token(@state)
       logger.debug "------- client_token = #{@client_token}"
 
-      @access_token = @rp.exchange_code(@code)
-      logger.debug "------- access_token = #{@access_token}"
+      @provider_access_token = @rp.exchange_code(@code)
+      logger.debug "------- provider_access_token = #{@provider_access_token}"
 
       # This is facebook logic, not for google
       # -- Google needs validate id_token instead.
-      validated = @rp.validate_access_token(@access_token)
+      validated = @rp.validate_access_token(@provider_access_token)
       logger.debug "------- validated = #{validated}"
 
-      profile = @rp.obtain_user_profile(@access_token, validated)
+      profile = @rp.obtain_user_profile(@provider_access_token, validated)
       logger.debug "------- profile = #{profile}"
 
-      # user = register_user(profile)
-      # update_auth_token
+      ## generate_id_token
+      idt = Auths::Auth::IdToken.new(@client_token)
+      payload = idt.generate_payload(profile[:identifer])
+      logger.debug "------- payload = #{payload}"
+
+      @id_token = idt.encode_id_token(payload)
+      logger.debug "------- id_token = #{@id_token}"
+
+      user = register_user(profile)
+      update_auth_token
 
       # It's for admin menu, look up id_token when it is admin menu.
-      # session[:id_token] = @id_token if user.admin
+      session[:id_token] = @id_token if user.admin
 
-      # redirect_to @auth_token.redirect_uri
-      render text: "TEST OK!!"
+      redirect_to @auth_token.redirect_uri
     end
 
     private
@@ -61,7 +65,11 @@ module Rp
     def update_auth_token
       @auth_token = AuthToken.find_by(client_token: @client_token)
       raise 'client_token is NOT FOUND' if @auth_token.nil?
-      @auth_token.update!(id_token: @id_token, access_token: @access_token)
+      @auth_token.update!(
+        provider_id_token: @provider_id_token,
+        provider_access_token: @provider_access_token,
+        id_token: @id_token
+      )
     end
 
     # Check parameters for show method

@@ -7,10 +7,10 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :full_name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :identifer, uniqueness: true, allow_nil: true
 
   def self.create_or_update(profile)
-    user = User.find_by(email: profile[:email])
+    user = User.find_by(identifer: profile[:identifer])
     if user.nil?
       user = User.create! profile
     else

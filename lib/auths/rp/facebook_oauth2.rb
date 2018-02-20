@@ -162,6 +162,7 @@ module Auths
       # Google profile data to params
       def profile_params(profile)
         {
+          identifer: "#{profile['id']}@facebook",
           name: profile['first_name'],
           full_name: profile['name'],
           email: profile['email'],
