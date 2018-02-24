@@ -1,6 +1,6 @@
 module Auths
   # Module for Relay Provider (RP) on OprnID connect
-  module Rp
+  module Auth
     # module for Google jwt tokens
     module GoogleJwtToken
       include Auths::Config

@@ -3,14 +3,29 @@ module Auths
     # handling id token which is Json Web Token
     class IdToken
       include Auths::Config
-      ISS = 'https.freegame.link/issuer'.freeze
+      ISS = 'freegame.link'.freeze
 
-      def initialize(client_token)
-        @aud = client_token
+      class << self
+        def id_token(identifer)
+          idt = Auths::Auth::IdToken.new
+          payload = idt.generate_payload(identifer)
+          idt.encode_id_token(payload)
+        end
+
+        def validate(id_token)
+          idt = Auths::Auth::IdToken.new
+          payload = idt.decode_id_token(id_token)
+          idt.validate_id_token_payload(payload)
+          payload
+        end
+      end
+
+      def initialize
         @iat = Time.now.to_i
         @exp = @iat + 24 * 60 * 60
         @jti = SecureRandom.base64(8)
-        @secret = "#{conf['client_secret']}|#{fconf['app_secret']}"
+        @aud = "#{conf['client_id']}|#{tconf['consumer_key']}"
+        @secret = fconf['app_secret']
       end
 
       def generate_payload(identifer)
@@ -21,7 +36,7 @@ module Auths
           exp: @exp,
           jti: @jti,
           aud: @aud,
-          ident: identifer
+          sub: identifer
         }
       end
 

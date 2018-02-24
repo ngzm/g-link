@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'faraday'
 gem 'faraday_middleware'
+gem 'simple_oauth'
 gem 'google-id-token'
 
 # Add file uploader
