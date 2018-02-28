@@ -7,15 +7,14 @@ module Authentication
       raise Auths::Error::Unauthorized, 'client_token is not found'
     end
     #
-    # TODO:
-    # ここで古いレコードをdeleteする！
+    # TODO: ここで古いレコードをdeleteする！
     #
     auth_token.id_token
   end
 
   # Authenticate id_token
   def authenticate_id_token(id_token)
-    payload = Auths::Auth::IdToken.validate(id_token)
+    payload = Auths::IdToken.validate(id_token)
     user = User.find_by(identifer: payload['sub'])
     raise Auths::Error::Unauthorized, 'User is not found' if user.nil?
     user

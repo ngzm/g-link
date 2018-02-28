@@ -18,7 +18,7 @@ module Rp
     end
 
     def provider(provider)
-      @provider = Auths::Auth::Authorize.provider(provider)
+      @provider = Auths::Authorize.provider(provider)
     end
 
     def register_auth_token(provider)
@@ -37,7 +37,7 @@ module Rp
     end
 
     def id_token(identifer)
-      Auths::Auth::IdToken.id_token(identifer)
+      Auths::IdToken.id_token(identifer)
     end
 
     def confirm_state(state)
