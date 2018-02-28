@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220024820) do
+ActiveRecord::Schema.define(version: 20180228102640) do
 
   create_table "advertises", force: :cascade do |t|
     t.string "title", null: false
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20180220024820) do
     t.string "picture"
     t.boolean "admin"
     t.string "identifer"
+    t.string "provider"
     t.index ["identifer"], name: "index_users_on_identifer", unique: true
   end
 

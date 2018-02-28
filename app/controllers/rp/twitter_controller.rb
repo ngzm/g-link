@@ -109,10 +109,11 @@ module Rp
 
     def register_user
       user_data = {
+        provider: PROVIDER,
+        identifer: @identifer,
         name: @provider.user_profile['screen_name'],
         full_name: @provider.user_profile['name'],
-        picture: @provider.user_profile['profile_image_url_https'],
-        identifer: @identifer
+        picture: @provider.user_profile['profile_image_url_https']
       }
       logger.debug "-------- user_data = #{user_data}"
       @user = super user_data
