@@ -1,25 +1,33 @@
+<section id="rp_main_section" data-turbolinks="false">
 <h1>ユーザ登録／ログイン</h1>
 
-<p>
-ご指定の操作にはユーザ登録／ログインが必要です
-<br>
-お持ちのアカウントでユーザ登録／ログインをお願いします
-</p>
-<p>
-  <a href=<%= @gp.to_s %>?<%= @p1.to_s %>&<%= @p2.to_s %>>
-    Googleで登録／ログイン<br>
-    <img src="/images/google-login.png" alt="Google Login">
-  </a>
-</p>
-<p>
-  <a href=<%= @fp.to_s %>?<%= @p1.to_s %>&<%= @p2.to_s %>>
+<!--
+ ##############################################################
+  リンク先で外部サイトにリダイレクトするような場合は、
+  data-turbolinks を false にしないとリンクが２重発火してしまう
+ ###############################################################
+-->
+  <p>
+  ご指定の操作にはユーザ登録／ログインが必要です
+  <br>
+  お持ちのアカウントでユーザ登録／ログインをお願いします
+  </p>
+  <p>
+  <%= link_to rp_google_create_path client_token: @client_token, redirect_uri: @redirect_uri do %>
+    Google で登録／ログイン<br>
+    <%= image_tag '/images/google-login.png', alt: 'Google Login', class: 'rp_main_image' %>
+  <% end %>
+  </p>
+  <p>
+  <%= link_to rp_facebook_create_path client_token: @client_token, redirect_uri: @redirect_uri do %>
     Facebook で登録／ログイン<br>
-    <img src="/images/facebook-login.png" alt="Facebook Login">
-  </a>
-</p>
-<p>
-  <a href=<%= @tp.to_s %>?<%= @p1.to_s %>&<%= @p2.to_s %>>
-    Twitterで登録／ログイン<br>
-    <img src="/images/twitter-login.png" alt="Twitter Login">
-  </a>
-</p>
+    <%= image_tag '/images/facebook-login.png', alt: 'Facebook Login', class: 'rp_main_image' %>
+  <% end %>
+  </p>
+  <p>
+  <%= link_to rp_twitter_create_path client_token: @client_token, redirect_uri: @redirect_uri do %>
+    Twitter で登録／ログイン<br>
+    <%= image_tag '/images/twitter-login.png', alt: 'Twitter Login', class: 'rp_main_image' %>
+  <% end %>
+  </p>
+</section>
