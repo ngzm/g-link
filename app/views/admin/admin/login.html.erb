@@ -8,7 +8,13 @@
     <tr><th>user id</th><td><%= @user.id %></td></tr>
     <tr><th>name</th><td><%= @user.name %></td></tr>
     <tr><th>full name</th><td><%= @user.full_name %></td></tr>
+    <tr>
+      <th>photo</th>
+      <td><%= image_tag @user.picture, alt: 'picture', width: '80px', height: '80px' %></td>
+    </tr>
     <tr><th>email</th><td><%= @user.email %></td></tr>
+    <tr><th>identifer</th><td><%= @user.identifer %></td></tr>
+    <tr><th>provider</th><td><%= @user.provider %></td></tr>
   </table>
 <% else %>
   <p>
