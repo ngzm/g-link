@@ -1,76 +1,63 @@
 module Rp
   # Authenticate and Authorize by Google endpoint
   class GoogleController < RpController
-    before_action :new_rp
-    before_action :check_show_param, only: :show
+    before_action :provider
+    before_action :initialize_provider_for_create, only: :create
+    before_action :check_show_param, :check_show_session, only: :show
+    before_action :initialize_provider_for_show, only: :show
+    after_action :register_create_session, only: :create
+    after_action :register_show_session, only: :show
     skip_before_action :check_create_param, except: :create
 
     PROVIDER = 'google'.freeze
 
-    # Request to google authorization_endpoint
     def create
+      # register initial auth data to auth_tokens table
       register_auth_token
-      redirect_to @rp.authrization_endpoint(@client_token)
+
+      # Request to google authorization_endpoint
+      redirect_to @provider.authorization_endpoint_uri
     end
 
-    # Confirm anti-forgery state token
-    # Exchange code for access token and ID token
-    # Validate ID token and authenticate the user
-    # Obtaining user profile information
     def show
-      @client_token = @rp.validate_state_token(@state)
-      logger.debug "------- client_token = #{@client_token}"
+      # Confirm anti-forgery state
+      confirm_state(@state)
 
-      @provider_id_token, @provider_access_token = @rp.exchange_code(@code)
-      logger.debug "------- provider_id_token = #{@provider_id_token}"
-      logger.debug "------- provider_access_token = #{@provider_access_token}"
+      # Exchange code for access_token and google id_token
+      @provider.obtain_access_token
 
-      @rp.validate_id_token(@provider_id_token)
+      # Validate google id_token and authenticate the user
+      @provider.validate_id_token
 
-      profile = @rp.obtain_user_profile(@provider_access_token)
-      logger.debug "------- profile = #{profile}"
+      # Obtaining user profile information
+      @provider.obtain_user_profile
 
-      ## generate_id_token
-      idt = Auths::Auth::IdToken.new(@client_token)
-      payload = idt.generate_payload(profile[:identifer])
-      logger.debug "------- payload = #{payload}"
+      # generate id_token
+      id_token
 
-      @id_token = idt.encode_id_token(payload)
-      logger.debug "------- id_token = #{@id_token}"
-
-      user = register_user(profile)
+      # update auth_tokens table
       update_auth_token
 
-      # It's for admin menu, look up id_token when it is admin menu.
-      session[:id_token] = @id_token if user.admin
+      # register user data to users table
+      register_user
 
       redirect_to @auth_token.redirect_uri
     end
 
     private
 
-    # Register auth_tokens table
-    def register_auth_token
-      AuthToken.create_or_update(@client_token, @redirect_uri, PROVIDER)
+    def provider
+      super PROVIDER
     end
 
-    # Register user info
-    def register_user(profile)
-      User.create_or_update(profile)
+    def initialize_provider_for_create
+      @provider.state = state_from_client_token
     end
 
-    # update id_token of the auth_token table
-    def update_auth_token
-      @auth_token = AuthToken.find_by(client_token: @client_token)
-      raise 'client_token is NOT FOUND' if @auth_token.nil?
-      @auth_token.update!(
-        provider_id_token: @provider_id_token,
-        provider_access_token: @provider_access_token,
-        id_token: @id_token
-      )
+    def register_create_session
+      session[:client_token] = @client_token
     end
 
-    # Check parameters for show method
     def check_show_param
       @state = params[:state]
       @code = params[:code]
@@ -78,9 +65,53 @@ module Rp
       raise 'Missing parameter code' if @code.nil?
     end
 
-    # New RP instance
-    def new_rp
-      @rp = Auths::Rp::GoogleOpenidConnect.new
+    def check_show_session
+      @client_token = session[:client_token]
+      raise 'Missing session client_token' if @client_token.nil?
+    end
+
+    def initialize_provider_for_show
+      @provider.code = @code
+    end
+
+    def register_show_session
+      # It's for admin menu, look up id_token when it is admin menu.
+      session[:id_token] = @id_token if @user.admin
+
+      # delete session
+      session[:client_token] = nil
+    end
+
+    def id_token
+      gid = @provider.user_profile['sub']
+      @identifer = "#{gid}@#{PROVIDER}"
+      @id_token = super(@identifer)
+    end
+
+    def register_auth_token
+      super PROVIDER
+    end
+
+    def update_auth_token
+      data = {
+        id_token: @id_token,
+        provider_access_token: @provider.access_token,
+        provider_id_token: @provider.id_token
+      }
+      logger.debug "------- auth_token_data = #{data}"
+      @auth_token = super(data)
+    end
+
+    def register_user
+      user_data = {
+        name: @provider.user_profile['given_name'],
+        full_name: @provider.user_profile['name'],
+        email: @provider.user_profile['email'],
+        picture: @provider.user_profile['picture'],
+        identifer: @identifer
+      }
+      logger.debug "-------- user_data = #{user_data}"
+      @user = super user_data
     end
   end
 end

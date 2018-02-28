@@ -25,13 +25,15 @@ Rails.application.routes.draw do
   end
 
   # User autentication using Other OP Services,
-  # with using OpenID Connect or Oath2 protocols
+  # with OpenID Connect or Oath2 or Oauth protocols
   namespace :rp do
     get 'main/index'
     get 'google/show'
     get 'google/create'
     get 'facebook/show'
     get 'facebook/create'
+    get 'twitter/show'
+    get 'twitter/create'
   end
 
   # Admin

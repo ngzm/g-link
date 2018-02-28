@@ -14,5 +14,12 @@ module Auths
         File.join(Rails.root, 'config/rp_config_facebook_ngzm.yml')
       )
     end
+
+    def tconf
+      @@tconf ||= YAML.load_file(
+        # File.join(Rails.root, 'config/rp_config_twitter.yml')
+        File.join(Rails.root, 'config/rp_config_twitter_ngzm.yml')
+      )
+    end
   end
 end
