@@ -56,16 +56,21 @@ module Rp
       @oauth_token = params[:oauth_token]
       @oauth_verifier = params[:oauth_verifier]
       @denied = params[:denied]
-      raise 'Denied authorization' unless @denied.nil?
-      raise 'Missing parameter oauth_token' if @oauth_token.nil?
-      raise 'Missing parameter oauth_verifier' if @oauth_verifier.nil?
+      raise Auths::Error::Unauthorized, 'Denied authorization' \
+        unless @denied.nil?
+      raise Auths::Error::Unauthorized, 'Missing parameter oauth_token' \
+        if @oauth_token.nil?
+      raise Auths::Error::Unauthorized, 'Missing parameter oauth_verifier' \
+        if @oauth_verifier.nil?
     end
 
     def check_show_session
       @client_token = session[:client_token]
       @request_token_secret = session[:request_token_secret]
-      raise 'Missing session client_token' if @client_token.nil?
-      raise 'Missing session request_token_secret' if @request_token_secret.nil?
+      raise Auths::Error::Unauthorized, 'Missing session client_token' \
+        if @client_token.nil?
+      raise Auths::Error::Unauthorized, 'Missing session request_token_secret' \
+        if @request_token_secret.nil?
     end
 
     def initialize_provider_for_show

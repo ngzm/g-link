@@ -4,6 +4,8 @@ module Rp
   class RpController < ApplicationController
     before_action :check_create_param
 
+    rescue_from Auths::Error::AuthError, with: :handle_auth_error
+
     SEPARATOR = '__s_e_p_a_r_a_t_o_r__'.freeze
 
     private
@@ -49,6 +51,18 @@ module Rp
 
     def seed_state_token
       '--french-connetciton-seed-state-token--'
+    end
+
+    # Auth Error handler
+    def handle_auth_error(err)
+      logger.warn("AUTH ERROR: status: #{err.http_status}: #{err.message}")
+      @errors = []
+      @errors.push(
+        level: err.error_level,
+        message: err.message,
+        status: err.http_status
+      )
+      render template: 'errors/auth', status: err.http_status
     end
   end
 end
