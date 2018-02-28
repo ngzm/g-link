@@ -61,13 +61,14 @@ module Rp
     def check_show_param
       @state = params[:state]
       @code = params[:code]
-      raise 'Missing parameter state' if @state.nil?
-      raise 'Missing parameter code' if @code.nil?
+      raise Auths::Error::Unauthorized, 'Missing parameter state' if @state.nil?
+      raise Auths::Error::Unauthorized, 'Missing parameter code' if @code.nil?
     end
 
     def check_show_session
       @client_token = session[:client_token]
-      raise 'Missing session client_token' if @client_token.nil?
+      raise Auths::Error::Unauthorized, 'Missing session client_token' \
+        if @client_token.nil?
     end
 
     def initialize_provider_for_show
