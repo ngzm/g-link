@@ -22,13 +22,9 @@ module Admin
       @logined = authenticate_token
       return if @logined
 
-      #
-      # TODO: add generate client token
-      ctkn = 'admin'
-      # TODO: add generate client token
-      #
+      client_token = "admin_#{SecureRandom.base64(16)}"
       ruri = '/admin/admin/main'
-      url = "/rp/main/index?client_token=#{ctkn}&redirect_uri=#{ruri}"
+      url = "/rp/main/index?client_token=#{client_token}&redirect_uri=#{ruri}"
       redirect_to url
     end
 

@@ -22,7 +22,7 @@ module Auths
     def initialize
       @iat = Time.now.to_i
       @exp = @iat + 24 * 60 * 60
-      @jti = SecureRandom.base64(8)
+      @jti = SecureRandom.base64(16)
       @aud = "#{conf['client_id']}|#{tconf['consumer_key']}"
       @secret = fconf['app_secret']
     end
