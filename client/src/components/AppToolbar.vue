@@ -14,7 +14,7 @@
 
     <!-- Right Menu -->
     <AppUserMenu :user="user" @logout="signOutAction" v-if="authenticated" />
-    <AppRightMenu :auth="authenticated" @login="login" />
+    <AppRightMenu :auth="authenticated" @login="login" @privacy="privacy"/>
   </v-toolbar>
 </template>
 
@@ -43,6 +43,9 @@ export default {
       Authenticate.clearAllStorage();
       Authenticate.setClientToken();
       window.location.href = Authenticate.getAuthUri();
+    },
+    privacy: function() {
+      window.open('/appl/information/privacy/', '_blank');
     },
     ...mapActions([
       'signOutAction',

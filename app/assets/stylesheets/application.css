@@ -29,6 +29,18 @@
   margin-right: 20px;
 }
 
+.information h3 {
+  color: #6699CC;
+}
+.information main {
+  margin: 20px 30px 20px 30px;
+}
+.information main p {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
 #rp_main_section {
   margin: 0 14px 0 14px;
 }

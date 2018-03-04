@@ -23,6 +23,15 @@
         </v-list-tile-action>
       </v-list-tile>
 
+      <v-list-tile @click.stop.prevent="$emit('privacy')">
+        <v-list-tile-content>
+          <v-list-tile-title>プライバシーポリシ</v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-action>
+          <v-icon>info</v-icon>
+        </v-list-tile-action>
+      </v-list-tile>
+
       <v-list-tile to="/cview/contact">
         <v-list-tile-content>
           <v-list-tile-title>お問い合わせ</v-list-tile-title>

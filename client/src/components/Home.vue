@@ -28,8 +28,13 @@
       </div>
 
       <div class="mt-5">
-        <h5 class="headline">お問い合わせ</h5>
-        FRENCH CONNECTION
+        <h5 class="headline">サイト情報</h5>
+        <p>
+          当サイトについて
+          <a href="/appl/information/privacy/" target="_blank">
+            プライバシーポリシ
+          </a>
+        </p>
       </div>
     </v-container>
   </section>

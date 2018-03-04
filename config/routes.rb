@@ -47,6 +47,11 @@ Rails.application.routes.draw do
     resources :advertises, format: false
   end
 
+  # g-link some informations
+  namespace :appl do
+    get 'information/privacy', format: false
+  end
+
   # Api for g-link client using ajax
   get 'cview', to: 'api/main#index', format: false
   match 'cview/*other', to: 'api/main#index', via: :all, format: false
