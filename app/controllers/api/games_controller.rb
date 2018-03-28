@@ -3,7 +3,7 @@ module Api
   # game.link controller of the games
   #
   class GamesController < ApiController
-    before_action :check_id, only: :show
+    before_action :check_id, only: %i[show play]
     before_action :check_category_id, only: :search
     skip_before_action :authenticated?
 
@@ -28,9 +28,6 @@ module Api
       @game = Game.includes(:instructions, :reviews, :users).find_by_id(@id)
       raise RecordNotFound, 'Not found' if @game.nil?
 
-      # set access counter +1
-      @game.increment_access
-
       @instructions = @game.ordered_instructions
       @reviews = @game.newer_reviews_top(7)
       render 'show', formats: 'json', handlers: 'jbuilder'
@@ -46,6 +43,17 @@ module Api
       raise RecordNotFound, 'No games found' if @games.empty?
 
       render 'index', formats: 'json', handlers: 'jbuilder'
+    end
+
+    #
+    # Play games, it means to count up access counter.
+    #
+    def play
+      @game = Game.find_by_id(@id)
+      raise RecordNotFound, 'Not found' if @game.nil?
+
+      @game.increment_access
+      render 'play', formats: 'json', handlers: 'jbuilder'
     end
 
     # private methods

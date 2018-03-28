@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     # Api access to games searched by category id
     get 'games/search/:category_id', to: 'games#search', format: false
 
+    # Api access to play games, it means to count up access.
+    patch 'games/play/:id', to: 'games#play', format: false
+
     # Api for user authentication
     get 'users/auth/exchange', to: 'users#exchange_auth_token', format: false
     get 'users/auth', format: false
