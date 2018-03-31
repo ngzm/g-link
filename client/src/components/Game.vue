@@ -95,6 +95,7 @@ export default {
       this.snackbar = flg;
     },
     onPlayGame: function() {
+      this.upAccess(this.gid);
       window.open(this.game.url, '_game');
     },
     onOpenReview: function() {
@@ -120,6 +121,7 @@ export default {
     },
     ...mapActions('game', [
       'fetchGame',
+      'upAccess',
     ]),
     ...mapActions('greview', [
       'fetchReview',

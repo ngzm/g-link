@@ -16,8 +16,17 @@ export default class GameService {
   /**
    * fetch game detail through Ajax from server
    */
-  static fetchGameDetail(id, success, fail) {
+  static fetchGame(id, success, fail) {
     naxios.get(`/api/games/${id}`)
+      .then((res) => { success(res); })
+      .catch((err) => { fail(err); });
+  }
+
+  /**
+   * count up game access through Ajax from server
+   */
+  static upAccess(id, success, fail) {
+    naxios.patch(`/api/games/play/${id}`)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
   }

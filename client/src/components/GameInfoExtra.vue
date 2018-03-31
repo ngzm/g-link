@@ -3,7 +3,7 @@
     <!-- Access count -->
     <v-card-text>
       <div>
-        <h5 class="title">総アクセス数</h5>
+        <h5 class="title">プレイ回数</h5>
         <div class="ml-2">{{ game.access }} 回</div>
       </div>
     </v-card-text>
