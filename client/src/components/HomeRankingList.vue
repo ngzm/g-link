@@ -41,7 +41,7 @@ export default {
   computed: {
     header: function() {
       return (this.mode == '1') ? '新着順' :
-        (this.mode == '2') ? '評価ランキング' : 'アクセス数ランキング';
+        (this.mode == '2') ? '評価ランキング' : 'アクセスランキング';
     },
     color_one: function() {
       return (this.mode == '1') ? 'blue--text' :

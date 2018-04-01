@@ -1,11 +1,11 @@
 <template>
   <v-layout row wrap>
     <v-flex>
-      <h5 class="title">評価順ランキング</h5>
+      <h5 class="title">評価ランキング</h5>
       <RankingList :headers="headers_star" :items="items_star" />
     </v-flex>
     <v-flex>
-      <h5 class="title">アクセス数ランキング</h5>
+      <h5 class="title">アクセスランキング</h5>
       <RankingList :headers="headers_access" :items="items_access" />
     </v-flex>
     <v-flex xs12>
