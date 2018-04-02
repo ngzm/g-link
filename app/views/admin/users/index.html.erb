@@ -1,0 +1,35 @@
+<%= link_to 'Main', admin_admin_main_path %>
+<hr>
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+
+<table class="admin">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Admin</th>
+      <th>Proider</th>
+      <th>Identifier</th>
+      <th>Operation</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin %></td>
+        <td><%= user.provider %></td>
+        <td><%= user.identifer %></td>
+        <td><%= link_to 'Show', [:admin, user] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
