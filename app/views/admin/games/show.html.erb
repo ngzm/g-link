@@ -38,7 +38,7 @@
     <table class="admin">
       <tr><th>URL</th><td><%= @game.url %></td></tr>
       <tr><th>IMG Path</th><td><%= @game.img %></td></tr>
-      <tr><th>IMG</th><td><%= image_tag @game.img.url if @game.img? %></td></tr>
+      <tr><th>IMG</th><td><%= image_tag @game.img.url, width: '520px'  if @game.img? %></td></tr>
     </table>
   </div>
 </div>
