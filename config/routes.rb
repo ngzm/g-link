@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       resource :instructions, only: %i[edit create], format: false
     end
     resources :advertises, format: false
+    resources :users, only: %i[index show], format: false
   end
 
   # g-link some informations
