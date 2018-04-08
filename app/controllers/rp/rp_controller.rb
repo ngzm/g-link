@@ -17,8 +17,8 @@ module Rp
       raise 'Missing parameter redirect_uri' if @redirect_uri.nil?
     end
 
-    def provider(provider)
-      @provider = Auths::Authorize.provider(provider)
+    def rp(provider)
+      @rp = Auths::Authorize.rp(provider)
     end
 
     def register_auth_token(provider)

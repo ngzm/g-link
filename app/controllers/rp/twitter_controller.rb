@@ -2,7 +2,7 @@ module Rp
   # Authenticate and Authorize with Twitter
   # Twitter is implemented with using Oauth 1.0
   class TwitterController < RpController
-    before_action :provider
+    before_action :rp
     before_action :check_show_param, :check_show_session, only: :show
     before_action :initialize_provider_for_show, only: :show
     after_action :register_create_session, only: :create
@@ -16,18 +16,18 @@ module Rp
       register_auth_token
 
       # STEP1 request token
-      @provider.obtain_request_token
+      @rp.obtain_request_token
 
       # STEP2 authenticate token
-      redirect_to @provider.authorization_endpoint_uri
+      redirect_to @rp.authorization_endpoint_uri
     end
 
     def show
       # STEP3 access token
-      @provider.obtain_access_token
+      @rp.obtain_access_token
 
       # STEP4 user profile data
-      @provider.obtain_user_profile
+      @rp.obtain_user_profile
 
       # generate id_token
       id_token
@@ -43,13 +43,13 @@ module Rp
 
     private
 
-    def provider
+    def rp
       super PROVIDER
     end
 
     def register_create_session
       session[:client_token] = @client_token
-      session[:request_token_secret] = @provider.request_token_secret
+      session[:request_token_secret] = @rp.request_token_secret
     end
 
     def check_show_param
@@ -74,9 +74,9 @@ module Rp
     end
 
     def initialize_provider_for_show
-      @provider.oauth_token = @oauth_token
-      @provider.oauth_verifier = @oauth_verifier
-      @provider.request_token_secret = @request_token_secret
+      @rp.oauth_token = @oauth_token
+      @rp.oauth_verifier = @oauth_verifier
+      @rp.request_token_secret = @request_token_secret
     end
 
     def register_show_session
@@ -89,7 +89,7 @@ module Rp
     end
 
     def id_token
-      @identifer = "#{@provider.user_id}@#{PROVIDER}"
+      @identifer = "#{@rp.user_id}@#{PROVIDER}"
       @id_token = super(@identifer)
     end
 
@@ -100,8 +100,8 @@ module Rp
     def update_auth_token
       data = {
         id_token: @id_token,
-        provider_access_token: @provider.access_token,
-        provider_id_token: @provider.access_token_secret
+        provider_access_token: @rp.access_token,
+        provider_id_token: @rp.access_token_secret
       }
       logger.debug "------- auth_token_data = #{data}"
       @auth_token = super(data)
@@ -111,9 +111,9 @@ module Rp
       user_data = {
         provider: PROVIDER,
         identifer: @identifer,
-        name: @provider.user_profile['screen_name'],
-        full_name: @provider.user_profile['name'],
-        picture: @provider.user_profile['profile_image_url_https']
+        name: @rp.user_profile['screen_name'],
+        full_name: @rp.user_profile['name'],
+        picture: @rp.user_profile['profile_image_url_https']
       }
       logger.debug "-------- user_data = #{user_data}"
       @user = super user_data

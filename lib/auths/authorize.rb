@@ -3,7 +3,7 @@ module Auths
   class Authorize
     include Config
 
-    def self.provider(provider)
+    def self.rp(provider)
       if provider == 'google'
         GoogleOpenidConnect.new
       elsif provider == 'facebook'

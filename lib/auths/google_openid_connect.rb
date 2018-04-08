@@ -4,19 +4,19 @@ module Auths
     include GoogleJwtToken
 
     attr_accessor :state, :code
-    attr_reader :access_token, :id_token
+    attr_accessor :access_token, :id_token
     attr_reader :user_profile
 
     def authorization_endpoint_uri
-      host = conf['auth_endpoint_host']
-      path = conf['auth_endpoint_path']
+      host = gconf['auth_endpoint_host']
+      path = gconf['auth_endpoint_path']
       query = query_for_authorization
       "#{host}#{path}?#{query}"
     end
 
     def obtain_access_token
-      res = post_endpoint(conf['token_endpoint_host'],
-                          conf['token_endpoint_path'],
+      res = post_endpoint(gconf['token_endpoint_host'],
+                          gconf['token_endpoint_path'],
                           nil,
                           body_for_token_endpoint)
       return parse_access_token res.body if res.status == 200
@@ -30,8 +30,8 @@ module Auths
     end
 
     def obtain_user_profile
-      res = get_endpoint(conf['userinfo_endpoint_host'],
-                         conf['userinfo_endpoint_path'],
+      res = get_endpoint(gconf['userinfo_endpoint_host'],
+                         gconf['userinfo_endpoint_path'],
                          @access_token)
       return parse_user_profile res.body if res.status == 200
 
@@ -43,10 +43,10 @@ module Auths
 
     def query_for_authorization
       hash2qstr(
-        client_id: conf['client_id'],
+        client_id: gconf['client_id'],
         response_type: 'code',
         scope: 'openid email profile',
-        redirect_uri: conf['redirect_uri'],
+        redirect_uri: gconf['redirect_uri'],
         state: @state,
         nonce: '0394852-3190485-2490358'
       )
@@ -55,10 +55,10 @@ module Auths
     def body_for_token_endpoint
       {
         code: @code,
-        client_id: conf['client_id'],
-        client_secret: conf['client_secret'],
-        redirect_uri: conf['redirect_uri'],
-        grant_type: conf['grant_type']
+        client_id: gconf['client_id'],
+        client_secret: gconf['client_secret'],
+        redirect_uri: gconf['redirect_uri'],
+        grant_type: gconf['grant_type']
       }
     end
 
