@@ -72,8 +72,12 @@ module Auths
     def parse_access_token(body)
       hash = JSON.parse(body)
       @access_token = hash['access_token']
-      @token_tyope = hash['token_type']
+      @token_type = hash['token_type']
       @expires_in = hash['expires_in']
+
+      puts "token_type = #{@token_type}"
+      puts "expires_in = #{@expires_in}"
+
     end
 
     def query_for_token_debug

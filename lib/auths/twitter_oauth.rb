@@ -3,7 +3,7 @@ module Auths
   class TwitterOauth < Authorize
     attr_accessor :request_token, :request_token_secret
     attr_accessor :oauth_token, :oauth_verifier
-    attr_reader :access_token, :access_token_secret, :user_id, :screen_name
+    attr_accessor :access_token, :access_token_secret, :user_id, :screen_name
     attr_reader :user_profile
 
     def obtain_request_token

@@ -1,7 +1,7 @@
 module Rp
   # Authenticate and Authorize by facebook endpoint
   class FacebookController < RpController
-    before_action :provider
+    before_action :rp
     before_action :initialize_provider_for_create, only: :create
     before_action :check_show_param, :check_show_session, only: :show
     before_action :initialize_provider_for_show, only: :show
@@ -16,7 +16,7 @@ module Rp
       register_auth_token
 
       # Request to facebook authorization_endpoint
-      redirect_to @provider.authorization_endpoint_uri
+      redirect_to @rp.authorization_endpoint_uri
     end
 
     def show
@@ -24,14 +24,14 @@ module Rp
       confirm_state(@state)
 
       # Exchange code for access_token
-      @provider.obtain_access_token
+      @rp.obtain_access_token
 
       # Validate access token
       # And obtain user_id
-      @provider.debug_access_token
+      @rp.debug_access_token
 
       # Obtaining user profile information
-      @provider.obtain_user_profile
+      @rp.obtain_user_profile
 
       # generate id_token
       id_token
@@ -47,12 +47,12 @@ module Rp
 
     private
 
-    def provider
+    def rp
       super PROVIDER
     end
 
     def initialize_provider_for_create
-      @provider.state = state_from_client_token
+      @rp.state = state_from_client_token
     end
 
     def register_create_session
@@ -73,7 +73,7 @@ module Rp
     end
 
     def initialize_provider_for_show
-      @provider.code = @code
+      @rp.code = @code
     end
 
     def register_show_session
@@ -85,7 +85,7 @@ module Rp
     end
 
     def id_token
-      @identifer = "#{@provider.user_id}@#{PROVIDER}"
+      @identifer = "#{@rp.user_id}@#{PROVIDER}"
       @id_token = super(@identifer)
     end
 
@@ -96,7 +96,7 @@ module Rp
     def update_auth_token
       data = {
         id_token: @id_token,
-        provider_access_token: @provider.access_token
+        provider_access_token: @rp.access_token
       }
       logger.debug "------- auth_token_data = #{data}"
       @auth_token = super(data)
@@ -106,10 +106,10 @@ module Rp
       user_data = {
         provider: PROVIDER,
         identifer: @identifer,
-        name: @provider.user_profile['first_name'],
-        full_name: @provider.user_profile['name'],
-        email: @provider.user_profile['email'],
-        picture: @provider.user_profile['picture']['data']['url']
+        name: @rp.user_profile['first_name'],
+        full_name: @rp.user_profile['name'],
+        email: @rp.user_profile['email'],
+        picture: @rp.user_profile['picture']['data']['url']
       }
       logger.debug "-------- user_data = #{user_data}"
       @user = super user_data
