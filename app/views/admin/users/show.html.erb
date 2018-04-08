@@ -11,7 +11,7 @@
     <tr><th>Full Name</th><td><%= @user.full_name %></td></tr>
     <tr><th>Email</th><td><%= @user.email %></td></tr>
     <tr><th>Picture</th><td><%= @user.picture %></td></tr>
-    <tr><th>IMG</th><td><%= image_tag @user.picture, size: '96x96' unless @user.picture.nil? %></td></tr>
+    <tr><th>IMG</th><td><%= image_tag @user.picture.html_safe, size: '96x96' unless @user.picture.nil? %></td></tr>
     <tr><th>Admin</th><td><%= @user.admin %></td></tr>
     <tr><th>Provider</th><td><%= @user.provider %></td></tr>
     <tr><th>Identifier</th><td><%= @user.identifer %></td></tr>
