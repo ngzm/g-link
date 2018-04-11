@@ -12,7 +12,7 @@
   <% categories = hashed_categories.map { |k, v| [v, k] } %>
   <% gtypes = hashed_game_type.map { |k, v| [v, k] } %>
 
-  <table class="admin">
+  <table>
     <tr><th>ID</th><td><%= form.label :id, game.id %></td></tr>
     <tr><th>Title</th><td><%= form.text_field :title, size: 40 %></td></tr>
     <tr><th>Description</th><td><%= form.text_field :description, size: 100 %></td></tr>
@@ -31,7 +31,7 @@
   </table>
 
   <br />
-  <div class="actions">
+  <div>
     <%= form.submit %>
   </div>
   <br />

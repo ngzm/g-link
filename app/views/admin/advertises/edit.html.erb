@@ -1,8 +1,10 @@
-<%= link_to 'Main', admin_admin_main_path %> |
-<%= link_to 'Advertises', admin_advertises_path %> |
-<%= link_to 'Show Advertise', [:admin, @advertise] %>
-<hr />
+<section id="admin">
+  <%= link_to 'Main', admin_admin_main_path %> |
+  <%= link_to 'Advertises', admin_advertises_path %> |
+  <%= link_to 'Show Advertise', [:admin, @advertise] %>
+  <hr />
 
-<h3>Edit Advertise</h3>
+  <h3>Edit Advertise</h3>
 
-<%= render 'form', advertise: @advertise %>
+  <%= render 'form', advertise: @advertise %>
+</section>

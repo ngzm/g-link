@@ -1,15 +1,15 @@
-<%= link_to 'Main', admin_admin_main_path %> |
-<%= link_to 'Advertises', admin_advertises_path %> |
-<%= link_to 'Edit Advertise', edit_admin_advertise_path(@advertise) %>
-<hr />
+<section id="admin">
+  <%= link_to 'Main', admin_admin_main_path %> |
+  <%= link_to 'Advertises', admin_advertises_path %> |
+  <%= link_to 'Edit Advertise', edit_admin_advertise_path(@advertise) %>
+  <hr />
 
-<p id="notice"><%= notice %></p>
+  <p id="notice"><%= notice %></p>
 
-<h3>Show Advertise</h3>
+  <h3>Show Advertise</h3>
 
-<div class="admin_flex">
-  <div>
-    <table class="admin">
+  <div class="showdata">
+    <table>
       <tr><th>ID</th><td><%= @advertise.id %></td></tr>
       <tr><th>Title</th><td><%= @advertise.title %></td></tr>
       <tr><th>Description</th><td><%= @advertise.description %></td></tr>
@@ -21,4 +21,4 @@
       <tr><th>UPDATE</th><td><%= @advertise.updated_at %></td></tr>
     </table>
   </div>
-</div>
+</section>
