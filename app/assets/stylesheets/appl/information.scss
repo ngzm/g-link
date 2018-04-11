@@ -1,3 +1,17 @@
 // Place all the styles related to the appl::Information controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.information h3 {
+  color: #6699CC;
+}
+
+.information main {
+  margin: 20px 30px 20px 30px;
+}
+
+.information main p {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+

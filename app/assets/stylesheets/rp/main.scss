@@ -1,3 +1,11 @@
 // Place all the styles related to the rp::main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#rp_main_section {
+  margin: 0 14px 0 14px;
+}
+
+.rp_main_image {
+  max-width: 100%;
+}
