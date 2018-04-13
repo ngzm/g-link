@@ -1,44 +1,46 @@
-<%= link_to 'Main', admin_admin_main_path %> |
-<%= link_to 'Games', admin_games_path %> |
-<%= link_to 'Edit game', edit_admin_game_path(@game) %> |
-<%= link_to 'Edit intructions', edit_admin_game_instructions_path(@game) %>
-<hr />
+<section id="admin">
+  <%= link_to 'Main', admin_admin_main_path %> |
+  <%= link_to 'Games', admin_games_path %> |
+  <%= link_to 'Edit game', edit_admin_game_path(@game) %> |
+  <%= link_to 'Edit intructions', edit_admin_game_instructions_path(@game) %>
+  <hr />
 
-<p id="notice"><%= notice %></p>
+  <p id="notice"><%= notice %></p>
 
-<h3>Show game</h3>
+  <h3>Show game</h3>
 
-<% insts = @game.instructions.sort { |a, b| a.step <=> b.step } %>
+  <% insts = @game.instructions.sort { |a, b| a.step <=> b.step } %>
 
-<div class="admin_flex">
-  <div>
-    <table class="admin">
-      <tr><th>ID</th><td><%= @game.id %></td></tr>
-      <tr><th>Title</th><td><%= @game.title %></td></tr>
-      <tr><th>Description</th><td><%= @game.description %></td></tr>
-      <tr><th>Category1</th><td><%= hashed_categories[@game.category1] %></td></tr>
-      <tr><th>Category2</th><td><%= hashed_categories[@game.category2] %></td></tr>
-      <tr><th>Category3</th><td><%= hashed_categories[@game.category3] %></td></tr>
-      <tr><th>Type</th><td><%= hashed_game_type[@game.gtype] %></td></tr>
-      <tr><th>Instruction</th>
-        <td>
-          <% insts.each do |ins| %>
-            <%= ins.step %>: <%= ins.explanation %>
-            <br />
-          <% end %>
-        </td>
-      </tr>
-      <tr><th>STAR</th><td><%= @game.star %></td></tr>
-      <tr><th>ACCESS</th><td><%= @game.access %></td></tr>
-      <tr><th>CREATE</th><td><%= @game.created_at %></td></tr>
-      <tr><th>UPDATE</th><td><%= @game.updated_at %></td></tr>
-    </table>
+  <div class="showgame">
+    <div>
+      <table>
+        <tr><th>ID</th><td><%= @game.id %></td></tr>
+        <tr><th>Title</th><td><%= @game.title %></td></tr>
+        <tr><th>Description</th><td><%= @game.description %></td></tr>
+        <tr><th>Category1</th><td><%= hashed_categories[@game.category1] %></td></tr>
+        <tr><th>Category2</th><td><%= hashed_categories[@game.category2] %></td></tr>
+        <tr><th>Category3</th><td><%= hashed_categories[@game.category3] %></td></tr>
+        <tr><th>Type</th><td><%= hashed_game_type[@game.gtype] %></td></tr>
+        <tr><th>Instruction</th>
+          <td>
+            <% insts.each do |ins| %>
+              <%= ins.step %>: <%= ins.explanation %>
+              <br />
+            <% end %>
+          </td>
+        </tr>
+        <tr><th>STAR</th><td><%= @game.star %></td></tr>
+        <tr><th>ACCESS</th><td><%= @game.access %></td></tr>
+        <tr><th>CREATE</th><td><%= @game.created_at %></td></tr>
+        <tr><th>UPDATE</th><td><%= @game.updated_at %></td></tr>
+      </table>
+    </div>
+    <div>
+      <table>
+        <tr><th>URL</th><td><%= @game.url %></td></tr>
+        <tr><th>IMG Path</th><td><%= @game.img %></td></tr>
+        <tr><th>IMG</th><td><%= image_tag @game.img.url, class: 'game_img'  if @game.img? %></td></tr>
+      </table>
+    </div>
   </div>
-  <div>
-    <table class="admin">
-      <tr><th>URL</th><td><%= @game.url %></td></tr>
-      <tr><th>IMG Path</th><td><%= @game.img %></td></tr>
-      <tr><th>IMG</th><td><%= image_tag @game.img.url, width: '520px'  if @game.img? %></td></tr>
-    </table>
-  </div>
-</div>
+</section> 

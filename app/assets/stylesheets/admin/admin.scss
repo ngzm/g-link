@@ -1,3 +1,40 @@
 // Place all the styles related to the admin::admin controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#admin table th {
+  padding: 0.5em;
+  background-color: #CCDDEE;
+}
+
+#admin table td {
+  padding: 0.5em;
+  background-color: #DDDDDD;
+}
+
+.hello {
+  background-color: #DDEEFF;
+  color: #003399;
+}
+
+.showgame {
+  display: flex;
+}
+
+.showgame > div:nth-child(2) {
+  margin-left: 10px;
+}
+
+.showgame > div table {
+  min-width: 440px;
+  max-width: 680px;
+}
+
+.game_img {
+  max-width: 90%;
+}
+
+.showdata > table {
+  max-width: 90%;
+}
+

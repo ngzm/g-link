@@ -12,7 +12,7 @@
   <% adtypes = hashed_adtypes.map { |k, v| [v, k] } %>
   <% priorities = hashed_priorities.map { |k, v| [v, k] } %>
 
-  <table class="admin">
+  <table>
     <tr><th>ID</th><td><%= form.label :id, advertise.id %></td></tr>
     <tr><th>Title</th><td><%= form.text_field :title, size: 40 %></td></tr>
     <tr><th>Description</th><td><%= form.text_field :description, size: 100 %></td></tr>
@@ -29,7 +29,7 @@
   </table>
 
   <br />
-  <div class="actions">
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

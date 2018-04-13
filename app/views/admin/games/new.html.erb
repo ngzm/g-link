@@ -1,7 +1,9 @@
-<%= link_to 'Main', admin_admin_main_path %> |
-<%= link_to 'Games', admin_games_path %>
-<hr />
+<section id="admin">
+  <%= link_to 'Main', admin_admin_main_path %> |
+  <%= link_to 'Games', admin_games_path %>
+  <hr />
 
-<h3>New Game</h3>
+  <h3>New Game</h3>
 
-<%= render 'form', game: @game %>
+  <%= render 'form', game: @game %>
+</section>

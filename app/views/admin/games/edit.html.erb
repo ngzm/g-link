@@ -1,9 +1,11 @@
-<%= link_to 'Main', admin_admin_main_path %> |
-<%= link_to 'Games', admin_games_path %> |
-<%= link_to 'Show game', [:admin, @game] %> |
-<%= link_to 'Edit intructions', edit_admin_game_instructions_path(@game) %>
-<hr />
+<section id="admin">
+  <%= link_to 'Main', admin_admin_main_path %> |
+  <%= link_to 'Games', admin_games_path %> |
+  <%= link_to 'Show game', [:admin, @game] %> |
+  <%= link_to 'Edit intructions', edit_admin_game_instructions_path(@game) %>
+  <hr />
 
-<h3>Edit Game</h3>
+  <h3>Edit Game</h3>
 
-<%= render 'form', game: @game %>
+  <%= render 'form', game: @game %>
+</section>
