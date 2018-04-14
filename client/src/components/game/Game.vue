@@ -96,7 +96,7 @@ export default {
     },
     onPlayGame: function() {
       this.upAccess(this.gid);
-      window.open(this.game.url, '_game');
+      window.open(this.game.url, '_blank');
     },
     onOpenReview: function() {
       this.fetchReview(this.gid);
