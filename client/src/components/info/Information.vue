@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import AlertField from './AlertField.vue';
+import AlertField from '../util/AlertField.vue';
 
 export default {
   components: {

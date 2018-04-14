@@ -16,11 +16,11 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-import { dataStatus } from '../stores/StoreStatus';
+import { dataStatus } from '../../stores/StoreStatus';
 import GameList from './GameList.vue';
-import AlertField from './AlertField.vue';
 import SortFb from './SortFb.vue';
-import Spinner from './Spinner.vue';
+import AlertField from '../util/AlertField.vue';
+import Spinner from '../util/Spinner.vue';
 
 /**
  * Game Component

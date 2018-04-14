@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AppMain from './AppMain.vue';
-import Home from './Home.vue';
-import Ranking from './Ranking.vue';
-import Games from './Games.vue';
-import Game from './Game.vue';
-import Account from './Account.vue';
-import Contact from './Contact.vue';
-import Information from './Information.vue';
-import Error from './Error.vue';
+import Home from './home/Home.vue';
+import Ranking from './rank//Ranking.vue';
+import Games from './game//Games.vue';
+import Game from './game/Game.vue';
+import Account from './info//Account.vue';
+import Contact from './info//Contact.vue';
+import Information from './info//Information.vue';
+import Error from './error/Error.vue';
 
 Vue.use(VueRouter);
 

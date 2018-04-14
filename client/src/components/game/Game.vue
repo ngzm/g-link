@@ -41,13 +41,13 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { dataStatus } from '../stores/StoreStatus';
+import { dataStatus } from '../../stores/StoreStatus';
 import GameDetail from './GameDetail.vue';
 import GameReview from './GameReview.vue';
 import GameNav from './GameNav.vue';
-import AlertField from './AlertField.vue';
-import Infobar from './Infobar.vue';
-import Spinner from './Spinner.vue';
+import AlertField from '../util/AlertField.vue';
+import Infobar from '../util/Infobar.vue';
+import Spinner from '../util/Spinner.vue';
 
 /**
  * Game Detail Component
