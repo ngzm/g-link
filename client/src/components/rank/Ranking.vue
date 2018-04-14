@@ -26,7 +26,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import AlertField from './AlertField.vue';
+import AlertField from '../util/AlertField.vue';
 import RankingFrame from './RankingFrame.vue';
 import RankingAdvertise from './RankingAdvertise.vue';
 

@@ -10,7 +10,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import AlertField from './AlertField.vue';
+import AlertField from '../util/AlertField.vue';
 
 const { mapState } = createNamespacedHelpers('errors');
 

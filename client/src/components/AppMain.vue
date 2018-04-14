@@ -25,7 +25,7 @@
 import { mapState } from 'vuex';
 import AppDrawer from './AppDrawer.vue';
 import AppToolbar from './AppToolbar.vue';
-import Infobar from './Infobar.vue';
+import Infobar from './util/Infobar.vue';
 
 export default {
   data() {
