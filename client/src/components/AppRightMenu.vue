@@ -10,7 +10,7 @@
           <v-list-tile-title>ログイン</v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-icon>person_outline</v-icon>
+          <v-icon>person</v-icon>
         </v-list-tile-action>
       </v-list-tile>
 
@@ -19,7 +19,7 @@
           <v-list-tile-title>サイト情報</v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-icon>info</v-icon>
+          <v-icon>info_outline</v-icon>
         </v-list-tile-action>
       </v-list-tile>
 
@@ -28,7 +28,7 @@
           <v-list-tile-title>プライバシーポリシ</v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-icon>info</v-icon>
+          <v-icon>local_parking</v-icon>
         </v-list-tile-action>
       </v-list-tile>
 
@@ -37,7 +37,7 @@
           <v-list-tile-title>お問い合わせ</v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-icon>info</v-icon>
+          <v-icon>contacts</v-icon>
         </v-list-tile-action>
       </v-list-tile>
 
