@@ -17,9 +17,16 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import AlertField from '../util/AlertField.vue';
+const { mapState } = createNamespacedHelpers('errors');
 
 export default {
+  computed: {
+    ...mapState([
+      'serverErrors',
+    ]),
+  },
   components: {
     AlertField,
   },
