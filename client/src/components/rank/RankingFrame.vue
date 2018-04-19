@@ -37,7 +37,7 @@ export default {
       headers_access: [
         { text: 'No', sortable: false, value: 'no' },
         { text: 'タイトル', align: 'left', sortable: false, value: 'title' },
-        { text: 'アクセス数', sortable: false, value: 'access' },
+        { text: 'プレイ回数', sortable: false, value: 'access' },
       ],
     };
   },
