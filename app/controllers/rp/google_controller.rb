@@ -2,43 +2,35 @@ module Rp
   # Authenticate and Authorize by Google endpoint
   class GoogleController < RpController
     before_action :rp
-    before_action :initialize_provider_for_create, only: :create
-    before_action :check_show_param, :check_show_session, only: :show
-    before_action :initialize_provider_for_show, only: :show
-    after_action :register_create_session, only: :create
+    before_action :check_show_param, only: :show
     after_action :register_show_session, only: :show
     skip_before_action :check_create_param, except: :create
 
     PROVIDER = 'google'.freeze
 
     def create
-      # register initial auth data to auth_tokens table
+      initialize_provider_for_create
+
       register_auth_token
 
-      # Request to google authorization_endpoint
       redirect_to @rp.authorization_endpoint_uri
     end
 
     def show
-      # Confirm anti-forgery state
+      initialize_provider_for_show
+
       confirm_state(@state)
 
-      # Exchange code for access_token and google id_token
       @rp.obtain_access_token
 
-      # Validate google id_token and authenticate the user
       @rp.validate_id_token
 
-      # Obtaining user profile information
       @rp.obtain_user_profile
 
-      # generate id_token
       id_token
 
-      # update auth_tokens table
       update_auth_token
 
-      # register user data to users table
       register_user
 
       redirect_to @auth_token.redirect_uri
@@ -51,11 +43,17 @@ module Rp
     end
 
     def initialize_provider_for_create
-      @rp.state = state_from_client_token
+      @rp.state = client_token_to_state
     end
 
-    def register_create_session
-      session[:client_token] = @client_token
+    def register_auth_token
+      data = {
+        client_token: @client_token,
+        redirect_uri: @redirect_uri,
+        provider: PROVIDER
+      }
+      logger.debug "------- auth_token_data = #{data}"
+      @auth_token = super(data)
     end
 
     def check_show_param
@@ -65,12 +63,6 @@ module Rp
       raise Auths::Error::Unauthorized, 'Missing parameter code' if @code.nil?
     end
 
-    def check_show_session
-      @client_token = session[:client_token]
-      raise Auths::Error::Unauthorized, 'Missing session client_token' \
-        if @client_token.nil?
-    end
-
     def initialize_provider_for_show
       @rp.code = @code
     end
@@ -78,9 +70,6 @@ module Rp
     def register_show_session
       # It's for admin menu, look up id_token when it is admin menu.
       session[:id_token] = @id_token if @user.admin
-
-      # delete session
-      session[:client_token] = nil
     end
 
     def id_token
@@ -89,12 +78,9 @@ module Rp
       @id_token = super(@identifer)
     end
 
-    def register_auth_token
-      super PROVIDER
-    end
-
     def update_auth_token
       data = {
+        client_token: @client_token,
         id_token: @id_token,
         provider_access_token: @rp.access_token,
         provider_id_token: @rp.id_token
@@ -113,7 +99,7 @@ module Rp
         picture: @rp.user_profile['picture']
       }
       logger.debug "-------- user_data = #{user_data}"
-      @user = super user_data
+      @user = super(user_data)
     end
   end
 end

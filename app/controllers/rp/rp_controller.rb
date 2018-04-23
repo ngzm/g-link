@@ -7,6 +7,7 @@ module Rp
     rescue_from Auths::Error::AuthError, with: :handle_auth_error
 
     SEPARATOR = '__s_e_p_a_r_a_t_o_r__'.freeze
+    SEED_STATE_TOKEN = '--french-connetciton-seed-state-token--'.freeze
 
     private
 
@@ -21,15 +22,12 @@ module Rp
       @rp = Auths::Authorize.rp(provider)
     end
 
-    def register_auth_token(provider)
-      AuthToken.create_or_update(@client_token, @redirect_uri, provider)
+    def register_auth_token(auth_token_data)
+      AuthToken.create_or_update(auth_token_data)
     end
 
     def update_auth_token(auth_token_data)
-      auth_token = AuthToken.find_by(client_token: @client_token)
-      raise 'client_token is NOT FOUND' if auth_token.nil?
-      auth_token.update!(auth_token_data)
-      auth_token
+      AuthToken.update_only(auth_token_data)
     end
 
     def register_user(user_data)
@@ -41,16 +39,18 @@ module Rp
     end
 
     def confirm_state(state)
+      state_to_client_token(state)
       raise Auths::Error::Unauthorized, "state is invalid #{state}" \
-        unless state == state_from_client_token
+        if @client_token.nil?
     end
 
-    def state_from_client_token
-      "#{seed_state_token}#{SEPARATOR}#{@client_token}"
+    def client_token_to_state
+      "#{SEED_STATE_TOKEN}#{SEPARATOR}#{@client_token}"
     end
 
-    def seed_state_token
-      '--french-connetciton-seed-state-token--'
+    def state_to_client_token(state)
+      /^#{SEED_STATE_TOKEN}#{SEPARATOR}(.+)$/ =~ state
+      @client_token = Regexp.last_match(1)
     end
 
     # Auth Error handler
