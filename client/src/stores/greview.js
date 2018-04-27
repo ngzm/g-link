@@ -1,4 +1,4 @@
-import GameService from '../services/GameService';
+import GameService from '../services/gameService';
 import { dataStatus } from './StoreStatus';
 
 export default {
