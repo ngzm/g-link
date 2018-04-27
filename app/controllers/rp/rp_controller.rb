@@ -2,14 +2,17 @@
 module Rp
   # Super class for Relaying Party for Openid_connect or Oauth2
   class RpController < ApplicationController
-    before_action :check_create_param
-
     rescue_from Auths::Error::AuthError, with: :handle_auth_error
 
     SEPARATOR = '__s_e_p_a_r_a_t_o_r__'.freeze
     SEED_STATE_TOKEN = '--french-connetciton-seed-state-token--'.freeze
 
     private
+
+    def clean_auth_tokens
+      old_auth_tokens = AuthToken.where('updated_at < ?', 1.day.ago)
+      old_auth_tokens.destroy_all
+    end
 
     def check_create_param
       @client_token = params[:client_token]

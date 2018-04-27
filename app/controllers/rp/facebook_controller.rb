@@ -2,9 +2,9 @@ module Rp
   # Authenticate and Authorize by facebook endpoint
   class FacebookController < RpController
     before_action :rp
+    before_action :check_create_param, only: :create
     before_action :check_show_param, only: :show
     after_action :register_show_session, only: :show
-    skip_before_action :check_create_param, except: :create
 
     PROVIDER = 'facebook'.freeze
 

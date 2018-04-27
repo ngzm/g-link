@@ -3,10 +3,10 @@ module Rp
   # Twitter is implemented with using Oauth 1.0
   class TwitterController < RpController
     before_action :rp
+    before_action :check_create_param, only: :create
     before_action :check_show_param, :check_show_session, only: :show
     after_action :register_create_session, only: :create
     after_action :register_show_session, only: :show
-    skip_before_action :check_create_param, except: :create
 
     PROVIDER = 'twitter'.freeze
 
