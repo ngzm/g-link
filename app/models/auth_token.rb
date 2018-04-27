@@ -7,15 +7,20 @@ class AuthToken < ApplicationRecord
   validates :redirect_uri, presence: true
   validates :provider, presence: true
 
-  def self.create_or_update(client_token, redirect_uri, provider)
-    atoken = AuthToken.find_by(client_token: client_token)
+  def self.create_or_update(auth_token_data)
+    atoken = AuthToken.find_by(client_token: auth_token_data[:client_token])
     if atoken.nil?
-      atoken = AuthToken.create!(client_token: client_token,
-                                 redirect_uri: redirect_uri,
-                                 provider: provider)
+      atoken = AuthToken.create!(auth_token_data)
     else
-      atoken.update!(redirect_uri: redirect_uri, provider: provider)
+      atoken.update!(auth_token_data)
     end
+    atoken
+  end
+
+  def self.update_only(auth_token_data)
+    atoken = AuthToken.find_by(client_token: auth_token_data[:client_token])
+    raise 'client_token is NOT FOUND' if atoken.nil?
+    atoken.update!(auth_token_data)
     atoken
   end
 end
