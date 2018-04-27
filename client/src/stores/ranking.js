@@ -1,4 +1,4 @@
-import RankingService from '../services/RankingService';
+import RankingService from '../services/rankingService';
 
 export default {
   namespaced: true,

@@ -1,4 +1,4 @@
-import AdvertiseService from '../services/AdvertiseService';
+import AdvertiseService from '../services/advertiseService';
 import { advertiseSize } from './StoreStatus';
 
 class AdvertiseHelper {
