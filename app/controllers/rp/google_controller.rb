@@ -2,9 +2,9 @@ module Rp
   # Authenticate and Authorize by Google endpoint
   class GoogleController < RpController
     before_action :rp
+    before_action :check_create_param, only: :create
     before_action :check_show_param, only: :show
     after_action :register_show_session, only: :show
-    skip_before_action :check_create_param, except: :create
 
     PROVIDER = 'google'.freeze
 
