@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <% unless yield(:google_analystics).empty? %>
+      <%= yield :google_analystics %>
+    <% end %>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>フリーゲームリンク|FREE GAME LINK|無料で楽しいオンラインゲーム集</title>
@@ -12,7 +16,9 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <% unless yield(:material_icons).empty? %>
+      <%= yield :material_icons %>
+    <% end %>
   </head>
 
   <body>
