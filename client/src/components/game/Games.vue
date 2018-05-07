@@ -1,16 +1,21 @@
 <template>
   <section>
     <!-- Alerts -->
-    <AlertField v-bind:alerts="serverErrors" />
+    <AlertField :alerts="serverErrors" />
 
-    <!-- Games list -->
-    <GameList :title="ctitle" :games="games" @onSelect="onSelectGame" v-show="!waiting"/>
+    <!-- Games grid tile -->
+    <GameList
+      v-show="!waiting"
+      :title="ctitle"
+      :games="games"
+      @onSelect="onSelectGame"
+    />
 
     <!-- Floating action buttons for sorting the games list -->
     <SortFb />
 
     <!-- Progress Bar -->
-    <Spinner v-bind:waitfor="waiting" />
+    <Spinner :waitfor="waiting" />
   </section>
 </template>
 
@@ -26,8 +31,17 @@ import Spinner from '../util/Spinner.vue';
  * Game Component
  */
 export default {
+  components: {
+    GameList,
+    AlertField,
+    SortFb,
+    Spinner,
+  },
   props: {
-    cid: { type: String, },
+    cid: {
+      required: true,
+      type: String,
+    },
   },
   computed: {
     waiting: function() {
@@ -55,12 +69,6 @@ export default {
     ...mapActions('games', [
       'fetchGames',
     ]),
-  },
-  components: {
-    GameList,
-    AlertField,
-    SortFb,
-    Spinner,
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {

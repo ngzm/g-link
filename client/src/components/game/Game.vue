@@ -5,11 +5,11 @@
 
     <!-- game information -->
     <GameDetail
+      v-if="!waiting"
       :game="game"
       @onPlay="onPlayGame"
       @onReview="onOpenReview"
       @onGoBack="onGoBackList"
-      v-show="!waiting"
     />
 
     <!-- Game navigation commands -->
@@ -22,7 +22,7 @@
     <!-- Dialog which register game rating --> 
     <GameReview
       :dialog="readyReview"
-      :setDialog="setDialog"
+      :set-dialog="setDialog"
       :title="game.title"
       @onRegister="onRegisterReview"
     />
@@ -30,7 +30,7 @@
     <!-- Information bar at registered review --> 
     <Infobar
       :snackbar="registeredReview"
-      :setSnackbar="setSnackbar"
+      :set-snackbar="setSnackbar"
       :message="message"
     />
 
@@ -53,9 +53,23 @@ import Spinner from '../util/Spinner.vue';
  * Game Detail Component
  */
 export default {
+  components: {
+    AlertField,
+    Spinner,
+    GameDetail,
+    GameReview,
+    GameNav,
+    Infobar,
+  },
   props: {
-    cid: { type: String, },
-    gid: { type: String, },
+    cid: {
+      required: true,
+      type: String,
+    },
+    gid: {
+      required: true,
+      type: String,
+    },
   },
   data() {
     return {
@@ -137,14 +151,6 @@ export default {
   beforeRouteUpdate(to, from, next) {
     this.fetchGame(to.params.gid);
     next();
-  },
-  components: {
-    AlertField,
-    Spinner,
-    GameDetail,
-    GameReview,
-    GameNav,
-    Infobar,
   },
 };
 </script>

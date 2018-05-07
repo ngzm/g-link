@@ -1,14 +1,29 @@
 <template>
-  <v-card class="grey darken-2 white--text" flat>
-    <v-card-media v-bind:src="game.img" height="200px">
-      <a class="g-grid" href="" @click.stop.prevent="$emit('onSelect')"></a>
+  <v-card
+    color="grey darken-2"
+    class="white--text"
+    flat
+  >
+    <v-card-media
+      :src="game.img"
+      height="200px"
+    >
+      <a
+        class="g-grid"
+        href=""
+        @click.stop.prevent="$emit('onSelect')"
+      />
     </v-card-media>
     <v-card-text class="g-info-container">
       <div class="left">
         <p class="gtitle">{{ game.title }}</p>
       </div>
       <div class="right">
-        <v-icon v-for="n in intStar" :key="n" class="yellow--text star" >
+        <v-icon
+          v-for="n in intStar"
+          :key="n"
+          class="yellow--text star"
+        >
           star
         </v-icon>
         <span class="gaccess">{{ game.access }}</span>
@@ -24,7 +39,10 @@
  */
 export default {
   props: {
-    game: Object,
+    game: {
+      required: true,
+      type: Object,
+    },
   },
   computed: {
     intStar: function() {
@@ -34,7 +52,8 @@ export default {
       return (this.game.gtype === 1) ? 'HTML5' : (this.game.gtype === 2) ? 'FLASH' : 'ETC';
     },
     classGtype: function() {
-      return (this.game.gtype === 1) ? 'g-type g-blue' : (this.game.gtype === 2) ? 'g-type g-red' : 'g-type';
+      return (this.game.gtype === 1) ? 'g-type g-blue' :
+        (this.game.gtype === 2) ? 'g-type g-red' : 'g-type';
     },
   },
 };

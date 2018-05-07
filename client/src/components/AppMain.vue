@@ -2,20 +2,23 @@
   <v-app toolbar>
 
     <!-- Drawer -->
-    <AppDrawer :drawer="drawer" :setDrawer="setDrawer" />
+    <AppDrawer
+      :drawer="drawer"
+      :set-drawer="setDrawer"
+    />
 
     <!-- Toolbar -->
-    <AppToolbar :toggleDrawer="toggleDrawer" />
+    <AppToolbar :toggle-drawer="toggleDrawer" />
 
     <!-- Main Contents -->
-    <main>
-      <router-view></router-view>
-    </main>
+    <v-content>
+      <router-view />
+    </v-content>
 
     <!-- Inforbar -->
     <Infobar
       :snackbar="snackbar"
-      :setSnackbar="setSnackbar"
+      :set-snackbar="setSnackbar"
       :message="message"
     />
   </v-app>
@@ -28,9 +31,14 @@ import AppToolbar from './AppToolbar.vue';
 import Infobar from './util/Infobar.vue';
 
 export default {
+  components: {
+    AppDrawer,
+    AppToolbar,
+    Infobar,
+  },
   data() {
     return {
-      drawer: true,
+      drawer: null,
       snackbar: false,
       message: '',
     };
@@ -40,17 +48,6 @@ export default {
       'user',
       'authenticated',
     ]),
-  },
-  methods: {
-    setDrawer: function(flg) {
-      this.drawer = flg;
-    },
-    toggleDrawer: function() {
-      this.drawer = !this.drawer;
-    },
-    setSnackbar: function(flg) {
-      this.snackbar = flg;
-    },
   },
   watch: {
     authenticated: function(value) {
@@ -62,10 +59,16 @@ export default {
       this.snackbar = true;
     },
   },
-  components: {
-    AppDrawer,
-    AppToolbar,
-    Infobar,
+  methods: {
+    setDrawer: function(flg) {
+      this.drawer = flg;
+    },
+    toggleDrawer: function() {
+      this.drawer = !this.drawer;
+    },
+    setSnackbar: function(flg) {
+      this.snackbar = flg;
+    },
   },
 };
 </script>

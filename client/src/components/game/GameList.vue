@@ -1,10 +1,28 @@
 <template>
   <v-container grid-list-lg>
-    <h5 class="headline">{{ title }}</h5>
-    <v-layout row wrap>
-      <v-flex xs12 sm6 md4 lg3 xl2 v-for="game in games" :key="game.id">
-        <!-- GameGrid -->
-        <GameGrid v-bind:game="game" v-on:onSelect="onSelectGame(game.id)" />
+    <v-layout row>
+      <v-flex xs12>
+        <h5 class="headline">{{ title }}</h5>
+      </v-flex>
+    </v-layout>
+
+    <v-layout
+      row
+      wrap
+    >
+      <v-flex
+        v-for="game in games"
+        :key="game.id"
+        xs12
+        sm6
+        md4
+        lg3
+        xl2
+      >
+        <GameGrid
+          :game="game"
+          @onSelect="onSelectGame(game.id)"
+        />
       </v-flex>
     </v-layout>
   </v-container>
@@ -17,17 +35,23 @@ import GameGrid from './GameGrid.vue';
  * GameList Component
  */
 export default {
+  components: {
+    GameGrid,
+  },
   props: {
-    title: { type: String },
-    games: { type: Array },
+    title: {
+      default: '',
+      type: String,
+    },
+    games: {
+      default: () => [],
+      type: Array,
+    },
   },
   methods: {
     onSelectGame: function(gid) {
       this.$emit('onSelect', gid);
     },
-  },
-  components: {
-    GameGrid,
   },
 };
 </script>

@@ -1,14 +1,23 @@
 <template>
-  <v-layout row wrap>
+  <v-layout
+    class="mt-2"
+    row
+    wrap
+  >
     <template v-for="item in categories">
       <v-btn
-        class="blue white--text"
-        style="width: 154px;"
         :key="item.id"
         :to="`/cview/category/${item.id}`"
+        color="blue white--text"
+        style="width: 154px;"
       >
         {{ item.title }}
-        <v-icon right dark>{{ item.icon }}</v-icon>
+        <v-icon
+          right
+          dark
+        >
+          {{ item.icon }}
+        </v-icon>
       </v-btn>
     </template>
   </v-layout>

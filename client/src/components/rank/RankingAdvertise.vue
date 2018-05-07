@@ -1,16 +1,31 @@
 <template>
-  <v-layout row wrap>
-    <h5 class="title">オススメ</h5>
-
-    <v-flex xs12 v-for="(ad, index) in displayRank" :key="index">
-      <v-card class="grey lighten-2" flat>
-        <v-card-text class="text-xs-center">
-          <p class="atitle" v-text="ad.title"></p>
-          <div v-html="ad.src"></div>
+  <v-layout
+    row
+    wrap
+  >
+    <v-flex xs12>
+      <h5 class="title mt-4">オススメ</h5>
+    </v-flex>
+    <v-flex
+      v-for="(ad, index) in displayRank"
+      :key="index"
+      xs12
+    >
+      <v-card
+        color="grey lighten-2"
+        flat
+      >
+        <v-card-text
+          class="text-xs-center"
+        >
+          <p
+            class="atitle"
+            v-text="ad.title"
+          />
+          <div v-html="ad.src" />
         </v-card-text>
       </v-card>
     </v-flex>
-
   </v-layout>
 </template>
 
@@ -27,13 +42,13 @@ export default {
       'displayRank',
     ]),
   },
+  created: function() {
+    this.arrangeDisplayRank();
+  },
   methods: {
     ...mapMutations([
       'arrangeDisplayRank',
     ]),
-  },
-  created: function() {
-    this.arrangeDisplayRank();
   },
 };
 </script>

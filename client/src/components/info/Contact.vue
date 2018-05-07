@@ -1,17 +1,21 @@
 <template>
   <section>
-    <v-container fluid grid-list-lg>
-      <!-- Alerts -->
-      <AlertField v-bind:alerts="serverErrors" />
+    <!-- Alerts -->
+    <AlertField :alerts="serverErrors" />
 
-      <v-layout row wrap>
+    <v-container
+      fluid
+      grid-list-lg
+    >
+      <v-layout
+        row
+        wrap
+      >
         <v-flex xs12>
           <h5 class="headline">お問い合わせ</h5>
-
-          工事中です
+          <p>工事中です</p>
         </v-flex>
       </v-layout>
-
     </v-container>
   </section>
 </template>
@@ -22,13 +26,13 @@ import AlertField from '../util/AlertField.vue';
 const { mapState } = createNamespacedHelpers('errors');
 
 export default {
+  components: {
+    AlertField,
+  },
   computed: {
     ...mapState([
       'serverErrors',
     ]),
-  },
-  components: {
-    AlertField,
   },
 };
 </script>

@@ -1,48 +1,68 @@
 <template>
   <v-card>
-    <v-card-media :src="game.img" height="340px">
-      <a class="g-img" href="" @click.stop.prevent="$emit('onPlay')"></a>
+    <v-card-media
+      :src="game.img"
+      height="340px"
+    >
+      <a
+        class="g-img"
+        href=""
+        @click.stop.prevent="$emit('onPlay')"
+      />
     </v-card-media>
 
     <v-card-actions>
-      <v-btn block dark class="red darken-4" @click="$emit('onPlay')" >
+      <v-btn
+        color="red darken-4"
+        block
+        dark
+        @click="$emit('onPlay')"
+      >
         やってみる
         <v-icon>play_arrow</v-icon>
       </v-btn>
     </v-card-actions>
 
-    <v-card-title primary-title>
+    <v-card-text class="pt-4">
       <div>
         <h5 class="title">{{ game.title }}</h5>
-        {{ game.description }}
+        <p class="mt-3">{{ game.description }}</p>
       </div>
-    </v-card-title>
-
-    <v-card-text>
-      <div>
+      <div class="mt-4">
         <h5 class="title">遊び方</h5>
-        <ol>
-          <li v-for="(is, index) in game.instructions" :key="index">
+        <ol class="mt-3 ml-4">
+          <li
+            v-for="(is, index) in game.instructions"
+            :key="index"
+          >
             {{ is.explanation }}
           </li>
         </ol>
       </div>
     </v-card-text>
 
-    <v-card-text>
-      <v-layout row wrap>
+    <v-card-text class="pt-3">
+      <v-layout row>
         <v-flex xs6>
-          <v-avatar tile size="30px" class="ml-1">
-            <img :src="logoGtype" alt="gtype logo" />
+          <v-avatar
+            tile
+            size="30px"
+          >
+            <img
+              :src="logoGtype"
+              alt="gtype logo"
+            >
           </v-avatar>
           {{ labelGtype }}
         </v-flex>
-        <v-flex xs6 class="text-xs-right">
+        <v-flex
+          xs6
+          class="text-xs-right"
+        >
           <div class="ml-2">{{ formatRegister }} 登録</div>
         </v-flex>
       </v-layout>
     </v-card-text>
-
   </v-card>
 </template>
 
@@ -53,6 +73,7 @@
 export default {
   props: {
     game: {
+      default: () => {},
       type: Object,
     },
   },

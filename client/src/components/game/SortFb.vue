@@ -9,27 +9,33 @@
   >
     <v-btn
       slot="activator"
-      :class="fbcolor"
-      v-tooltip:left="{ html: `ｿｰﾄ: ${getCurSortKey.title}` }"
+      v-model="fab"
+      :color="fbcolor"
       dark
       fab
       hover
-      v-model="fab"
     >
-      <v-icon>{{fbicon}}</v-icon>
+      <v-icon>{{ fbicon }}</v-icon>
     </v-btn>
-    <v-btn
+    <v-tooltip
       v-for="key in sortKeys"
       :key="key.id"
-      :class="key.color"
-      @click="setSortOrder(key.id)"
-      v-tooltip:left="{ html: `${key.title}` }"
-      fab
-      dark
-      small
+      open-delay="10"
+      close-delay="10"
+      left
     >
-      <v-icon>{{key.icon}}</v-icon>
-    </v-btn>
+      <v-btn
+        slot="activator"
+        :color="key.color"
+        fab
+        dark
+        small
+        @click="setSortOrder(key.id)"
+      >
+        <v-icon>{{ key.icon }}</v-icon>
+      </v-btn>
+      <span>{{ key.title }}</span>
+    </v-tooltip>
   </v-speed-dial>
 </template>
 

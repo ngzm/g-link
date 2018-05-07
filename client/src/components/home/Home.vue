@@ -1,43 +1,69 @@
 <template>
-  <section>
-    <v-container grid-list-lg>
-      <!-- Alerts -->
-      <AlertField v-bind:alerts="serverErrors" />
+  <v-container grid-list-lg>
+    <!-- Alerts -->
+    <AlertField :alerts="serverErrors" />
 
+    <v-layout
+      row
+      wrap
+    >
       <!-- Logo -->
-      <div class="main_logo">
-        <img src="/images/freegame_link_logo1.png" alt="freegame.link" />
-      </div>
+      <v-flex
+        class="mt-4 text-xs-center"
+        xs12
+      >
+        <img
+          class="main_logo"
+          src="/images/freegame_link_logo1.png"
+          alt="freegame.link"
+        >
+      </v-flex>
 
       <!-- AD -->
-      <div>
+      <v-flex
+        class="mt-5"
+        xs12
+      >
         <h5 class="headline">オススメ</h5>
         <HomeAdvertise />
-      </div>
+      </v-flex>
 
       <!-- Ranking -->
-      <div class="mt-5">
+      <v-flex
+        class="mt-5"
+        xs12
+      >
         <h5 class="headline">ランキング</h5>
         <HomeRanking />
-      </div>
+      </v-flex>
 
       <!-- Contents -->
-      <div class="mt-5">
+      <v-flex
+        class="mt-5"
+        xs12
+      >
         <h5 class="headline">カテゴリー</h5>
         <HomeNavi />
-      </div>
+      </v-flex>
 
-      <div class="mt-5">
+      <!-- About -->
+      <v-flex
+        class="mt-5"
+        xs12
+      >
         <h5 class="headline">サイト情報</h5>
-        <p>
+        <p class="mt-3">
           当サイトについて
-          <a href="/appl/information/privacy/" target="_blank">
+          <a
+            href="/appl/information/privacy/"
+            target="_blank"
+          >
             プライバシーポリシ
           </a>
         </p>
-      </div>
-    </v-container>
-  </section>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -48,6 +74,12 @@ import HomeRanking from './HomeRanking.vue';
 import HomeNavi from './HomeNavi.vue';
 
 export default {
+  components: {
+    AlertField,
+    HomeAdvertise,
+    HomeRanking,
+    HomeNavi,
+  },
   computed: {
     ...mapState('errors', [
       'serverErrors',
@@ -67,21 +99,11 @@ export default {
     this.fetchRanking(3);
     next();
   },
-  components: {
-    AlertField,
-    HomeAdvertise,
-    HomeRanking,
-    HomeNavi,
-  },
 };
 </script>
 
 <style>
-.main_logo {
-  padding: 18px;
-  text-align: center;
-}
-.main_logo img {
+img.main_logo {
   max-width: 100%;
 }
 </style>

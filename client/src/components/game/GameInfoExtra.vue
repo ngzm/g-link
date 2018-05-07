@@ -1,39 +1,50 @@
 <template>
   <v-card>
-    <!-- Access count -->
     <v-card-text>
       <div>
         <h5 class="title">プレイ回数</h5>
-        <div class="ml-2">{{ game.access }} 回</div>
+        <p class="mt-3 ml-2">{{ game.access }} 回</p>
       </div>
     </v-card-text>
 
-    <!-- Stars count -->
-    <v-card-text>
+    <v-card-text class="pt-0">
       <div>
         <h5 class="title">総合評価</h5>
-        <div class="ml-2">
+        <p class="mt-3 ml-2">
           <span>
-            <v-icon v-for="n in intStar" :key="n" class="orange--text">star</v-icon>
+            <v-icon
+              v-for="n in intStar"
+              :key="n"
+              color="orange"
+            >
+              star
+            </v-icon>
           </span>
           <span v-if="game.star > 0">({{ formatStar }})</span>
           <span v-else>評価は未だありません</span>
-        </div>
+        </p>
       </div>
     </v-card-text>
 
-    <v-card-actions>
-      <v-btn block dark class="teal darken-2" @click="$emit('onReview')" >
+    <v-card-actions class="pt-0">
+      <v-btn
+        color="teal darken-2"
+        block
+        dark
+        @click="$emit('onReview')"
+      >
         評価する
         <v-icon>star</v-icon>
       </v-btn>
     </v-card-actions>
 
-    <!-- User commets -->
-    <v-card-text>
+    <v-card-text class="pt-4">
       <div>
         <h5 class="title">最新口コミ</h5>
-        <div v-if="game.reviews && game.reviews.length > 0">
+        <div
+          v-if="game.reviews && game.reviews.length > 0"
+          class="mt-3"
+        >
           <v-expansion-panel expand>
             <v-expansion-panel-content
               v-for="(rv, index) in game.reviews"
@@ -43,22 +54,32 @@
               <div slot="header">
                 {{ rv.user }}
                 <span>
-                  <v-icon v-for="n in rv.star" :key="n" class="yellow--text text--darken-2 star">
+                  <v-icon
+                    v-for="n in rv.star"
+                    :key="n"
+                    color="yellow darken-2"
+                    class="star"
+                  >
                     star
                   </v-icon>
                 </span>
               </div>
               <v-card>
-                <v-card-text class="grey lighten-3">
+                <v-card-text
+                  class="grey lighten-3"
+                >
                   {{ rv.comment }}
                 </v-card-text>
               </v-card>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </div>
-        <div class="ml-2" v-else>
+        <p
+          v-else
+          class="mt-3 ml-2"
+        >
           口コミは未だありません
-        </div>
+        </p>
       </div>
     </v-card-text>
   </v-card>
@@ -71,6 +92,7 @@
 export default {
   props: {
     game: {
+      default: () => {},
       type: Object,
     },
   },

@@ -1,49 +1,61 @@
 <template>
-  <v-dialog width="600" v-model="displayme">
-    <v-card>
-      <!-- game review form --> 
-      <v-form v-model="valid" ref="form" lazy-validation>
-
-        <!-- title --> 
+  <v-dialog
+    v-model="displayme"
+    width="600"
+  >
+    <v-card class="pb-2">
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+      >
         <v-card-title>
           <div>
             <h3 class="headline">評価・口コミ登録</h3>
-            <div>{{ title }} は気に入りましたか？</div>
+            <p class="mt-3">{{ title }} は気に入りましたか？</p>
           </div>
         </v-card-title>
-
-        <v-divider></v-divider>
-
-        <!-- input field --> 
+        <v-divider/>
         <v-card-text>
           <div>
             <h3 class="title">評価</h3>
-            <star-rating v-model="star"></star-rating>
+            <star-rating
+              v-model="star"
+              class="mt-3"
+            />
           </div>
-          <div>
-            <h3 class="title">口コミ</h3>
+          <div class="mt-4">
+            <h3 class="title mt-1">口コミ</h3>
             <v-text-field
-              label="口コミ"
               v-model="comment"
               :counter="commentSize"
               :rules="commentRules"
+              label="口コミ"
               required
               textarea
-            ></v-text-field>
+            />
           </div>
         </v-card-text>
-
-        <v-divider></v-divider>
-
-        <!-- action buttons --> 
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <div>
-            <v-btn dark class="blue" @click.native="register" :disabled="!valid" >登録する</v-btn>
-            <v-btn dark class="grey" @click.native="setDialog(false)">やめる</v-btn>
+            <v-btn
+              :disabled="!valid"
+              dark
+              color="blue"
+              @click.native="register"
+            >
+              登録する
+            </v-btn>
+            <v-btn
+              color="grey"
+              dark
+              @click.native="setDialog(false)"
+            >
+              やめる
+            </v-btn>
           </div>
         </v-card-actions>
-
       </v-form>
     </v-card>
   </v-dialog>
@@ -52,14 +64,25 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import StarRating from 'vue-star-rating';
-
 const { mapState, mapMutations } = createNamespacedHelpers('greview');
 
 export default {
+  components: {
+    StarRating
+  },
   props: {
-    title: { type: String, },
-    dialog: { type: Boolean, },
-    setDialog: { type: Function, },
+    title: {
+      default: '',
+      type: String,
+    },
+    dialog: {
+      required: true,
+      type: Boolean,
+    },
+    setDialog: {
+      required: true,
+      type: Function,
+    },
   },
   data() {
     return {
@@ -109,9 +132,6 @@ export default {
     ...mapMutations([
       'setReview',
     ]),
-  },
-  components: {
-    StarRating
   },
 };
 </script>
