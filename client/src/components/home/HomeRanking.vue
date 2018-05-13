@@ -1,13 +1,35 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12 md4>
-      <HomeRankingList mode="2" :ranking="stars" />
+  <v-layout
+    class="mt-2"
+    row
+    wrap
+  >
+    <v-flex
+      xs12
+      md4
+    >
+      <HomeRankingList
+        :ranking="stars"
+        mode="2"
+      />
     </v-flex>
-    <v-flex xs12 md4>
-      <HomeRankingList mode="3" :ranking="accesses" />
+    <v-flex
+      xs12
+      md4
+    >
+      <HomeRankingList
+        :ranking="accesses"
+        mode="3"
+      />
     </v-flex>
-    <v-flex xs12 md4>
-      <HomeRankingList mode="1" :ranking="updates" />
+    <v-flex
+      xs12
+      md4
+    >
+      <HomeRankingList
+        :ranking="updates"
+        mode="1"
+      />
     </v-flex>
   </v-layout>
 </template>
@@ -18,15 +40,15 @@ import HomeRankingList from './HomeRankingList.vue';
 const { mapState } = createNamespacedHelpers('ranking');
 
 export default {
+  components: {
+    HomeRankingList,
+  },
   computed: {
     ...mapState( [
       'updates',
       'stars',
       'accesses',
     ]),
-  },
-  components: {
-    HomeRankingList,
   },
 };
 </script>

@@ -1,7 +1,15 @@
 <template>
-  <div class="mt-4" v-if="alerts.length > 0">
+  <div
+    v-if="alerts.length > 0"
+    class="mt-4"
+  >
     <template v-for="(a, i) in alerts">
-      <v-alert :class="alertClass(a)" :icon="alertIcon(a)" value="true" :key="i">
+      <v-alert
+        :key="i"
+        :class="alertClass(a)"
+        :icon="alertIcon(a)"
+        value="true"
+      >
         {{ a.message }} (status: {{ a.status }})
       </v-alert>
     </template>
@@ -11,7 +19,10 @@
 <script>
 export default {
   props: {
-    alerts: Array,
+    alerts: {
+      default: () => [],
+      type: Array,
+    }
   },
   methods: {
     alertClass: function(a) {

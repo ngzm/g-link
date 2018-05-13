@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <router-view />
 </template>
 
 <script>
@@ -13,14 +13,6 @@ export default {
   computed: {
     ...mapGetters('errors', [
       'serious',
-    ]),
-  },
-  methods: {
-    ...mapActions('user', [
-      'authAction',
-    ]),
-    ...mapActions('advertise', [
-      'fetchAdvertise',
     ]),
   },
   watch: {
@@ -37,6 +29,14 @@ export default {
     // 広告情報取得
     this.fetchAdvertise(1);
     this.fetchAdvertise(2);
+  },
+  methods: {
+    ...mapActions('user', [
+      'authAction',
+    ]),
+    ...mapActions('advertise', [
+      'fetchAdvertise',
+    ]),
   },
 };
 </script>

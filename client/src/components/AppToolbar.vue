@@ -1,20 +1,39 @@
 <template>
   <!-- Toolbar -->
-  <v-toolbar class="indigo darken-4" dark fixed>
-
+  <v-toolbar
+    color="indigo darken-4"
+    dark
+    fixed
+    clipped-left
+    app
+  >
     <!-- Left Menu -->
     <v-toolbar-title>
-      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
-      <a class="main-title" @click.stop.prevent="$router.push('/cview')" href="">
+      <v-toolbar-side-icon
+        @click.stop="toggleDrawer"
+      />
+      <a
+        class="main-title"
+        href=""
+        @click.stop.prevent="$router.push('/cview')"
+      >
         freegame.link
       </a>
     </v-toolbar-title>
 
-    <v-spacer></v-spacer>
+    <v-spacer />
 
     <!-- Right Menu -->
-    <AppUserMenu :user="user" @logout="signOutAction" v-if="authenticated" />
-    <AppRightMenu :auth="authenticated" @login="login" @privacy="privacy"/>
+    <AppUserMenu
+      v-if="authenticated"
+      :user="user"
+      @logout="signOutAction"
+    />
+    <AppRightMenu
+      :auth="authenticated"
+      @login="login"
+      @privacy="privacy"
+    />
   </v-toolbar>
 </template>
 
@@ -27,8 +46,13 @@ import Authenticate from '../libs/authenticate';
 const { mapState, mapActions } = createNamespacedHelpers('user');
 
 export default {
+  components: {
+    AppUserMenu,
+    AppRightMenu,
+  },
   props: {
     toggleDrawer: {
+      required: true,
       type: Function,
     },
   },
@@ -50,10 +74,6 @@ export default {
     ...mapActions([
       'signOutAction',
     ]),
-  },
-  components: {
-    AppUserMenu,
-    AppRightMenu,
   },
 };
 </script>

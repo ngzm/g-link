@@ -1,16 +1,28 @@
 <template>
-  <v-layout row wrap>
+  <v-layout
+    row
+    wrap
+  >
     <v-flex>
-      <h5 class="title">評価ランキング</h5>
-      <RankingList :headers="headers_star" :items="items_star" />
+      <h5 class="title mt-4">評価ランキング</h5>
+      <RankingList
+        :headers="headers_star"
+        :items="items_star"
+      />
     </v-flex>
     <v-flex>
-      <h5 class="title">アクセスランキング</h5>
-      <RankingList :headers="headers_access" :items="items_access" />
+      <h5 class="title mt-4">アクセスランキング</h5>
+      <RankingList
+        :headers="headers_access"
+        :items="items_access"
+      />
     </v-flex>
     <v-flex xs12>
-      <h5 class="title">新着順</h5>
-      <RankingList :headers="headers_update" :items="items_update" />
+      <h5 class="title mt-4">新着順</h5>
+      <RankingList
+        :headers="headers_update"
+        :items="items_update"
+      />
     </v-flex>
   </v-layout>
 </template>
@@ -22,6 +34,9 @@ import RankingList from './RankingList.vue';
 const { mapState } = createNamespacedHelpers('ranking');
 
 export default {
+  components: {
+    RankingList,
+  },
   data() {
     return {
       headers_update: [
@@ -81,9 +96,6 @@ export default {
       'stars',
       'accesses',
     ]),
-  },
-  components: {
-    RankingList,
   },
 };
 </script>

@@ -1,18 +1,24 @@
 <template>
-  <div class="pinwheel" v-show="waitfor">
+  <div
+    v-show="waitfor"
+    class="pinwheel"
+  >
     <v-progress-circular
-      indeterminate
-      v-bind:size="70"
-      v-bind:width="7"
+      :size="70"
+      :width="7"
       class="mt-5 primary--text"
-    ></v-progress-circular>
+      indeterminate
+    />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    waitfor: { type: Boolean },
+    waitfor: {
+      required: true,
+      type: Boolean,
+    },
   },
 };
 </script>

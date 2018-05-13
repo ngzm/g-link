@@ -1,16 +1,37 @@
 <template>
-  <v-snackbar v-model="displayme" success :timeout="2000" multi-line>
+  <v-snackbar
+    v-model="displayme"
+    :timeout="2000"
+    color="success"
+    multi-line
+  >
     {{ message }}
-    <v-btn dark flat @click.native="cancel" class="hidden-xs-only">Close</v-btn>
+    <v-btn
+      dark
+      flat
+      class="hidden-xs-only"
+      @click.native="cancel"
+    >
+      Close
+    </v-btn>
   </v-snackbar>
 </template>
 
 <script>
 export default {
   props: {
-    message: { type: String },
-    snackbar: { type: Boolean },
-    setSnackbar: { type: Function },
+    message: {
+      required: true,
+      type: String,
+    },
+    snackbar: {
+      required: true,
+      type: Boolean,
+    },
+    setSnackbar: {
+      required: true,
+      type: Function,
+    },
   },
   computed: {
     displayme: {

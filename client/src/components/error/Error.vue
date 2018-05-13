@@ -1,11 +1,10 @@
 <template>
-  <v-container fluid>
+  <section>
     <h2>System Error</h2>
     <p>System error has occured, disable to proceed .. </p>
 
-    <!-- alerts -->
-    <AlertField v-bind:alerts="serverErrors" />
-  </v-container>
+    <AlertField :alerts="serverErrors" />
+  </section>
 </template>
 
 <script>
@@ -18,11 +17,11 @@ const { mapState } = createNamespacedHelpers('errors');
  * Error Component
  */
 export default {
-  computed: {
-    ...mapState(['serverErrors']),
-  },
   components: {
     AlertField,
+  },
+  computed: {
+    ...mapState(['serverErrors']),
   },
 };
 </script>

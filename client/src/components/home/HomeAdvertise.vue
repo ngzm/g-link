@@ -1,12 +1,35 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12 md6 lg4 xl2 v-for="(ad, index) in displayHome" :key="index">
-      <v-card class="grey lighten-2" flat height="152px" >
+  <v-layout
+    class="mt-2"
+    row
+    wrap
+  >
+    <v-flex
+      v-for="(ad, index) in displayHome"
+      :key="index"
+      xs12
+      md6
+      lg4
+      xl2
+    >
+      <v-card
+        color="grey lighten-2"
+        height="152px"
+        flat
+      >
         <v-card-text>
-          <div class="asrc" v-html="ad.src"></div>
+          <div
+            class="asrc"
+            v-html="ad.src"
+          />
           <div>
-            <p class="atitle" v-text="ad.title"></p>
-            <p v-text="ad.description"></p>
+            <p
+              class="atitle"
+              v-text="ad.title"
+            />
+            <p
+              v-text="ad.description"
+            />
           </div>
         </v-card-text>
       </v-card>
@@ -27,13 +50,13 @@ export default {
       'displayHome',
     ]),
   },
+  created: function() {
+    this.arrangeDisplayHome();
+  },
   methods: {
     ...mapMutations([
       'arrangeDisplayHome',
     ]),
-  },
-  created: function() {
-    this.arrangeDisplayHome();
   },
 };
 </script>

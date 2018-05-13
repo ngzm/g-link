@@ -2,22 +2,26 @@
   <section>
     <v-container grid-list-lg>
       <!-- Alerts -->
-      <AlertField v-bind:alerts="serverErrors" />
+      <AlertField :alerts="serverErrors" />
 
-      <h5 class="headline">ランキング</h5>
-
-      <v-layout row wrap>
-        <v-flex xs12 sm10 md9 xl7>
-
-          <!-- Ranking -->
+      <v-layout
+        row
+        wrap
+      >
+        <v-flex
+          xs12
+          sm10
+          md9
+          xl7
+        >
           <RankingFrame />
-
         </v-flex>
-        <v-flex class="hidden-sm-and-down" md3 xl2>
-
-          <!-- Side AD -->
+        <v-flex
+          class="hidden-sm-and-down"
+          md3
+          xl2
+        >
           <RankingAdvertise />
-
         </v-flex>
       </v-layout>
     </v-container>
@@ -34,6 +38,11 @@ import RankingAdvertise from './RankingAdvertise.vue';
  * Ranking Component
  */
 export default {
+  components: {
+    AlertField,
+    RankingFrame,
+    RankingAdvertise,
+  },
   computed: {
     ...mapState('errors', [
       'serverErrors',
@@ -52,11 +61,6 @@ export default {
   beforeRouteUpdate(to, from, next) {
     this.fetchRanking(10);
     next();
-  },
-  components: {
-    AlertField,
-    RankingFrame,
-    RankingAdvertise,
   },
 };
 </script>
