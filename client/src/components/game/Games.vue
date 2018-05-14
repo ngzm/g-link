@@ -1,8 +1,5 @@
 <template>
   <section>
-    <!-- Alerts -->
-    <AlertField :alerts="serverErrors" />
-
     <!-- Games grid tile -->
     <GameList
       v-show="!waiting"
@@ -24,7 +21,6 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import { dataStatus } from '../../stores/StoreStatus';
 import GameList from './GameList.vue';
 import SortFb from './SortFb.vue';
-import AlertField from '../util/AlertField.vue';
 import Spinner from '../util/Spinner.vue';
 
 /**
@@ -33,7 +29,6 @@ import Spinner from '../util/Spinner.vue';
 export default {
   components: {
     GameList,
-    AlertField,
     SortFb,
     Spinner,
   },
@@ -54,9 +49,6 @@ export default {
     ...mapState('games', [
       'games',
       'gamesStatus',
-    ]),
-    ...mapState('errors', [
-      'serverErrors',
     ]),
     ...mapGetters('categories', [
       'getCurCategory',

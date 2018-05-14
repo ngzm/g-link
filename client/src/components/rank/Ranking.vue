@@ -1,9 +1,6 @@
 <template>
   <section>
     <v-container grid-list-lg>
-      <!-- Alerts -->
-      <AlertField :alerts="serverErrors" />
-
       <v-layout
         row
         wrap
@@ -29,8 +26,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import AlertField from '../util/AlertField.vue';
+import { mapActions } from 'vuex';
 import RankingFrame from './RankingFrame.vue';
 import RankingAdvertise from './RankingAdvertise.vue';
 
@@ -39,14 +35,8 @@ import RankingAdvertise from './RankingAdvertise.vue';
  */
 export default {
   components: {
-    AlertField,
     RankingFrame,
     RankingAdvertise,
-  },
-  computed: {
-    ...mapState('errors', [
-      'serverErrors',
-    ]),
   },
   methods: {
     ...mapActions('ranking', [

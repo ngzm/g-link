@@ -1,8 +1,5 @@
 <template>
   <v-container grid-list-lg>
-    <!-- Alerts -->
-    <AlertField :alerts="serverErrors" />
-
     <v-layout
       row
       wrap
@@ -67,23 +64,16 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import AlertField from '../util/AlertField.vue';
+import { mapActions } from 'vuex';
 import HomeAdvertise from './HomeAdvertise.vue';
 import HomeRanking from './HomeRanking.vue';
 import HomeNavi from './HomeNavi.vue';
 
 export default {
   components: {
-    AlertField,
     HomeAdvertise,
     HomeRanking,
     HomeNavi,
-  },
-  computed: {
-    ...mapState('errors', [
-      'serverErrors',
-    ]),
   },
   methods: {
     ...mapActions('ranking', [
