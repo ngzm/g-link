@@ -45,11 +45,6 @@ module.exports = {
       from: path.resolve(__dirname, 'src', 'assets', 'index.html'),
     }]),
   ],
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    }
-  },
   devServer: {
     contentBase: 'dist',
     port: 3000,
