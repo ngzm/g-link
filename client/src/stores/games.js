@@ -7,6 +7,7 @@ export default {
   state: {
     games: [],
     gamesStatus: dataStatus.INITIAL,
+    lastCid: 0,
   },
 
   mutations: {
@@ -22,21 +23,28 @@ export default {
     setGamesStatus: (state, stt) => {
       state.gamesStatus = stt;
     },
+    setLastCid: (state, cid) => {
+      state.lastCid = cid;
+    },
   },
 
   actions: {
-    fetchGames: ({ commit, dispatch }, cid) => {
+    fetchGames: ({ state, commit, dispatch }, cid) => {
+      // Do not fetch when it is same with last fetched.
+      if (state.lastCid == cid) { return; }
+
+      commit('setLastCid', 0);
       commit('setGames', []);
       commit('setGamesStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
       GameService.fetchGames(cid,
         (res) => {
           commit('setGames', res.data);
+          commit('setLastCid', cid);
           dispatch('sortGames');
           commit('setGamesStatus', dataStatus.ACCESSIBLE);
         },
         (err) => {
-          commit('setGames', []);
           commit('setGamesStatus', dataStatus.ERROR);
           dispatch('errors/setServerErrors',
             { stat: err.response.status, errors: err.response.data },
