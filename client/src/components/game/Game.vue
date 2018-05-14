@@ -1,8 +1,5 @@
 <template>
   <section>
-    <!-- Alerts -->
-    <AlertField :alerts="serverErrors" />
-
     <!-- game information -->
     <GameDetail
       v-if="!waiting"
@@ -45,7 +42,6 @@ import { dataStatus } from '../../stores/StoreStatus';
 import GameDetail from './GameDetail.vue';
 import GameReview from './GameReview.vue';
 import GameNav from './GameNav.vue';
-import AlertField from '../util/AlertField.vue';
 import Infobar from '../util/Infobar.vue';
 import Spinner from '../util/Spinner.vue';
 
@@ -54,7 +50,6 @@ import Spinner from '../util/Spinner.vue';
  */
 export default {
   components: {
-    AlertField,
     Spinner,
     GameDetail,
     GameReview,
@@ -96,9 +91,6 @@ export default {
     ...mapState('game', [
       'game',
       'gameStatus',
-    ]),
-    ...mapState('errors', [
-      'serverErrors',
     ]),
   },
   methods: {

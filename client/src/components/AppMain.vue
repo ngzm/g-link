@@ -12,6 +12,10 @@
 
     <!-- Main Contents -->
     <v-content>
+      <!-- Alerts -->
+      <AlertField :alerts="serverErrors" />
+
+      <!-- Each contents -->
       <router-view />
     </v-content>
 
@@ -28,12 +32,14 @@
 import { mapState } from 'vuex';
 import AppDrawer from './AppDrawer.vue';
 import AppToolbar from './AppToolbar.vue';
+import AlertField from './util/AlertField.vue';
 import Infobar from './util/Infobar.vue';
 
 export default {
   components: {
     AppDrawer,
     AppToolbar,
+    AlertField,
     Infobar,
   },
   data() {
@@ -47,6 +53,9 @@ export default {
     ...mapState('user', [
       'user',
       'authenticated',
+    ]),
+    ...mapState('errors', [
+      'serverErrors',
     ]),
   },
   watch: {
