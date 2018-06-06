@@ -1,19 +1,24 @@
-import { naxios } from '../libs/naxios';
+import naxios from '../libs/naxios';
 
 /**
  * Service Class for Information menu
  */
 export default class InforService {
   /**
-   * send contact form data through Ajax
+   * post contact form data through Ajax
    */
   static sendContact(contact, success, fail) {
-    success('OK');
-
-    /**
-    naxios.post('/api/info/contact', contact)
+    naxios.post('/api/contacts/create', contact)
       .then((res) => { success(res); })
       .catch((err) => { fail(err); });
-    */
+  }
+
+  /**
+   * get contact one time token against csrf through Ajax
+   */
+  static getToken( success, fail) {
+    naxios.get('/api/contacts')
+      .then((res) => { success(res); })
+      .catch((err) => { fail(err); });
   }
 }

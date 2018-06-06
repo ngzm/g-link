@@ -55,7 +55,17 @@ export default {
     },
     ...mapActions([
       'sendContact',
+      'getToken',
     ]),
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.getToken();
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.getToken();
+    next();
   },
 };
 </script>

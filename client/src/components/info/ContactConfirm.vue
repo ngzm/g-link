@@ -32,7 +32,17 @@ export default {
   },
   computed: {
     askbr: function() {
-      return this.contact.ask.replace(/\r\n/g, '<br>').replace(/(\r|\n)/g, '<br>');
+      const sanitized = this.contact.ask.replace(/[&'`"<>]/g,
+        match => ({
+          '&': '&amp;',
+          '\'': '&#x27;',
+          '`': '&#x60;',
+          '"': '&quot;',
+          '<': '&lt;',
+          '>': '&gt;',
+        }[match])
+      );
+      return sanitized.replace(/\r\n/g, '<br>').replace(/(\r|\n)/g, '<br>');
     },
   },
   methods: {

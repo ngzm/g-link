@@ -31,6 +31,23 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Mailer Settings for Sakura Mailbox
+  config.action_mailer.default_url_options = {
+    host: 'localhost', port: 3000
+  }
+  config.action_mailer.delivery_method = :smtp
+
+  # Mailer SMTP Settings
+  smtp_settings = YAML.load_file(
+    File.expand_path('smtp_settings_ngzm.yml', __dir__)
+  ).symbolize_keys
+  config.action_mailer.smtp_settings = smtp_settings
+
+###################### Debug ###
+puts 'config.action_mailer.smtp_settings'
+p config.action_mailer.smtp_settings
+###################### Debug ###
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

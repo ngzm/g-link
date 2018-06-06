@@ -3,17 +3,35 @@ import InfoService from '../services/infoService';
 export default {
   namespaced: true,
 
+  state: {
+    token: {},
+  },
+  mutations: {
+    setToken: (state, token) => {
+      state.token = token;
+    },
+  },
   actions: {
-    sendContact: ({ commit, dispatch }, contact) => {
-      console.log('sendContact start');
-      console.dir(contact);
-
+    sendContact: ({ state, commit, dispatch }, contact) => {
+      const sendData = Object.assign(contact, state.token);
       commit('errors/clearServerErrors', null, { root: true });
 
-      InfoService.sendContact(contact,
+      InfoService.sendContact(sendData,
         (res) => {
-          console.log('sendContact success');
-          console.dir(res);
+        },
+        (err) => {
+          dispatch('errors/setServerErrors',
+            { stat: err.response.status, errors: err.response.data },
+            { root: true });
+        }
+      );
+    },
+    getToken: ({ commit, dispatch }) => {
+      commit('errors/clearServerErrors', null, { root: true });
+
+      InfoService.getToken(
+        (res) => {
+          commit('setToken', res.data);
         },
         (err) => {
           dispatch('errors/setServerErrors',

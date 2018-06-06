@@ -69,14 +69,15 @@ export default {
       name: '',
       nameSize: 64,
       nameRules: [
-        (v) => !!v || '必ず入力してください',
-        (v) => !!v && v.length <= this.nameSize || `${this.nameSize}文字以内で入力してください`
+        v => !!v || '必ず入力してください',
+        v => !!v && v.length <= this.nameSize || `${this.nameSize}文字以内で入力してください`
       ],
       emailData: '',
       emailSize: 64,
       emailRules: [
-        (v) => !!v || '必ず入力してください',
-        (v) => !!v && v.length <= this.emailSize || `${this.emailSize}文字以内で入力してください`,
+        v => !!v || '必ず入力してください',
+        v => !!v && v.length <= this.emailSize || `${this.emailSize}文字以内で入力してください`,
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/.test(v) || 'Eメールアドレスの形式で入力してください'
       ],
       email2Data: '',
       email2Error: false,
@@ -84,8 +85,8 @@ export default {
       ask: '',
       askSize: 400,
       askRules: [
-        (v) => !!v || '必ず入力してください',
-        (v) => !!v && v.length <= this.askSize || `${this.askSize}文字以内で入力してください`
+        v => !!v || '必ず入力してください',
+        v => !!v && v.length <= this.askSize || `${this.askSize}文字以内で入力してください`
       ],
     };
   },
