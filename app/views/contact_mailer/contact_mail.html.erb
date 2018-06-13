@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>freegame.linkへのお問い合わせを承りました</h1>
+    <hr>
+    <h3>お問い合わせ内容</h3>
+    <p>
+    <dl>
+      <dt>お名前</dt>
+      <dd><%= @name %> 様</dd>
+    </dl>
+    </p>
+    <p>
+    <dl>
+      <dt>メールアドレス</dt>
+      <dd><%= @email %></dd>
+    </dl>
+    </p>
+    <p>
+    <dl>
+      <dt>お問い合わせ内容</dt>
+      <dd><%= simple_format h(@ask) %></dd>
+    </dl>
+    </p>
+    <hr>
+    <p>後ほどサイト管理者よりご連絡いたします。</p>
+    <p>引き続きよろしくお願いいたします</p>
+  </body>
+</html>

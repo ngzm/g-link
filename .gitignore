@@ -27,6 +27,7 @@
 /config/rp_config_google_ngzm.yml
 /config/rp_config_facebook_ngzm.yml
 /config/rp_config_twitter_ngzm.yml
+/config/environments/smtp_settings_ngzm.yml
 
 # public
 /public/uploads

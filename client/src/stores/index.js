@@ -8,6 +8,7 @@ import game from './game';
 import greview from './greview';
 import ranking from './ranking';
 import advertise from './advertise';
+import info from './info';
 
 Vue.use(Vuex);
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     greview,
     ranking,
     advertise,
+    info,
   },
 });

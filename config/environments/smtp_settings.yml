@@ -1,0 +1,7 @@
+address: '---your-mail-server-address---'
+port: '587'
+domain: '---your-domain---'
+authentication: 'plain'
+user_name: '---your-user-name---'
+password: '---your-password---'
+enable_starttls_auto: true

@@ -25,6 +25,10 @@ Rails.application.routes.draw do
     # Api for advertises for client
     get 'advertises', to: 'advertises#index', format: false
     get 'advertises/search', format: false
+
+    # Api for contact for client
+    get 'contacts', to: 'contacts#new', format: false
+    post 'contacts/create', format: false
   end
 
   # User autentication using Other OP Services,
