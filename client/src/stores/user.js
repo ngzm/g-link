@@ -20,14 +20,14 @@ export default {
   },
 
   actions: {
-    authAction: ({ commit, dispatch }) => {
+    authAction: ({ state, commit, dispatch }) => {
       commit('signOut');
       UserService.auth(
         (res) => {
           commit('signIn', res.data);
+          dispatch('uiInfobar/onAction', `ようこそ ${state.user.name} さん`, { root: true });
         },
         (err) => {
-          commit('signOut');
           if (err.response.status != 401) {
             dispatch('errors/setServerErrors',
               { stat: err.response.status, errors: err.response.data },
@@ -36,9 +36,10 @@ export default {
         }
       );
     },
-    signOutAction: ({ commit }) => {
+    signOutAction: ({ commit, dispatch }) => {
       UserService.signOut();
       commit('signOut');
+      dispatch('uiInfobar/onAction', 'ログアウトしました', { root: true });
     },
   },
 };

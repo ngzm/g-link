@@ -9,6 +9,7 @@ import greview from './greview';
 import ranking from './ranking';
 import advertise from './advertise';
 import info from './info';
+import uiInfobar from './uiInfobar';
 
 Vue.use(Vuex);
 
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     ranking,
     advertise,
     info,
+    uiInfobar,
   },
 });

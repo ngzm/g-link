@@ -18,35 +18,31 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('uiInfobar');
+
 export default {
-  props: {
-    message: {
-      required: true,
-      type: String,
-    },
-    snackbar: {
-      required: true,
-      type: Boolean,
-    },
-    setSnackbar: {
-      required: true,
-      type: Function,
-    },
-  },
   computed: {
     displayme: {
       get: function() {
-        return this.snackbar;
+        return this.infobar;
       },
       set: function(flg) {
-        this.setSnackbar(flg);
+        this.modInfobar(flg);
       },
     },
+    ...mapState([
+      'infobar',
+      'message',
+    ]),
   },
   methods: {
     cancel: function() {
-      this.setSnackbar(false);
+      this.modInfobar(false);
     },
+    ...mapActions([
+      'modInfobar',
+    ]),
   },
 };
 </script>

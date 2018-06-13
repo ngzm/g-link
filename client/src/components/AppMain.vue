@@ -20,11 +20,7 @@
     </v-content>
 
     <!-- Inforbar -->
-    <Infobar
-      :snackbar="snackbar"
-      :set-snackbar="setSnackbar"
-      :message="message"
-    />
+    <Infobar />
   </v-app>
 </template>
 
@@ -45,8 +41,6 @@ export default {
   data() {
     return {
       drawer: null,
-      snackbar: false,
-      message: '',
     };
   },
   computed: {
@@ -58,25 +52,12 @@ export default {
       'serverErrors',
     ]),
   },
-  watch: {
-    authenticated: function(value) {
-      if (value) {
-        this.message = `ようこそ ${this.user.name} さん`;
-      } else {
-        this.message = 'ログアウトしました';
-      }
-      this.snackbar = true;
-    },
-  },
   methods: {
     setDrawer: function(flg) {
       this.drawer = flg;
     },
     toggleDrawer: function() {
       this.drawer = !this.drawer;
-    },
-    setSnackbar: function(flg) {
-      this.snackbar = flg;
     },
   },
 };

@@ -47,7 +47,7 @@ export default {
         }
       );
     },
-    registerReview: ({ state, commit, dispatch }, review) => {
+    registerReview: ({ state, commit, dispatch, rootState }, review) => {
       commit('setReviewStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
 
@@ -64,6 +64,9 @@ export default {
           commit('setReview', {});
           commit('setNewMode', false);
           commit('setReviewStatus', dataStatus.REGISTERED);
+          dispatch('uiInfobar/onAction',
+            `${rootState.game.game.title} の評価を登録しました`,
+            { root: true });
         },
         (err) => {
           commit('setReview', {});
