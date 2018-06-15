@@ -2,7 +2,6 @@
   <section>
     <!-- game information -->
     <GameDetail
-      v-if="!waiting"
       :game="game"
       @onPlay="onPlayGame"
       @onReview="onOpenReview"
@@ -23,9 +22,6 @@
       :title="game.title"
       @onRegister="onRegisterReview"
     />
-
-    <!-- Progress Bar -->
-    <Spinner :waitfor="waiting" />
   </section>
 </template>
 
@@ -35,14 +31,12 @@ import { dataStatus } from '../../stores/StoreStatus';
 import GameDetail from './GameDetail.vue';
 import GameReview from './GameReview.vue';
 import GameNav from './GameNav.vue';
-import Spinner from '../util/Spinner.vue';
 
 /**
  * Game Detail Component
  */
 export default {
   components: {
-    Spinner,
     GameDetail,
     GameReview,
     GameNav,
@@ -64,10 +58,6 @@ export default {
     };
   },
   computed: {
-    waiting: function() {
-      return this.gameStatus === dataStatus.BUZY ||
-             this.reviewStatus === dataStatus.BUZY;
-    },
     readyReview: function() {
       return this.dialog && this.reviewStatus === dataStatus.ACCESSIBLE;
     },

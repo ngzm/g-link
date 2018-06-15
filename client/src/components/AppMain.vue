@@ -19,6 +19,9 @@
       <router-view />
     </v-content>
 
+    <!-- Spinner -->
+    <Spinner />
+
     <!-- Inforbar -->
     <Infobar />
   </v-app>
@@ -30,6 +33,7 @@ import AppDrawer from './AppDrawer.vue';
 import AppToolbar from './AppToolbar.vue';
 import AlertField from './util/AlertField.vue';
 import Infobar from './util/Infobar.vue';
+import Spinner from './util/Spinner.vue';
 
 export default {
   components: {
@@ -37,6 +41,7 @@ export default {
     AppToolbar,
     AlertField,
     Infobar,
+    Spinner,
   },
   data() {
     return {

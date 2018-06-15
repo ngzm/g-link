@@ -24,6 +24,7 @@ export default {
 
   actions: {
     fetchReview: ({ commit, dispatch }, id) => {
+      dispatch('uiSpinner/spin', null, { root: true });
       commit('setReviewStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
       GameService.fetchGameReview(id,
@@ -31,23 +32,27 @@ export default {
           commit('setReview', res.data);
           commit('setNewMode', false);
           commit('setReviewStatus', dataStatus.ACCESSIBLE);
+          dispatch('uiSpinner/stop', null, { root: true });
         },
         (err) => {
           if (err.response.status == 404) {
             commit('setNewMode', true);
             commit('setReview', { game_id: id, comment: '', star: 3 });
             commit('setReviewStatus', dataStatus.ACCESSIBLE);
+            dispatch('uiSpinner/stop', null, { root: true });
           } else {
             commit('setReview', {});
-            commit('setReviewStatus', dataStatus.ERROR);
             dispatch('errors/setServerErrors',
               { stat: err.response.status, errors: err.response.data },
               { root: true });
+            commit('setReviewStatus', dataStatus.ERROR);
+            dispatch('uiSpinner/stop', null, { root: true });
           }
         }
       );
     },
     registerReview: ({ state, commit, dispatch, rootState }, review) => {
+      dispatch('uiSpinner/spin', null, { root: true });
       commit('setReviewStatus', dataStatus.BUZY);
       commit('errors/clearServerErrors', null, { root: true });
 
@@ -64,16 +69,18 @@ export default {
           commit('setReview', {});
           commit('setNewMode', false);
           commit('setReviewStatus', dataStatus.REGISTERED);
+          dispatch('uiSpinner/stop', null, { root: true });
           dispatch('uiInfobar/onAction',
             `${rootState.game.game.title} の評価を登録しました`,
             { root: true });
         },
         (err) => {
           commit('setReview', {});
-          commit('setReviewStatus', dataStatus.ERROR);
           dispatch('errors/setServerErrors',
             { stat: err.response.status, errors: err.response.data },
             { root: true });
+          commit('setReviewStatus', dataStatus.ERROR);
+          dispatch('uiSpinner/stop', null, { root: true });
         }
       );
     },

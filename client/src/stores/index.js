@@ -10,6 +10,7 @@ import ranking from './ranking';
 import advertise from './advertise';
 import info from './info';
 import uiInfobar from './uiInfobar';
+import uiSpinner from './uiSpinner';
 
 Vue.use(Vuex);
 
@@ -25,5 +26,6 @@ export default new Vuex.Store({
     advertise,
     info,
     uiInfobar,
+    uiSpinner,
   },
 });

@@ -33,6 +33,7 @@ export default {
       // Do not fetch when it is same with last fetched.
       if (state.lastCid == cid) { return; }
 
+      dispatch('uiSpinner/spin', null, { root: true });
       commit('setLastCid', 0);
       commit('setGames', []);
       commit('setGamesStatus', dataStatus.BUZY);
@@ -43,12 +44,14 @@ export default {
           commit('setLastCid', cid);
           dispatch('sortGames');
           commit('setGamesStatus', dataStatus.ACCESSIBLE);
+          dispatch('uiSpinner/stop', null, { root: true });
         },
         (err) => {
-          commit('setGamesStatus', dataStatus.ERROR);
           dispatch('errors/setServerErrors',
             { stat: err.response.status, errors: err.response.data },
             { root: true });
+          commit('setGamesStatus', dataStatus.ERROR);
+          dispatch('uiSpinner/stop', null, { root: true });
         }
       );
     },

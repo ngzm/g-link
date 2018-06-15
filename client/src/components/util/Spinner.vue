@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="waitfor"
+    v-if="spinner"
     class="pinwheel"
   >
     <v-progress-circular
@@ -13,12 +13,14 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState } = createNamespacedHelpers('uiSpinner');
+
 export default {
-  props: {
-    waitfor: {
-      required: true,
-      type: Boolean,
-    },
+  computed: {
+    ...mapState([
+      'spinner',
+    ]),
   },
 };
 </script>
