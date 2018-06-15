@@ -19,12 +19,11 @@
       <router-view />
     </v-content>
 
+    <!-- Spinner -->
+    <Spinner />
+
     <!-- Inforbar -->
-    <Infobar
-      :snackbar="snackbar"
-      :set-snackbar="setSnackbar"
-      :message="message"
-    />
+    <Infobar />
   </v-app>
 </template>
 
@@ -34,6 +33,7 @@ import AppDrawer from './AppDrawer.vue';
 import AppToolbar from './AppToolbar.vue';
 import AlertField from './util/AlertField.vue';
 import Infobar from './util/Infobar.vue';
+import Spinner from './util/Spinner.vue';
 
 export default {
   components: {
@@ -41,12 +41,11 @@ export default {
     AppToolbar,
     AlertField,
     Infobar,
+    Spinner,
   },
   data() {
     return {
       drawer: null,
-      snackbar: false,
-      message: '',
     };
   },
   computed: {
@@ -58,25 +57,12 @@ export default {
       'serverErrors',
     ]),
   },
-  watch: {
-    authenticated: function(value) {
-      if (value) {
-        this.message = `ようこそ ${this.user.name} さん`;
-      } else {
-        this.message = 'ログアウトしました';
-      }
-      this.snackbar = true;
-    },
-  },
   methods: {
     setDrawer: function(flg) {
       this.drawer = flg;
     },
     toggleDrawer: function() {
       this.drawer = !this.drawer;
-    },
-    setSnackbar: function(flg) {
-      this.snackbar = flg;
     },
   },
 };

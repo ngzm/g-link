@@ -13,16 +13,23 @@ export default {
   },
   actions: {
     sendContact: ({ state, commit, dispatch }, contact) => {
-      const sendData = Object.assign(contact, state.token);
+      dispatch('uiSpinner/spin', null, { root: true });
       commit('errors/clearServerErrors', null, { root: true });
+
+      const sendData = Object.assign(contact, state.token);
 
       InfoService.sendContact(sendData,
         (res) => {
+          dispatch('uiSpinner/stop', null, { root: true });
+          dispatch('uiInfobar/onAction',
+            `${res.data.name} 様のお問い合わせをサイト管理者に送信しました`,
+            { root: true });
         },
         (err) => {
           dispatch('errors/setServerErrors',
             { stat: err.response.status, errors: err.response.data },
             { root: true });
+          dispatch('uiSpinner/stop', null, { root: true });
         }
       );
     },

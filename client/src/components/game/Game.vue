@@ -2,7 +2,6 @@
   <section>
     <!-- game information -->
     <GameDetail
-      v-if="!waiting"
       :game="game"
       @onPlay="onPlayGame"
       @onReview="onOpenReview"
@@ -23,16 +22,6 @@
       :title="game.title"
       @onRegister="onRegisterReview"
     />
-
-    <!-- Information bar at registered review --> 
-    <Infobar
-      :snackbar="registeredReview"
-      :set-snackbar="setSnackbar"
-      :message="message"
-    />
-
-    <!-- Progress Bar -->
-    <Spinner :waitfor="waiting" />
   </section>
 </template>
 
@@ -42,19 +31,15 @@ import { dataStatus } from '../../stores/StoreStatus';
 import GameDetail from './GameDetail.vue';
 import GameReview from './GameReview.vue';
 import GameNav from './GameNav.vue';
-import Infobar from '../util/Infobar.vue';
-import Spinner from '../util/Spinner.vue';
 
 /**
  * Game Detail Component
  */
 export default {
   components: {
-    Spinner,
     GameDetail,
     GameReview,
     GameNav,
-    Infobar,
   },
   props: {
     cid: {
@@ -70,20 +55,11 @@ export default {
     return {
       direct: false,
       dialog: false,
-      snackbar: false,
-      message: '',
     };
   },
   computed: {
-    waiting: function() {
-      return this.gameStatus === dataStatus.BUZY ||
-             this.reviewStatus === dataStatus.BUZY;
-    },
     readyReview: function() {
       return this.dialog && this.reviewStatus === dataStatus.ACCESSIBLE;
-    },
-    registeredReview: function() {
-      return this.snackbar && this.reviewStatus === dataStatus.REGISTERED;
     },
     ...mapState('greview', [
       'reviewStatus',
@@ -97,9 +73,6 @@ export default {
     setDialog: function(flg) {
       this.dialog = flg;
     },
-    setSnackbar: function(flg) {
-      this.snackbar = flg;
-    },
     onPlayGame: function() {
       this.upAccess(this.gid);
       window.open(this.game.url, '_blank');
@@ -111,8 +84,6 @@ export default {
     onRegisterReview: function(review) {
       this.setDialog(false);
       this.registerReview(review);
-      this.message = `${this.game.title} の評価を登録しました`;
-      this.setSnackbar(true);
     },
     setDirect: function(fp) {
       // A value of from.fulPath is always '/' when load this content directly

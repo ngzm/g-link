@@ -20,21 +20,24 @@ export default {
 
   actions: {
     fetchGame: ({ commit, dispatch }, id) => {
-      commit('setGame', {});
+      dispatch('uiSpinner/spin', null, { root: true });
       commit('setGameStatus', dataStatus.BUZY);
+      commit('setGame', {});
       commit('errors/clearServerErrors', null, { root: true });
       GameService.fetchGame(id,
         (res) => {
           commit('setGame', res.data);
           commit('games/spliceGames', res.data, { root: true });
           commit('setGameStatus', dataStatus.ACCCESSIBLE);
+          dispatch('uiSpinner/stop', null, { root: true });
         },
         (err) => {
           commit('setGame', {});
-          commit('setGameStatus', dataStatus.ERROR);
           dispatch('errors/setServerErrors',
             { stat: err.response.status, errors: err.response.data },
             { root: true });
+          commit('setGameStatus', dataStatus.ERROR);
+          dispatch('uiSpinner/stop', null, { root: true });
         }
       );
     },
