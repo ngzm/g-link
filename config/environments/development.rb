@@ -43,11 +43,6 @@ Rails.application.configure do
   ).symbolize_keys
   config.action_mailer.smtp_settings = smtp_settings
 
-###################### Debug ###
-puts 'config.action_mailer.smtp_settings'
-p config.action_mailer.smtp_settings
-###################### Debug ###
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

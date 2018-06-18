@@ -5,14 +5,19 @@ export default {
 
   state: {
     token: {},
+    contactSent: false,
   },
   mutations: {
     setToken: (state, token) => {
       state.token = token;
     },
+    setContactSent: (state, flg) => {
+      state.contactSent = flg;
+    },
   },
   actions: {
     sendContact: ({ state, commit, dispatch }, contact) => {
+      commit('setContactSent', false);
       dispatch('uiSpinner/spin', null, { root: true });
       commit('errors/clearServerErrors', null, { root: true });
 
@@ -24,6 +29,7 @@ export default {
           dispatch('uiInfobar/onAction',
             `${res.data.name} 様のお問い合わせをサイト管理者に送信しました`,
             { root: true });
+          commit('setContactSent', true);
         },
         (err) => {
           dispatch('errors/setServerErrors',
@@ -34,6 +40,7 @@ export default {
       );
     },
     getToken: ({ commit, dispatch }) => {
+      commit('setContactSent', false);
       commit('errors/clearServerErrors', null, { root: true });
 
       InfoService.getToken(
