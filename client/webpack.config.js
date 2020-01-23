@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: ['babel-polyfill', './src/index.js'],
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -13,23 +14,54 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        exclude: /node_modules/,
-        options: {
-          loaders: {
-          }
-          // other vue-loader options go here
-        }
+        use: [
+          {
+            loader: 'vue-loader',
+          },
+        ],
+        include: [/src/]
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        },
+        include: [/src/]
       },
       {
         test: /\.css$/,
-        loader: ['style-loader', 'css-loader'],
-        include: /node_modules\/vuetify\/dist/
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'vue-style-loader'
+          },
+          {
+            loader: 'css-loader'
+          }
+        ],
+        include: [/node_modules\/vuetify/, /src/]
+      },
+      {
+        test: /\.s(c|a)ss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            // Requires sass-loader@^7.0.0
+            options: {
+              implementation: require('sass'),
+              fiber: require('fibers'),
+              indentedSyntax: true // optional
+            },
+          },
+        ],
+        include: [/node_modules\/vuetify/]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -41,10 +73,17 @@ module.exports = {
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, 'src', 'assets', 'index.html'),
     }]),
   ],
+  resolve: {
+    extensions: [".vue", ".js"],
+    alias: {
+      "vue$": "vue/dist/vue.esm.js"
+    }
+  },
   devServer: {
     contentBase: 'dist',
     port: 3000,

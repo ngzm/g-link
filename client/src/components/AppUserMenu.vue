@@ -26,26 +26,26 @@
       </v-icon>
     </v-btn>
     <v-list dense>
-      <v-list-tile
+      <v-list-item
         to="/cview/account"
       >
-        <v-list-tile-content>
-          <v-list-tile-title>アカウント情報</v-list-tile-title>
-        </v-list-tile-content>
-        <v-list-tile-action>
+        <v-list-item-content>
+          <v-list-item-title>アカウント情報</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-action>
           <v-icon>account_box</v-icon>
-        </v-list-tile-action>
-      </v-list-tile>
-      <v-list-tile
+        </v-list-item-action>
+      </v-list-item>
+      <v-list-item
         @click.stop.prevent="$emit('logout')"
       >
-        <v-list-tile-content>
-          <v-list-tile-title>ログアウト</v-list-tile-title>
-        </v-list-tile-content>
-        <v-list-tile-action>
+        <v-list-item-content>
+          <v-list-item-title>ログアウト</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-action>
           <v-icon>person_outline</v-icon>
-        </v-list-tile-action>
-      </v-list-tile>
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>

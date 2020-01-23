@@ -3,44 +3,44 @@
     <v-subheader>{{ header }}</v-subheader>
 
     <template v-for="(item, index) in ranking">
-      <v-list-tile
+      <v-list-item
         :key="index"
         :to="`/cview/category/${item.category1}/game/${item.id}`"
         exact
       >
-        <v-list-tile-action v-if="index === 0">
+        <v-list-item-action v-if="index === 0">
           <v-icon :color="color_one">
             looks_one
           </v-icon>
-        </v-list-tile-action>
-        <v-list-tile-action v-if="index === 1">
+        </v-list-item-action>
+        <v-list-item-action v-if="index === 1">
           <v-icon :color="color_two">
             looks_two
           </v-icon>
-        </v-list-tile-action>
-        <v-list-tile-action v-if="index === 2">
+        </v-list-item-action>
+        <v-list-item-action v-if="index === 2">
           <v-icon :color="color_3">
             looks_3
           </v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>
             {{ item.title }}
-          </v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </template>
 
-    <v-list-tile
+    <v-list-item
       to="/cview/ranking"
       exact
     >
-      <v-list-tile-content>
-        <v-list-tile-title>
+      <v-list-item-content>
+        <v-list-item-title>
           more .....
-        </v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
+        </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
 
   </v-list>
 </template>

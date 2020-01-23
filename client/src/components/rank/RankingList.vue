@@ -4,7 +4,7 @@
     :items="items"
     class="elevation-1 mt-3"
     dark
-    hide-actions
+    hide-default-footer
   >
     <template
       slot="items"
