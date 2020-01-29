@@ -4,13 +4,16 @@
     left
     offset-y
   >
-    <v-btn
-      slot="activator"
-      icon
-      dark
-    >
-      <v-icon>more_vert</v-icon>
-    </v-btn>
+    <template v-slot:activator="{ on }">
+      <v-btn
+        dark
+        icon
+        v-on="on"
+      >
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+    </template>
+
     <v-list dense>
       <v-list-item
         v-if="!auth"
