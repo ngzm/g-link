@@ -1,6 +1,5 @@
 <template>
-  <v-app toolbar>
-
+  <v-app>
     <!-- Drawer -->
     <AppDrawer
       :drawer="drawer"

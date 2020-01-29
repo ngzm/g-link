@@ -1,6 +1,6 @@
 <template>
   <!-- Toolbar -->
-  <v-toolbar
+  <v-app-bar
     color="indigo darken-4"
     dark
     fixed
@@ -8,10 +8,8 @@
     app
   >
     <!-- Left Menu -->
+    <v-app-bar-nav-icon @click.stop="toggleDrawer" />
     <v-toolbar-title>
-      <v-toolbar-side-icon
-        @click.stop="toggleDrawer"
-      />
       <a
         class="main-title"
         href=""
@@ -34,7 +32,7 @@
       @login="login"
       @privacy="privacy"
     />
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>

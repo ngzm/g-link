@@ -46,6 +46,7 @@
 /production/app/glink
 
 # Others
+.python-version
 .DS_Store
 .idea
 *.suo

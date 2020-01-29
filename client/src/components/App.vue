@@ -3,11 +3,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import Vuetify from 'vuetify';
 import { mapGetters, mapActions } from 'vuex';
-
-Vue.use(Vuetify);
 
 export default {
   computed: {
