@@ -49,13 +49,12 @@
       height="50px"
       flat
     >
-      <v-bottom-nav
+      <v-bottom-navigation
         :value="true"
         color="blue darken-2"
         fixed
       >
         <v-btn
-          flat
           color="white"
           @click="$emit('onGoBack')"
         >
@@ -63,7 +62,6 @@
           <v-icon>navigate_before</v-icon>
         </v-btn>
         <v-btn
-          flat
           color="white"
           @click="$emit('onReview')"
         >
@@ -71,14 +69,13 @@
           <v-icon>star</v-icon>
         </v-btn>
         <v-btn
-          flat
           color="white"
           @click="$emit('onPlay')"
         >
           <span>PLAY GAME</span>
           <v-icon>play_arrow</v-icon>
         </v-btn>
-      </v-bottom-nav>
+      </v-bottom-navigation>
     </v-card>
   </div>
 </template>

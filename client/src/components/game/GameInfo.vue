@@ -1,15 +1,14 @@
 <template>
   <v-card>
-    <v-card-media
-      :src="game.img"
-      height="340px"
+    <a
+      href=""
+      @click.stop.prevent="$emit('onPlay')"
     >
-      <a
-        class="g-img"
-        href=""
-        @click.stop.prevent="$emit('onPlay')"
+      <v-img
+        :src="game.img"
+        height="340px"
       />
-    </v-card-media>
+    </a>
 
     <v-card-actions>
       <v-btn
@@ -99,8 +98,4 @@ export default {
 </script>
 
 <style>
-a.g-img {
-  display: block;
-  width: 100%;
-}
 </style>
