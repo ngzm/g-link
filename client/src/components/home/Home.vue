@@ -1,52 +1,51 @@
 <template>
   <v-container grid-list-lg>
-    <v-layout
-      row
-      wrap
+    <v-row
+      align-content="center"
     >
       <!-- Logo -->
-      <v-flex
-        class="mt-4 text-xs-center"
-        xs12
+      <v-col
+        class="mt-4 text-center"
+        cols="12"
       >
         <img
           class="main_logo"
           src="/images/freegame_link_logo1.png"
           alt="freegame.link"
         >
-      </v-flex>
+      </v-col>
 
       <!-- AD -->
-      <v-flex
+      <v-col
         class="mt-5"
-        xs12
+        cols="12"
       >
         <h5 class="headline">オススメ</h5>
         <HomeAdvertise />
-      </v-flex>
+      </v-col>
 
       <!-- Ranking -->
-      <v-flex
+      <v-col
         class="mt-5"
-        xs12
+        cols="12"
       >
         <h5 class="headline">ランキング</h5>
         <HomeRanking />
-      </v-flex>
+      </v-col>
 
       <!-- Contents -->
-      <v-flex
+      <v-col
         class="mt-5"
-        xs12
+        cols="12"
       >
         <h5 class="headline">カテゴリー</h5>
         <HomeNavi />
-      </v-flex>
+      </v-col>
 
       <!-- About -->
-      <v-flex
+      <v-col
         class="mt-5"
-        xs12
+        cols="12"
       >
         <h5 class="headline">サイト情報</h5>
         <p class="mt-3">
@@ -58,8 +57,8 @@
             プライバシーポリシ
           </a>
         </p>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
