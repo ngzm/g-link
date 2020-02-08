@@ -1,30 +1,29 @@
 <template>
   <v-container grid-list-lg>
-    <v-layout row>
-      <v-flex xs12>
+    <v-row>
+      <v-col
+        clos="12"
+      >
         <h5 class="headline">{{ title }}</h5>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
 
-    <v-layout
-      row
-      wrap
-    >
-      <v-flex
+    <v-row>
+      <v-col
         v-for="game in games"
         :key="game.id"
-        xs12
-        sm6
-        md4
-        lg3
-        xl2
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+        xl="2"
       >
         <GameGrid
           :game="game"
           @onSelect="onSelectGame(game.id)"
         />
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

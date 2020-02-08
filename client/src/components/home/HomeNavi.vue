@@ -1,14 +1,13 @@
 <template>
-  <v-layout
-    class="mt-2"
-    row
-    wrap
+  <v-row
+    class="mt-2 mx-2"
+    justify="start"
   >
     <template v-for="item in categories">
       <v-btn
         :key="item.id"
         :to="`/cview/category/${item.id}`"
-        color="blue white--text"
+        class="ma-2 blue white--text"
         style="width: 154px;"
       >
         {{ item.title }}
@@ -20,7 +19,7 @@
         </v-icon>
       </v-btn>
     </template>
-  </v-layout>
+  </v-row>
 </template>
 
 <script>

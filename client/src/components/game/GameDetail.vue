@@ -3,55 +3,51 @@
     fluid
     grid-list-xl
   >
-    <v-layout
+    <v-row
       class="hidden-sm-and-down"
-      row
     >
-      <v-flex
-        sm10
-        md6
-        lg6
-        xl5
-        offset-sm1
-        offset-md0
-        offset-xl1
+      <v-col
+        sm="10"
+        md="6"
+        lg="6"
+        xl="5"
+        offset-sm="1"
+        offset-md="0"
+        offset-xl="1"
       >
         <h5 class="headline">{{ game.title }}</h5>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
 
-    <v-layout
-      row
-      wrap
-    >
-      <v-flex
-        sm10
-        md6
-        lg6
-        xl5
-        offset-sm1
-        offset-md0
-        offset-xl1
+    <v-row>
+      <v-col
+        sm="10"
+        md="6"
+        lg="6"
+        xl="5"
+        offset-sm="1"
+        offset-md="0"
+        offset-xl="1"
       >
         <GameInfo
           :game="game"
           @onPlay="$emit('onPlay')"
         />
-      </v-flex>
-      <v-flex
-        sm10
-        md6
-        lg6
-        xl5
-        offset-sm1
-        offset-md0
+      </v-col>
+      <v-col
+        sm="10"
+        md="6"
+        lg="6"
+        xl="5"
+        offset-sm="1"
+        offset-md="0"
       >
         <GameInfoExtra
           :game="game"
           @onReview="$emit('onReview')"
         />
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 

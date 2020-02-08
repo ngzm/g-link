@@ -3,42 +3,48 @@
     <!-- FAB Buttons when window size is greater than XS -->
     <div class="hidden-sm-and-down text-xs-right g-fab-commands">
       <v-tooltip bottom>
-        <v-btn
-          slot="activator"
-          color="blue"
-          fab
-          dark
-          small
-          @click="$emit('onGoBack')"
-        >
-          <v-icon>navigate_before</v-icon>
-        </v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            color="blue"
+            fab
+            dark
+            small
+            v-on="on"
+            @click="$emit('onGoBack')"
+          >
+            <v-icon>navigate_before</v-icon>
+          </v-btn>
+        </template>
         <span>BACK</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn
-          slot="activator"
-          color="blue"
-          fab
-          dark
-          small
-          @click="$emit('onReview')"
-        >
-          <v-icon>star</v-icon>
-        </v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            color="blue"
+            fab
+            dark
+            small
+            v-on="on"
+            @click="$emit('onReview')"
+          >
+            <v-icon>star</v-icon>
+          </v-btn>
+        </template>
         <span>REVIEW GAME</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn
-          slot="activator"
-          color="blue"
-          fab
-          dark
-          small
-          @click="$emit('onPlay')"
-        >
-          <v-icon>play_arrow</v-icon>
-        </v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            color="blue"
+            fab
+            dark
+            small
+            v-on="on"
+            @click="$emit('onPlay')"
+          >
+            <v-icon>play_arrow</v-icon>
+          </v-btn>
+        </template>
         <span>PLAY GAME</span>
       </v-tooltip>
     </div>
@@ -49,13 +55,12 @@
       height="50px"
       flat
     >
-      <v-bottom-nav
+      <v-bottom-navigation
         :value="true"
         color="blue darken-2"
         fixed
       >
         <v-btn
-          flat
           color="white"
           @click="$emit('onGoBack')"
         >
@@ -63,7 +68,6 @@
           <v-icon>navigate_before</v-icon>
         </v-btn>
         <v-btn
-          flat
           color="white"
           @click="$emit('onReview')"
         >
@@ -71,14 +75,13 @@
           <v-icon>star</v-icon>
         </v-btn>
         <v-btn
-          flat
           color="white"
           @click="$emit('onPlay')"
         >
           <span>PLAY GAME</span>
           <v-icon>play_arrow</v-icon>
         </v-btn>
-      </v-bottom-nav>
+      </v-bottom-navigation>
     </v-card>
   </div>
 </template>

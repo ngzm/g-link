@@ -4,16 +4,15 @@
     class="white--text"
     flat
   >
-    <v-card-media
-      :src="game.img"
-      height="200px"
+    <a
+      href=""
+      @click.stop.prevent="$emit('onSelect')"
     >
-      <a
-        class="g-grid"
-        href=""
-        @click.stop.prevent="$emit('onSelect')"
+      <v-img
+        :src="game.img"
+        height="200px"
       />
-    </v-card-media>
+    </a>
     <v-card-text class="g-info-container">
       <div class="left">
         <p class="gtitle">{{ game.title }}</p>
@@ -60,12 +59,6 @@ export default {
 </script>
 
 <style>
-a.g-grid {
-  display: block;
-  width: 100%;
-  padding: 4px;
-}
-
 .g-info-container {
   display: flex;
 }
@@ -82,6 +75,7 @@ a.g-grid {
   white-space: nowrap;
   padding: 0;
   margin: 0;
+  color: white;
 }
 .gaccess {
   margin-left: 1px;
