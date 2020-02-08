@@ -28,7 +28,7 @@ export default {
         (res) => {
           commit('setGame', res.data);
           commit('games/spliceGames', res.data, { root: true });
-          commit('setGameStatus', dataStatus.ACCCESSIBLE);
+          commit('setGameStatus', dataStatus.ACCESSIBLE);
           dispatch('uiSpinner/stop', null, { root: true });
         },
         (err) => {

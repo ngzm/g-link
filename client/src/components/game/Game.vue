@@ -2,6 +2,7 @@
   <section>
     <!-- game information -->
     <GameDetail
+      v-if="readyShow"
       :game="game"
       @onPlay="onPlayGame"
       @onReview="onOpenReview"
@@ -58,6 +59,9 @@ export default {
     };
   },
   computed: {
+    readyShow: function() {
+      return this.gameStatus === dataStatus.ACCESSIBLE;
+    },
     readyReview: function() {
       return this.dialog && this.reviewStatus === dataStatus.ACCESSIBLE;
     },
