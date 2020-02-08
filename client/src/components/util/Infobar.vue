@@ -8,7 +8,7 @@
     {{ message }}
     <v-btn
       dark
-      flat
+      text
       class="hidden-xs-only"
       @click.native="cancel"
     >

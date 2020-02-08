@@ -1,39 +1,41 @@
 <template>
   <v-speed-dial
     v-model="fab"
+    fixed
     top
     right
     direction="bottom"
     transition="slide-y-transition"
     class="glist-speed-dial"
   >
-    <v-btn
-      slot="activator"
-      v-model="fab"
-      :color="fbcolor"
-      dark
-      fab
-      hover
-    >
-      <v-icon>{{ fbicon }}</v-icon>
-    </v-btn>
+    <template v-slot:activator>
+      <v-btn
+        v-model="fab"
+        :color="fbcolor"
+        dark
+        fab
+        hover
+      >
+        <v-icon>{{ fbicon }}</v-icon>
+      </v-btn>
+    </template>
     <v-tooltip
       v-for="key in sortKeys"
       :key="key.id"
-      open-delay="10"
-      close-delay="10"
       left
     >
-      <v-btn
-        slot="activator"
-        :color="key.color"
-        fab
-        dark
-        small
-        @click="setSortOrder(key.id)"
-      >
-        <v-icon>{{ key.icon }}</v-icon>
-      </v-btn>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          :color="key.color"
+          fab
+          dark
+          small
+          v-on="on"
+          @click="setSortOrder(key.id)"
+        >
+          <v-icon>{{ key.icon }}</v-icon>
+        </v-btn>
+      </template>
       <span>{{ key.title }}</span>
     </v-tooltip>
   </v-speed-dial>
@@ -89,7 +91,6 @@ export default {
 
 <style>
 .glist-speed-dial {
-  position: fixed;
   margin-top: 70px;
 }
 .glist-speed-dial .btn--floating {

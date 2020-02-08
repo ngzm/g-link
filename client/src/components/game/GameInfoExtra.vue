@@ -45,13 +45,14 @@
           v-if="game.reviews && game.reviews.length > 0"
           class="mt-3"
         >
-          <v-expansion-panel expand>
-            <v-expansion-panel-content
+          <v-expansion-panels
+            multiple
+          >
+            <v-expansion-panel
               v-for="(rv, index) in game.reviews"
               :key="index"
-              value="true"
             >
-              <div slot="header">
+              <v-expansion-panel-header>
                 {{ rv.user }}
                 <span>
                   <v-icon
@@ -63,16 +64,12 @@
                     star
                   </v-icon>
                 </span>
-              </div>
-              <v-card>
-                <v-card-text
-                  class="grey lighten-3"
-                >
-                  {{ rv.comment }}
-                </v-card-text>
-              </v-card>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                {{ rv.comment }}
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </div>
         <p
           v-else
