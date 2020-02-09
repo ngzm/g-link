@@ -4,27 +4,29 @@
     left
     offset-y
   >
-    <v-btn
-      slot="activator"
-      icon
-      dark
-    >
-      <v-avatar
-        v-if="hasPicture"
-        size="32px"
-      >
-        <img
-          :src="user.picture"
-          alt="user.name"
-        >
-      </v-avatar>
-      <v-icon
-        v-else
+    <template v-slot:activator="{ on }">
+      <v-btn
+        icon
         dark
+        v-on="on"
       >
-        account_circle
-      </v-icon>
-    </v-btn>
+        <v-avatar
+          v-if="hasPicture"
+          size="32px"
+        >
+          <img
+            :src="user.picture"
+            alt="user.name"
+          >
+        </v-avatar>
+        <v-icon
+          v-else
+          dark
+        >
+          account_circle
+        </v-icon>
+      </v-btn>
+    </template>
     <v-list dense>
       <v-list-item
         to="/cview/account"
