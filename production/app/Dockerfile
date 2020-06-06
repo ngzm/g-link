@@ -1,5 +1,5 @@
 FROM ruby:latest
-MAINTAINER ngzm<nk.ngzm@gmail.com>
+LABEL maintainer="ngzm<nk.ngzm@gmail.com>"
 
 # setup apt
 ENV DEBIAN_FRONTEND noninteractive
