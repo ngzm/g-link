@@ -1,4 +1,4 @@
-FROM ruby:latest
+FROM ruby:2.5
 LABEL maintainer="ngzm<nk.ngzm@gmail.com>"
 
 # setup apt
