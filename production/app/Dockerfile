@@ -22,9 +22,6 @@ RUN apt-get install -y sqlite3
 ADD ./glink /usr/src/app/
 RUN mkdir -p /usr/src/app/database
 RUN mkdir -p /usr/src/app/tmp/sockets /usr/src/app/tmp/pids
-## add just for avoid bunder version error
-## must refine later
-RUN gem install bundler:1.17.2
 RUN cd /usr/src/app && bundle install --without test development
 
 # define production environments
